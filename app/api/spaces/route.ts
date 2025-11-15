@@ -1,13 +1,10 @@
 import { NextResponse } from 'next/server'
-import { createClient } from '@supabase/supabase-js'
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+import { getSupabaseClient } from '@/lib/supabase-server'
 
 // GET all spaces (with optional filters)
 export async function GET(request: Request) {
   try {
-    const supabase = createClient(supabaseUrl, supabaseKey)
+    const supabase = getSupabaseClient()
     const { searchParams } = new URL(request.url)
     
     const featured = searchParams.get('featured')
@@ -50,7 +47,7 @@ export async function GET(request: Request) {
 // POST create new space
 export async function POST(request: Request) {
   try {
-    const supabase = createClient(supabaseUrl, supabaseKey)
+    const supabase = getSupabaseClient()
     const body = await request.json()
 
     const { data, error } = await supabase

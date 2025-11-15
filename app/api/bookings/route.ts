@@ -1,15 +1,12 @@
 import { NextResponse } from 'next/server'
-import { createClient } from '@supabase/supabase-js'
+import { getSupabaseClient } from '@/lib/supabase-server'
 import { sendBookingConfirmation, sendAdminNotification } from '@/lib/email-service'
 import { format } from 'date-fns'
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
 // GET all bookings (with filters)
 export async function GET(request: Request) {
   try {
-    const supabase = createClient(supabaseUrl, supabaseKey)
+    const supabase = getSupabaseClient()
     const { searchParams } = new URL(request.url)
     
     const status = searchParams.get('status')
@@ -91,7 +88,7 @@ export async function GET(request: Request) {
 // POST create new booking
 export async function POST(request: Request) {
   try {
-    const supabase = createClient(supabaseUrl, supabaseKey)
+    const supabase = getSupabaseClient()
     const body = await request.json()
 
     // Validate required fields
