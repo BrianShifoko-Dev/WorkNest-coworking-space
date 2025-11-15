@@ -1,14 +1,12 @@
 import { NextResponse } from 'next/server'
-import { createClient } from '@supabase/supabase-js'
+import { getSupabaseClient } from '@/lib/supabase-server'
 import bcrypt from 'bcryptjs'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
 // GET all users
 export async function GET(request: Request) {
   try {
-    const supabase = createClient(supabaseUrl, supabaseKey)
+    const supabase = getSupabaseClient()
 
     console.log('👥 Fetching all users')
 
@@ -33,7 +31,7 @@ export async function GET(request: Request) {
 // POST create new user
 export async function POST(request: Request) {
   try {
-    const supabase = createClient(supabaseUrl, supabaseKey)
+    const supabase = getSupabaseClient()
     const body = await request.json()
 
     console.log('👥 Creating new user:', body.email)

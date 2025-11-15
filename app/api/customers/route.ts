@@ -1,13 +1,11 @@
 import { NextResponse } from 'next/server'
-import { createClient } from '@supabase/supabase-js'
+import { getSupabaseClient } from '@/lib/supabase-server'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
 // GET all customers or search by email/phone
 export async function GET(request: Request) {
   try {
-    const supabase = createClient(supabaseUrl, supabaseKey)
+    const supabase = getSupabaseClient()
     const { searchParams } = new URL(request.url)
     
     const search = searchParams.get('search')
@@ -46,7 +44,7 @@ export async function GET(request: Request) {
 // POST create or find customer
 export async function POST(request: Request) {
   try {
-    const supabase = createClient(supabaseUrl, supabaseKey)
+    const supabase = getSupabaseClient()
     const body = await request.json()
 
     // Validate required fields

@@ -1,9 +1,7 @@
 import { NextResponse } from 'next/server'
 import { compare } from 'bcryptjs'
-import { createClient } from '@supabase/supabase-js'
+import { getSupabaseClient } from '@/lib/supabase-server'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
 export async function POST(request: Request) {
   try {
@@ -19,7 +17,7 @@ export async function POST(request: Request) {
     }
 
     // Create Supabase client
-    const supabase = createClient(supabaseUrl, supabaseKey)
+    const supabase = getSupabaseClient()
 
     // Get user
     const { data: user, error } = await supabase

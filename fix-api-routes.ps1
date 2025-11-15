@@ -31,7 +31,7 @@ $apiFiles = @(
 
 foreach ($file in $apiFiles) {
     if (-not (Test-Path $file)) {
-        Write-Host "⚠️  Skipping $file (not found)"
+        Write-Host "WARNING: Skipping $file (not found)"
         continue
     }
     
@@ -57,8 +57,9 @@ foreach ($file in $apiFiles) {
     # Save the file
     Set-Content -Path $file -Value $content -NoNewline
     
-    Write-Host "✓ Fixed $file"
+    Write-Host "SUCCESS: Fixed $file"
 }
 
-Write-Host "`n✅ All API routes fixed!"
+Write-Host ""
+Write-Host "All API routes fixed successfully!"
 

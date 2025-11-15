@@ -1,13 +1,11 @@
 import { NextResponse } from 'next/server'
-import { createClient } from '@supabase/supabase-js'
+import { getSupabaseClient } from '@/lib/supabase-server'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
 // GET all email logs (with filters)
 export async function GET(request: Request) {
   try {
-    const supabase = createClient(supabaseUrl, supabaseKey)
+    const supabase = getSupabaseClient()
     const { searchParams } = new URL(request.url)
     
     const status = searchParams.get('status')
