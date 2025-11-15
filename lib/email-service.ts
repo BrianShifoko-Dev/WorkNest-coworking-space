@@ -2,7 +2,14 @@ import { Resend } from 'resend'
 import { supabase } from './supabase'
 import { BookingConfirmationEmail, AdminNotificationEmail } from './email-templates'
 
-const resend = new Resend(process.env.RESEND_API_KEY!)
+// Lazy initialization to avoid build-time errors
+let resend: Resend | null = null
+function getResend() {
+  if (!resend && process.env.RESEND_API_KEY) {
+    resend = new Resend(process.env.RESEND_API_KEY)
+  }
+  return resend
+}
 
 interface SendEmailParams {
   to: string
@@ -26,8 +33,14 @@ export async function sendEmail({
   try {
     console.log('📧 Sending email to:', to)
     
+    const resendClient = getResend()
+    if (!resendClient) {
+      console.warn('⚠️ Resend API key not configured, skipping email send')
+      return { success: false, error: 'Email service not configured' }
+    }
+    
     // Send email via Resend
-    const { data, error } = await resend.emails.send({
+    const { data, error } = await resendClient.emails.send({
       from: fromEmail,
       to: [to],
       subject: subject,
