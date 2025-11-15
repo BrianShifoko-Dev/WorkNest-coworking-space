@@ -63,7 +63,7 @@ export function DiscoverClient() {
                 The WorkNest is a premium coworking and innovation space in the prestigious Elgon View, Eldoret. We offer flexible, executive-grade workspace designed to boost productivity, collaboration, and business growth.
               </p>
               <p className="text-[#5C4033]/70 mb-4 text-lg">
-                Our facilities include hot desks, private offices, meeting suites, event space, a lounge, an eatery, and a kids' zone—all thoughtfully designed with ergonomic furniture, high-speed internet, natural light, and inspiring views.
+                Our facilities include hot desks, dedicated desks, meeting suites, event space, a lounge, an eatery, and a kids' zone—all thoughtfully designed with ergonomic furniture, high-speed internet, natural light, and inspiring views.
               </p>
               <p className="text-[#5C4033]/70 text-lg">
                 At The WorkNest, we provide the ideal environment for businesses to thrive, teams to connect, and ideas to grow.

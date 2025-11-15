@@ -63,10 +63,10 @@ export function AboutClient() {
             <h2 className="text-center text-[#5C4033] mb-6 text-4xl font-playfair">Our Story</h2>
             <div className="prose prose-lg mx-auto text-[#5C4033]/70 text-lg leading-relaxed">
               <p className="mb-6">
-                The WorkNest Eldoret was born from a vision to create a workspace where businesses, entrepreneurs, and professionals could thrive in comfort, creativity, and collaboration. Located in the prestigious Elgon View, we designed every space—from private offices and meeting rooms to hot desks and a kids' zone—to inspire productivity and connection.
+                The WorkNest Eldoret was born from a vision to create a workspace where businesses, entrepreneurs, and professionals could thrive in comfort, creativity, and collaboration. Located in the prestigious Elgon View, we designed every space from private offices and meeting rooms to hot desks and a kids' zone to inspire productivity and connection.
               </p>
               <p className="mb-6">
-                Our journey began with a simple idea: workspaces should do more than house desks—they should foster growth, innovation, and community. Today, The WorkNest stands as a hub where ideas flourish, teams connect, and businesses reach their full potential.
+                Our journey began with a simple idea: workspaces should do more than house desks they should foster growth, innovation, and community. Today, The WorkNest stands as a hub where ideas flourish, teams connect, and businesses reach their full potential.
               </p>
             </div>
           </div>
