@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server'
 import { initiateSTKPush, createPaymentRecord } from '@/lib/mpesa-service'
 
+// Force dynamic rendering to prevent build-time initialization
+export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
+
 export async function POST(request: Request) {
   try {
     const body = await request.json()

@@ -2,6 +2,10 @@ import { NextResponse } from 'next/server'
 import { updatePaymentStatus } from '@/lib/mpesa-service'
 import { supabase } from '@/lib/supabase'
 
+// Force dynamic rendering to prevent build-time initialization
+export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
+
 // M-Pesa Callback Handler (Production-ready)
 export async function POST(request: Request) {
   try {
