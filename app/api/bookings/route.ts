@@ -3,6 +3,10 @@ import { getSupabaseClient } from '@/lib/supabase-server'
 import { sendBookingConfirmation, sendAdminNotification } from '@/lib/email-service'
 import { format } from 'date-fns'
 
+// Force dynamic rendering for this route
+export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
+
 // GET all bookings (with filters)
 export async function GET(request: Request) {
   try {

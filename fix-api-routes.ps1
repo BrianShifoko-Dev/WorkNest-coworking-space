@@ -2,6 +2,7 @@
 
 $apiFiles = @(
     "app/api/spaces/[id]/route.ts",
+    "app/api/spaces/route.ts",
     "app/api/users/[id]/route.ts",
     "app/api/users/route.ts",
     "app/api/settings/route.ts",
@@ -19,13 +20,21 @@ $apiFiles = @(
     "app/api/menu/[id]/route.ts",
     "app/api/menu/route.ts",
     "app/api/events/[id]/route.ts",
+    "app/api/events/route.ts",
     "app/api/customers/route.ts",
     "app/api/bookings/check-availability/route.ts",
     "app/api/bookings/[id]/route.ts",
-    "app/api/simple-login/route.ts"
+    "app/api/simple-login/route.ts",
+    "app/api/payments/initiate/route.ts",
+    "app/api/payments/callback/route.ts"
 )
 
 foreach ($file in $apiFiles) {
+    if (-not (Test-Path $file)) {
+        Write-Host "⚠️  Skipping $file (not found)"
+        continue
+    }
+    
     Write-Host "Fixing $file ..."
     
     $content = Get-Content $file -Raw
@@ -36,6 +45,11 @@ foreach ($file in $apiFiles) {
     $content = $content -replace "const supabaseKey = process\.env\.NEXT_PUBLIC_SUPABASE_ANON_KEY!`r?`n", ""
     $content = $content -replace "const supabaseUrl = process\.env\.NEXT_PUBLIC_SUPABASE_URL!`n", ""
     $content = $content -replace "const supabaseKey = process\.env\.NEXT_PUBLIC_SUPABASE_ANON_KEY!`n", ""
+    
+    # Add dynamic export if not present
+    if ($content -notmatch "export const dynamic = 'force-dynamic'") {
+        $content = $content -replace "(import .+?`n`n)", "`$1// Force dynamic rendering for this route`nexport const dynamic = 'force-dynamic'`nexport const runtime = 'nodejs'`n`n"
+    }
     
     # Replace createClient calls
     $content = $content -replace "createClient\(supabaseUrl, supabaseKey\)", "getSupabaseClient()"
