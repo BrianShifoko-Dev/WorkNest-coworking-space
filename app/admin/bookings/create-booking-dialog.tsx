@@ -68,7 +68,7 @@ export function CreateBookingDialog({ open, onClose, onSuccess }: CreateBookingD
       const response = await fetch('/api/spaces')
       if (response.ok) {
         const data = await response.json()
-        setSpaces(Array.isArray(data) ? data.filter((s: Space) => s.status === 'available') : [])
+        setSpaces(Array.isArray(data) ? data : [])
       }
     } catch (error) {
       console.error('Error fetching spaces:', error)
