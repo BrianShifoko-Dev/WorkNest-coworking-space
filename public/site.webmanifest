@@ -1,0 +1,22 @@
+{
+  "name": "The WorkNest - Premium Coworking Space Eldoret",
+  "short_name": "WorkNest",
+  "description": "Premium coworking space in Eldoret, Kenya. Flexible workspaces, meeting rooms, and event venues for entrepreneurs and businesses.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFF0",
+  "theme_color": "#D4AF37",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity", "coworking"],
+  "lang": "en-US",
+  "dir": "ltr"
+}
+

@@ -1,0 +1,153 @@
+-- Add sample events to the events table
+-- Run this in Supabase SQL Editor
+
+-- Insert upcoming events
+INSERT INTO events (
+  title,
+  slug,
+  description,
+  event_date,
+  start_time,
+  end_time,
+  location,
+  category,
+  image_url,
+  price,
+  capacity,
+  registered_count,
+  status,
+  is_featured
+) VALUES
+(
+  'Startup Pitch Night 2025',
+  'startup-pitch-night-2025',
+  'Join us for an exciting evening where innovative startups present their ideas to potential investors and the community. Network with entrepreneurs, investors, and fellow innovators.',
+  '2025-12-15',
+  '18:00',
+  '21:00',
+  'The WorkNest Event Hall',
+  'networking',
+  'https://images.unsplash.com/photo-1559223607-a43c990e1c00?w=1080&q=80',
+  0,
+  100,
+  35,
+  'upcoming',
+  true
+),
+(
+  'Digital Marketing Masterclass',
+  'digital-marketing-masterclass',
+  'Learn the latest digital marketing strategies, social media tactics, and SEO best practices from industry experts. Perfect for business owners and marketing professionals.',
+  '2025-12-20',
+  '09:00',
+  '17:00',
+  'The WorkNest Training Room',
+  'workshop',
+  'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1080&q=80',
+  2500,
+  40,
+  18,
+  'upcoming',
+  true
+),
+(
+  'Coffee & Connect: Monthly Mixer',
+  'coffee-connect-monthly-mixer',
+  'Casual networking session for WorkNest members and guests. Enjoy complimentary refreshments while making meaningful connections with fellow professionals.',
+  '2025-12-10',
+  '10:00',
+  '12:00',
+  'The WorkNest Lounge',
+  'social',
+  'https://images.unsplash.com/photo-1511578314322-379afb476865?w=1080&q=80',
+  0,
+  50,
+  42,
+  'upcoming',
+  false
+),
+(
+  'Business Plan Writing Workshop',
+  'business-plan-writing-workshop',
+  'A comprehensive hands-on workshop on creating winning business plans. Learn from experienced entrepreneurs and get personalized feedback on your business idea.',
+  '2025-12-18',
+  '14:00',
+  '17:00',
+  'The WorkNest Boardroom',
+  'workshop',
+  'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1080&q=80',
+  1500,
+  25,
+  12,
+  'upcoming',
+  false
+),
+(
+  'Tech Innovation Conference 2025',
+  'tech-innovation-conference-2025',
+  'A full-day conference exploring the latest trends in technology, AI, and innovation in East Africa. Features keynote speakers, panel discussions, and startup showcases.',
+  '2026-01-15',
+  '08:00',
+  '18:00',
+  'The WorkNest Event Hall',
+  'conference',
+  'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1080&q=80',
+  5000,
+  200,
+  78,
+  'upcoming',
+  true
+),
+(
+  'Freelancer Friday: Tax & Legal Basics',
+  'freelancer-friday-tax-legal',
+  'Essential tax and legal information every freelancer needs to know. Guest speakers include a tax consultant and business lawyer specializing in freelance work.',
+  '2025-12-13',
+  '15:00',
+  '17:00',
+  'The WorkNest Meeting Room',
+  'workshop',
+  'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1080&q=80',
+  500,
+  30,
+  22,
+  'upcoming',
+  false
+),
+(
+  'Women in Business Luncheon',
+  'women-in-business-luncheon',
+  'An empowering luncheon bringing together women entrepreneurs, executives, and professionals. Features inspiring stories, networking, and mentorship opportunities.',
+  '2025-12-22',
+  '12:00',
+  '14:30',
+  'The WorkNest Restaurant',
+  'networking',
+  'https://images.unsplash.com/photo-1573164713988-8665fc963095?w=1080&q=80',
+  1000,
+  60,
+  45,
+  'upcoming',
+  true
+),
+(
+  'Photography for Your Business',
+  'photography-for-business',
+  'Learn how to take professional-looking photos for your business using just your smartphone. Covers lighting, composition, editing, and creating content for social media.',
+  '2026-01-08',
+  '10:00',
+  '13:00',
+  'The WorkNest Event Space',
+  'workshop',
+  'https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=1080&q=80',
+  1200,
+  20,
+  8,
+  'upcoming',
+  false
+)
+ON CONFLICT (slug) DO NOTHING;
+
+-- Verify the insert
+SELECT title, event_date, status, is_featured FROM events WHERE status = 'upcoming' ORDER BY event_date;
+
