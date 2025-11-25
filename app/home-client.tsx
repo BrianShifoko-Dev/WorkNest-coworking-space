@@ -37,20 +37,32 @@ import { useLanguage } from "@/components/providers/LanguageProvider";
 // Hero slides will use translation keys instead of hardcoded text
 const getHeroSlides = (t: (key: string) => string) => [
   {
-    image:
-      "https://images.unsplash.com/photo-1626187777040-ffb7cb2c5450?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBjb3dvcmtpbmclMjBzcGFjZXxlbnwxfHx8fDE3NjIxNTc0NTF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    image: "/gallery/DJI_20000609070430_0054_D.jpg",
     title: t('hero.title1'),
     subtitle: t('hero.subtitle1'),
   },
   {
-    image:
-      "https://images.unsplash.com/photo-1640109341881-1cd3eaf50909?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBvZmZpY2UlMjB3b3Jrc3BhY2V8ZW58MXx8fHwxNzYyMjMzNjI3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    image: "/gallery/IMG_1031.jpg",
     title: t('hero.title2'),
     subtitle: t('hero.subtitle2'),
   },
   {
-    image:
-      "https://images.unsplash.com/photo-1693902997450-7e912c0d3554?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxrZW55YSUyMG5haXJvYmklMjBjaXR5c2NhcGV8ZW58MXx8fHwxNzYyMjMzNjMwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    image: "/gallery/DJI_20000609075456_0128_D.jpg",
+    title: t('hero.title3'),
+    subtitle: t('hero.subtitle3'),
+  },
+  {
+    image: "/gallery/DJI_20000609070326_0052_D.jpg",
+    title: t('hero.title1'),
+    subtitle: t('hero.subtitle1'),
+  },
+  {
+    image: "/gallery/DJI_20000609064317_0024_D.jpg",
+    title: t('hero.title2'),
+    subtitle: t('hero.subtitle2'),
+  },
+  {
+    image: "/gallery/DJI_20000609070717_0059_D.jpg",
     title: t('hero.title3'),
     subtitle: t('hero.subtitle3'),
   },
@@ -307,7 +319,7 @@ export function HomePageClient() {
             <div className="flex items-center gap-2">
               <Building className="w-5 h-5 text-[#D4AF37] flex-shrink-0" />
               <div className="flex items-baseline gap-1">
-                <span className="text-[#5C4033]">50+</span>
+                <span className="text-[#5C4033]">5+</span>
                 <span className="text-xs text-[#5C4033]/60">
                   Private Offices
                 </span>
@@ -316,7 +328,7 @@ export function HomePageClient() {
             <div className="flex items-center gap-2">
               <Briefcase className="w-5 h-5 text-[#D4AF37] flex-shrink-0" />
               <div className="flex items-baseline gap-1">
-                <span className="text-[#5C4033]">10+</span>
+                <span className="text-[#5C4033]">2+</span>
                 <span className="text-xs text-[#5C4033]/60">Meeting Rooms</span>
               </div>
             </div>

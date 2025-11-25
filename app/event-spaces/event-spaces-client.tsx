@@ -45,9 +45,9 @@ export function EventSpacesClient() {
       halfDayRate: "KES 18,000",
       fullDayRate: "KES 35,000",
       images: [
-        { url: "/gallery/IMG_0073.jpg", title: "Main Event Hall", description: "Spacious event hall for large gatherings and conferences" },
-        { url: "/gallery/IMG_0081.jpg", title: "Main Event Hall", description: "Professional setup with modern AV equipment" },
-        { url: "/gallery/IMG_0120.jpg", title: "Main Event Hall", description: "Flexible layout for various event types" },
+        { url: "/gallery/DJI_20000609074140_0081_D.jpg", title: "Main Event Hall", description: "Spacious event hall for large gatherings and conferences" },
+        { url: "/gallery/DJI_20000609074238_0084_D.jpg", title: "Main Event Hall", description: "Professional setup with modern AV equipment" },
+        { url: "/gallery/IMG_1020.jpg", title: "Main Event Hall", description: "Flexible layout for various event types" },
       ],
       suitableFor: ['corporate', 'conference', 'awards'],
       description: "Our flagship event space perfect for large conferences, product launches, award ceremonies, and corporate gatherings. Features professional AV equipment, flexible seating arrangements, and a sophisticated ambiance.",
@@ -70,9 +70,9 @@ export function EventSpacesClient() {
       halfDayRate: "KES 10,000",
       fullDayRate: "KES 18,000",
       images: [
-        { url: "/gallery/IMG_0136.jpg", title: "Workshop Room", description: "Interactive training space with modern setup" },
-        { url: "/gallery/IMG_0022.jpg", title: "Workshop Room", description: "Collaborative environment for workshops" },
-        { url: "/gallery/IMG_0033.jpg", title: "Workshop Room", description: "Professional training facilities" },
+        { url: "/gallery/IMG_1039.jpg", title: "Workshop Room", description: "Interactive training space with modern setup" },
+        { url: "/gallery/IMG_0975.jpg", title: "Workshop Room", description: "Collaborative environment for workshops" },
+        { url: "/gallery/IMG_0977.jpg", title: "Workshop Room", description: "Professional training facilities" },
       ],
       suitableFor: ['workshop', 'corporate'],
       description: "Ideal for workshops, training sessions, and interactive seminars. Equipped with whiteboards, flip charts, and breakout areas for group activities and collaborative learning.",
@@ -95,9 +95,9 @@ export function EventSpacesClient() {
       halfDayRate: "KES 14,000",
       fullDayRate: "KES 25,000",
       images: [
-        { url: "/gallery/IMG_0031.jpg", title: "Social Event Lounge", description: "Elegant space for social gatherings" },
-        { url: "/gallery/IMG_0073.jpg", title: "Social Event Lounge", description: "Perfect for celebrations and parties" },
-        { url: "/gallery/IMG_0081.jpg", title: "Social Event Lounge", description: "Modern ambiance for special occasions" },
+        { url: "/gallery/IMG_0971.jpg", title: "Social Event Lounge", description: "Elegant space for social gatherings" },
+        { url: "/gallery/DJI_20000609074140_0081_D.jpg", title: "Social Event Lounge", description: "Perfect for celebrations and parties" },
+        { url: "/gallery/DJI_20000609074238_0084_D.jpg", title: "Social Event Lounge", description: "Modern ambiance for special occasions" },
       ],
       suitableFor: ['social', 'corporate'],
       description: "A versatile space perfect for cocktail parties, networking events, birthday celebrations, and corporate mixers. Features modern décor, ambient lighting, and a built-in bar area.",
@@ -176,7 +176,7 @@ export function EventSpacesClient() {
       <section className="relative h-[500px] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/40 z-10" />
         <img
-          src="/gallery/IMG_0073.jpg"
+          src="/gallery/DJI_20000609074140_0081_D.jpg"
           alt="Event Spaces in Eldoret"
           className="w-full h-full object-cover"
         />

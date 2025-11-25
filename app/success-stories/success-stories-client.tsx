@@ -88,9 +88,9 @@ export function SuccessStoriesClient() {
   const [currentBgImage, setCurrentBgImage] = useState(0)
 
   const heroBackgrounds = [
-    '/gallery/IMG_0088.jpg', // Community gathering
-    '/gallery/IMG_0113.jpg', // Collaboration
-    '/gallery/IMG_0119.jpg', // Members
+    '/gallery/DJI_20000609074329_0089_D.jpg', // Community gathering
+    '/gallery/DJI_20000609075054_0111_D.jpg', // Collaboration
+    '/gallery/DJI_20000609075339_0118_D.jpg', // Members
   ]
 
   // Auto-rotate background

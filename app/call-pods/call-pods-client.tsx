@@ -133,18 +133,18 @@ export function CallPodsClient() {
       {/* Features Grid */}
       <section className="py-16 bg-[#FFFFF0]">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12 text-[#5C4033]">Why Choose Our Call Pods?</h2>
-          <div className="grid md:grid-cols-3 gap-8">
+          <h2 className="text-2xl font-bold text-center mb-10 text-[#5C4033]">Why Choose Our Call Pods?</h2>
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {features.map((feature, i) => {
               const Icon = feature.icon;
               return (
                 <div
                   key={i}
-                  className="bg-white p-8 rounded-xl border border-[#D4AF37]/20 hover:shadow-xl transition-shadow"
+                  className="bg-white p-6 rounded-xl border border-[#D4AF37]/20 hover:shadow-xl transition-shadow group"
                 >
-                  <Icon className="w-12 h-12 text-[#D4AF37] mb-4" />
-                  <h3 className="text-xl font-bold text-[#5C4033] mb-3">{feature.title}</h3>
-                  <p className="text-[#5C4033]/70">{feature.description}</p>
+                  <Icon className="w-10 h-10 text-[#D4AF37] mb-3 transition-transform duration-500 group-hover:rotate-[360deg] group-hover:scale-110" />
+                  <h3 className="text-lg font-bold text-[#5C4033] mb-2">{feature.title}</h3>
+                  <p className="text-sm text-[#5C4033]/70">{feature.description}</p>
                 </div>
               );
             })}

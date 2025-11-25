@@ -250,14 +250,14 @@ export function BookingForm({
                   ))
                 ) : (
                   <>
-                    <SelectItem value="hot-desk">Hot Desk - From KES 180/hr</SelectItem>
-                    <SelectItem value="dedicated-desk">Dedicated Desk - From KES 250/hr</SelectItem>
-                    <SelectItem value="office-1-person">1-Person Private Office - From KES 350/hr</SelectItem>
-                    <SelectItem value="office-2-person">2-Person Private Office - From KES 550/hr</SelectItem>
-                    <SelectItem value="meeting-room">Meeting Room - From KES 1,000/hr</SelectItem>
-                    <SelectItem value="boardroom">Executive Boardroom - From KES 2,500/hr</SelectItem>
-                    <SelectItem value="call-pod">Call Pod - From KES 250/hr</SelectItem>
-                    <SelectItem value="event-space">Event Space - Contact Us</SelectItem>
+                    <SelectItem value="hot-desk">Hot Desk</SelectItem>
+                    <SelectItem value="dedicated-desk">Dedicated Desk</SelectItem>
+                    <SelectItem value="office-1-person">1-Person Private Office</SelectItem>
+                    <SelectItem value="office-2-person">2-Person Private Office</SelectItem>
+                    <SelectItem value="meeting-room">Meeting Room</SelectItem>
+                    <SelectItem value="boardroom">Executive Boardroom</SelectItem>
+                    <SelectItem value="call-pod">Call Pod</SelectItem>
+                    <SelectItem value="event-space">Event Space</SelectItem>
                   </>
                 )}
               </SelectContent>
@@ -429,14 +429,14 @@ export function BookingForm({
                   ))
                 ) : (
                   <>
-                    <SelectItem value="hot-desk">Hot Desk - From KES 180/hr</SelectItem>
-                    <SelectItem value="dedicated-desk">Dedicated Desk - From KES 250/hr</SelectItem>
-                    <SelectItem value="office-1-person">1-Person Private Office - From KES 350/hr</SelectItem>
-                    <SelectItem value="office-2-person">2-Person Private Office - From KES 550/hr</SelectItem>
-                    <SelectItem value="meeting-room">Meeting Room - From KES 1,000/hr</SelectItem>
-                    <SelectItem value="boardroom">Executive Boardroom - From KES 2,500/hr</SelectItem>
-                    <SelectItem value="call-pod">Call Pod - From KES 250/hr</SelectItem>
-                    <SelectItem value="event-space">Event Space - Contact Us</SelectItem>
+                    <SelectItem value="hot-desk">Hot Desk</SelectItem>
+                    <SelectItem value="dedicated-desk">Dedicated Desk</SelectItem>
+                    <SelectItem value="office-1-person">1-Person Private Office</SelectItem>
+                    <SelectItem value="office-2-person">2-Person Private Office</SelectItem>
+                    <SelectItem value="meeting-room">Meeting Room</SelectItem>
+                    <SelectItem value="boardroom">Executive Boardroom</SelectItem>
+                    <SelectItem value="call-pod">Call Pod</SelectItem>
+                    <SelectItem value="event-space">Event Space</SelectItem>
                   </>
                 )}
               </SelectContent>

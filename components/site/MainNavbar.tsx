@@ -152,7 +152,7 @@ export function MainNavbar() {
                   The Work<span className="text-[#D4AF37]">Nest</span>
                 </div>
                 <div className="text-[10px] text-[#8B7355] tracking-[0.15em] uppercase -mt-1">
-                  Eldoret Coworking
+                  Eldoret Coworking Space
                 </div>
               </div>
             </div>

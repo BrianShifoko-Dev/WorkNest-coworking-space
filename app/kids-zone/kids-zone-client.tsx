@@ -47,7 +47,6 @@ export function KidsZoneClient() {
     "Arts & Crafts Station",
     "Educational Games",
     "Soft Play Equipment",
-    "Age-Appropriate Movies",
   ];
 
   const pricingOptions = [
@@ -66,10 +65,17 @@ export function KidsZoneClient() {
       <section className="relative h-[450px] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/20 z-10" />
         <img
-          src="https://images.unsplash.com/photo-1587654780291-39c9404d746b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxraWRzJTIwcGxheXJvb218ZW58MHx8fHwxNzMwNzI5NjAwfDA&ixlib=rb-4.1.0&q=80&w=1080"
+          src="/gallery/DJI_20000609070609_0057_D.jpg"
           alt="Kids Zone"
           className="w-full h-full object-cover"
         />
+        {/* Coming Soon Badge */}
+        <div className="absolute top-6 left-1/2 -translate-x-1/2 z-30">
+          <Badge className="bg-gradient-to-r from-[#D4AF37] to-[#B8941F] text-white text-lg px-8 py-3 animate-pulse shadow-2xl">
+            <Sparkles className="w-5 h-5 mr-2" />
+            Coming Soon
+          </Badge>
+        </div>
         <div className="absolute inset-0 z-20 flex items-center justify-center">
           <div className="text-center text-white px-4">
             <Baby className="w-16 h-16 mx-auto mb-4 text-[#D4AF37]" />
@@ -115,16 +121,16 @@ export function KidsZoneClient() {
       <section className="py-16 bg-[#FFFFF0]">
         <div className="container mx-auto px-4">
           <div className="w-16 h-1 bg-[#D4AF37] mb-6 mx-auto" />
-          <h2 className="text-center text-3xl font-bold text-[#5C4033] mb-12">Why Parents Love Our Kids Zone</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <h2 className="text-center text-2xl font-bold text-[#5C4033] mb-10">Why Parents Love Our Kids Zone</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {features.map((feature, index) => {
               const Icon = feature.icon;
               return (
-                <div key={index} className="bg-white p-6 rounded-lg shadow-md border border-[#5C4033]/10 hover:shadow-lg transition-shadow">
-                  <div className="w-14 h-14 bg-[#D4AF37]/10 rounded-full flex items-center justify-center mb-4">
-                    <Icon className="w-7 h-7 text-[#D4AF37]" />
+                <div key={index} className="bg-white p-5 rounded-lg shadow-md border border-[#5C4033]/10 hover:shadow-lg transition-shadow group">
+                  <div className="w-12 h-12 bg-[#D4AF37]/10 rounded-full flex items-center justify-center mb-3">
+                    <Icon className="w-6 h-6 text-[#D4AF37] transition-transform duration-500 group-hover:rotate-[360deg] group-hover:scale-110" />
                   </div>
-                  <h3 className="text-lg font-semibold text-[#5C4033] mb-2">{feature.title}</h3>
+                  <h3 className="text-base font-semibold text-[#5C4033] mb-2">{feature.title}</h3>
                   <p className="text-sm text-[#5C4033]/70">{feature.description}</p>
                 </div>
               );

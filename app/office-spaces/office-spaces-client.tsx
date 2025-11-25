@@ -20,9 +20,10 @@ export function OfficeSpacesClient() {
       weeklyRate: "KES 2,500",
       monthlyRate: "KES 8,700",
       images: [
-        { url: "/gallery/IMG_0031.jpg", title: "Hot Desk", description: "Flexible workspace in vibrant coworking environment" },
-        { url: "/gallery/IMG_0022.jpg", title: "Hot Desk", description: "Modern desk setup with ergonomic chair" },
-        { url: "/gallery/IMG_0033.jpg", title: "Hot Desk", description: "Collaborative open workspace atmosphere" },
+        { url: "/gallery/DJI_20000609074127_0080_D.jpg", title: "Hot Desk", description: "Flexible workspace in vibrant coworking environment" },
+        { url: "/gallery/DJI_20000609074140_0081_D.jpg", title: "Hot Desk", description: "Modern desk setup with ergonomic chair" },
+        { url: "/gallery/IMG_0996.jpg", title: "Hot Desk", description: "Collaborative open workspace atmosphere" },
+        { url: "/gallery/IMG_0994.jpg", title: "Hot Desk", description: "Professional coworking space setup" },
       ],
       description: "Flexible workspace solution perfect for freelancers, remote workers, and entrepreneurs. Choose any available desk in our vibrant coworking space with access to all shared amenities.",
       features: [
@@ -69,10 +70,10 @@ export function OfficeSpacesClient() {
       weeklyRate: "KES 6,000",
       monthlyRate: "KES 16,000",
       images: [
-        { url: "https://images.unsplash.com/photo-1640109341881-1cd3eaf50909?w=1080&q=80", title: "1-Person Private Office", description: "Compact private office with modern desk and ergonomic chair" },
-        { url: "https://images.unsplash.com/photo-1746021375246-7dc8ab0583f0?w=1080&q=80", title: "1-Person Private Office", description: "Lockable door ensuring complete privacy for focused work" },
-        { url: "https://images.unsplash.com/photo-1625461291092-13d0c45608b3?w=1080&q=80", title: "1-Person Private Office", description: "Adjustable desk with premium workspace setup" },
-        { url: "https://images.unsplash.com/photo-1758520145175-aa3b593b81af?w=1080&q=80", title: "1-Person Private Office", description: "Elegant interior with professional lighting and storage" },
+        { url: "/gallery/DJI_20000609063628_0017_D.jpg", title: "1-Person Private Office", description: "Compact private office with modern desk and ergonomic chair" },
+        { url: "/gallery/DJI_20000609063058_0006_D.jpg", title: "1-Person Private Office", description: "Lockable door ensuring complete privacy for focused work" },
+        { url: "/gallery/DJI_20000609074357_0094_D.jpg", title: "1-Person Private Office", description: "Adjustable desk with premium workspace setup" },
+        { url: "/gallery/DJI_20000609064158_0022_D.jpg", title: "1-Person Private Office", description: "Elegant interior with professional lighting and storage" },
       ],
       description: "Compact private office designed for solopreneurs and professionals who need complete privacy. Features lockable door, ergonomic furniture, and all essential amenities for focused productivity.",
       features: [
@@ -94,10 +95,10 @@ export function OfficeSpacesClient() {
       weeklyRate: "KES 8,000",
       monthlyRate: "KES 24,000",
       images: [
-        { url: "https://images.unsplash.com/photo-1692133226337-55e513450a32?w=1080&q=80", title: "2-Person Private Office", description: "Spacious office with workstations for 2 people" },
-        { url: "https://images.unsplash.com/photo-1746021375246-7dc8ab0583f0?w=1080&q=80", title: "2-Person Private Office", description: "Modern workspace layout with collaborative setup" },
-        { url: "https://images.unsplash.com/photo-1758520145175-aa3b593b81af?w=1080&q=80", title: "2-Person Private Office", description: "Professional design with premium finishes" },
-        { url: "https://images.unsplash.com/photo-1625461291092-13d0c45608b3?w=1080&q=80", title: "2-Person Private Office", description: "Dual workstations with ergonomic furniture" },
+        { url: "/gallery/DJI_20000609074709_0097_D.jpg", title: "2-Person Private Office", description: "Spacious office with workstations for 2 people" },
+        { url: "/gallery/DJI_20000609074712_0098_D.jpg", title: "2-Person Private Office", description: "Modern workspace layout with collaborative setup" },
+        { url: "/gallery/DJI_20000609064007_0020_D.jpg", title: "2-Person Private Office", description: "Professional design with premium finishes" },
+        { url: "/gallery/DJI_20000609064227_0023_D.jpg", title: "2-Person Private Office", description: "Dual workstations with ergonomic furniture" },
       ],
       description: "Spacious private office perfect for small teams, business partners, or growing startups. Features dual workstations, lockable door, and room for collaboration while maintaining privacy.",
       features: [
@@ -130,7 +131,7 @@ export function OfficeSpacesClient() {
       <section className="relative h-[450px] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/30 z-10" />
         <img
-          src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80"
+          src="/gallery/DJI_20000609064317_0024_D.jpg"
           alt="Office Spaces in Eldoret"
           className="w-full h-full object-cover"
         />

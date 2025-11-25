@@ -56,13 +56,21 @@ export function EventsClient() {
   return (
     <div className="min-h-screen bg-[#FFFFF0]">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-[#5C4033] to-[#4A3329] text-white py-20">
-        <div className="container mx-auto px-4 text-center">
-          <Calendar className="w-16 h-16 mx-auto mb-6 text-[#D4AF37]" />
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Events & Workshops</h1>
-          <p className="text-xl max-w-2xl mx-auto">
-            Join our community events, learn new skills, and network with like-minded professionals
-          </p>
+      <section className="relative h-[450px] overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/30 z-10" />
+        <img
+          src="/gallery/DJI_20000609070400_0053_D.jpg"
+          alt="Events & Workshops"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 z-20 flex items-center justify-center">
+          <div className="text-center text-white px-4">
+            <Calendar className="w-16 h-16 mx-auto mb-4 text-[#D4AF37]" />
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">Events & Workshops</h1>
+            <p className="text-xl max-w-2xl mx-auto">
+              Join our community events, learn new skills, and network with like-minded professionals
+            </p>
+          </div>
         </div>
       </section>
 

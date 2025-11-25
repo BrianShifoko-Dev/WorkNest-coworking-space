@@ -18,9 +18,10 @@ export function BoardroomsClient() {
       halfDayRate: "KES 6,000",
       fullDayRate: "KES 12,000",
       images: [
-        { url: "/gallery/IMG_0073.jpg", title: "Executive Boardroom", description: "Premium boardroom with executive seating for 16-20 people" },
-        { url: "/gallery/IMG_0081.jpg", title: "Executive Boardroom", description: "State-of-the-art presentation and video conferencing setup" },
-        { url: "/gallery/IMG_0073.jpg", title: "Executive Boardroom", description: "Professional ambiance perfect for board meetings" },
+        { url: "/gallery/DJI_20000609074926_0104_D.jpg", title: "Executive Boardroom", description: "Premium boardroom with executive seating for 16-20 people" },
+        { url: "/gallery/DJI_20000609075034_0108_D.jpg", title: "Executive Boardroom", description: "State-of-the-art presentation and video conferencing setup" },
+        { url: "/gallery/DJI_20000609064434_0026_D.jpg", title: "Executive Boardroom", description: "Professional ambiance perfect for board meetings" },
+        { url: "/gallery/IMG_1039.jpg", title: "Executive Boardroom", description: "Executive meeting space with premium amenities" },
       ],
       description: "Our flagship boardroom designed for high-level meetings and presentations. Features state-of-the-art AV equipment, executive seating for up to 16 guests, and a professional ambiance perfect for board meetings, investor pitches, and strategic planning sessions.",
       features: [
@@ -40,9 +41,10 @@ export function BoardroomsClient() {
       halfDayRate: "KES 4,000",
       fullDayRate: "KES 7,000",
       images: [
-        { url: "/gallery/IMG_0073.jpg", title: "Meeting Room - Large", description: "Spacious meeting room for 6-8 people with modern setup" },
-        { url: "/gallery/IMG_0081.jpg", title: "Meeting Room - Large", description: "HD display and presentation tools for workshops" },
-        { url: "/gallery/IMG_0073.jpg", title: "Meeting Room - Large", description: "Professional environment for client presentations" },
+        { url: "/gallery/DJI_20000609074926_0104_D.jpg", title: "Meeting Room - Large", description: "Spacious meeting room for 6-8 people with modern setup" },
+        { url: "/gallery/DJI_20000609075034_0108_D.jpg", title: "Meeting Room - Large", description: "HD display and presentation tools for workshops" },
+        { url: "/gallery/DJI_20000609064434_0026_D.jpg", title: "Meeting Room - Large", description: "Professional environment for client presentations" },
+        { url: "/gallery/IMG_1039.jpg", title: "Meeting Room - Large", description: "Versatile meeting space setup" },
       ],
       description: "Spacious meeting room ideal for team workshops, client presentations, and collaborative sessions. Equipped with HD display, video conferencing capabilities, and comfortable seating for productive discussions.",
       features: [
@@ -75,7 +77,7 @@ export function BoardroomsClient() {
       <section className="relative h-[450px] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/30 z-10" />
         <img
-          src="https://images.unsplash.com/photo-1462826303086-329426d1aef5?w=1920&q=80"
+          src="/gallery/DJI_20000609064924_0031_D.jpg"
           alt="Professional Boardrooms in Eldoret"
           className="w-full h-full object-cover"
         />
@@ -177,9 +179,9 @@ export function BoardroomsClient() {
           <h2 className="text-center text-[#5C4033] mb-12 text-4xl font-playfair">Everything You Need</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {amenities.map((amenity, index) => (
-              <div key={index} className="flex gap-4 p-6 bg-[#FFFFF0] rounded-lg border border-[#5C4033]/10 hover:shadow-md transition-shadow">
+              <div key={index} className="flex gap-4 p-6 bg-[#FFFFF0] rounded-lg border border-[#5C4033]/10 hover:shadow-md transition-shadow group">
                 <div className="w-12 h-12 bg-[#D4AF37]/15 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <amenity.icon className="w-6 h-6 text-[#D4AF37]" />
+                  <amenity.icon className="w-6 h-6 text-[#D4AF37] transition-transform duration-500 group-hover:rotate-[360deg] group-hover:scale-110" />
                 </div>
                 <div>
                   <h4 className="text-[#5C4033] mb-1 font-semibold">{amenity.title}</h4>

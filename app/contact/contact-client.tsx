@@ -64,7 +64,6 @@ export function ContactClient() {
                   <div>
                     <h4 className="text-lg font-semibold text-[#5C4033] mb-1">Phone</h4>
                     <p className="text-[#5C4033]/70">+254 745 319 042</p>
-                    <p className="text-[#5C4033]/70">+254 722 987 654</p>
                   </div>
                 </div>
 
@@ -77,9 +76,6 @@ export function ContactClient() {
                     <p className="text-[#5C4033]/70">
                       info@worknest.co.ke
                     </p>
-                    <p className="text-[#5C4033]/70">
-                      bookings@worknest.co.ke
-                    </p>
                   </div>
                 </div>
 
@@ -90,9 +86,9 @@ export function ContactClient() {
                   <div>
                     <h4 className="text-lg font-semibold text-[#5C4033] mb-1">Address</h4>
                     <p className="text-[#5C4033]/70">
-                      The WorkNest Coworking Space
+                      The WorkNest Eldoret, Elgon View Mall 3rd floor, 
                       <br />
-                      Eldoret, Kenya
+                      Near Eldoret Sports club, Kenya
                     </p>
                   </div>
                 </div>
@@ -124,7 +120,7 @@ export function ContactClient() {
                 <h4 className="text-lg font-semibold text-[#5C4033] mb-4">Connect With Us</h4>
                 <div className="flex gap-3">
                   <a
-                    href="https://www.facebook.com/worknest"
+                    href="https://www.facebook.com/profile.php?id=61583324491287"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-10 h-10 bg-[#D4AF37]/10 hover:bg-[#D4AF37]/20 rounded-lg flex items-center justify-center transition-colors group"
@@ -142,7 +138,7 @@ export function ContactClient() {
                     <Twitter className="w-5 h-5 text-[#D4AF37] group-hover:scale-110 transition-transform" />
                   </a>
                   <a
-                    href="https://www.instagram.com/worknest"
+                    href="https://www.instagram.com/the_worknest_eldoret/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-10 h-10 bg-[#D4AF37]/10 hover:bg-[#D4AF37]/20 rounded-lg flex items-center justify-center transition-colors group"

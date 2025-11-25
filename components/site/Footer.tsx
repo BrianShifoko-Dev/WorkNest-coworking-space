@@ -33,7 +33,7 @@ export function Footer() {
               />
               <div>
                 <div className="text-lg text-white font-semibold">The WorkNest</div>
-                <div className="text-xs text-[#D4AF37]">Coworking space</div>
+                <div className="text-xs text-[#D4AF37]">Eldoret Coworking Space</div>
               </div>
             </div>
 
@@ -149,7 +149,7 @@ export function Footer() {
           {/* Social Links */}
           <div className="flex items-center gap-4">
             <a
-              href="https://facebook.com/worknest"
+              href="https://www.facebook.com/profile.php?id=61583324491287"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-[#D4AF37] transition-colors"
@@ -174,7 +174,7 @@ export function Footer() {
               </svg>
             </a>
             <a
-              href="https://instagram.com/worknest"
+              href="https://www.instagram.com/the_worknest_eldoret/"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-[#D4AF37] transition-colors"

@@ -20,10 +20,10 @@ export function PricingClient() {
       features: [
         "Access to shared workspace",
         "High-speed WiFi",
-        "Complimentary coffee/tea",
-        "Kitchen access",
+        "Free call pod Access (1hr/ session)",
+        "Lounge access",
         "Community events",
-        "Mail handling",
+        "Free Ample onsite Packing",
       ],
     },
     {
@@ -41,7 +41,7 @@ export function PricingClient() {
         "Personal storage locker",
         "Meeting room credits (2hrs/month)",
         "Priority booking",
-        "24/7 access",
+        "Convenient Access Hours",
       ],
     },
     {
@@ -58,7 +58,7 @@ export function PricingClient() {
         "Private lockable office",
         "Desk & ergonomic chair",
         "Natural lighting",
-        "AC & heating",
+        "access to printing (500pages/month)",
         "Professional setup",
       ],
     },
@@ -68,9 +68,9 @@ export function PricingClient() {
     { name: "Meeting Room (6-8 pax)", price: "KES 1,000/hr" },
     { name: "Boardroom (16-20 pax)", price: "KES 2,500/hr" },
     { name: "Call Pod Access", price: "KES 250/hr" },
-    { name: "Parking Space", price: "KES 5,000/month" },
-    { name: "Business Address Service", price: "KES 3,000/month" },
-    { name: "Virtual Office", price: "KES 10,000/month" },
+    { name: "Printing Services", price: "KES 5/page" },
+    { name: "Front office support", price: "Free" },
+    { name: "", price: "" },
   ];
 
   return (

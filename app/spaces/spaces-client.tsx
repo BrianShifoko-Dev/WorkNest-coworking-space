@@ -26,7 +26,7 @@ const workspaces = [
     name: "Executive Boardroom",
     capacity: "16-20 people",
     size: "Premium venue",
-    image: "/gallery/IMG_0073.jpg",
+    image: "/gallery/DJI_20000609074140_0081_D.jpg",
     dailyRate: 12000,
     weeklyRate: null,
     monthlyRate: null,
@@ -47,7 +47,7 @@ const workspaces = [
     name: "Lounge",
     capacity: "Relaxation space",
     size: "Social area",
-    image: "/gallery/IMG_0031.jpg",
+    image: "/gallery/IMG_0971.jpg",
     dailyRate: null,
     weeklyRate: null,
     monthlyRate: null,
@@ -68,7 +68,7 @@ const workspaces = [
     name: "Kids Zone",
     capacity: "Family friendly",
     size: "Play area",
-    image: "/gallery/IMG_0022.jpg",
+    image: "/gallery/IMG_0975.jpg",
     dailyRate: null,
     weeklyRate: null,
     monthlyRate: null,
@@ -91,9 +91,9 @@ export function SpacesClient() {
   const [selectedSpace, setSelectedSpace] = useState<number | null>(null)
 
   const heroBackgrounds = [
-    '/gallery/IMG_0004.jpg',
-    '/gallery/IMG_0013.jpg',
-    '/gallery/IMG_0023.jpg',
+    '/gallery/DJI_20000609063058_0006_D.jpg',
+    '/gallery/DJI_20000609063128_0009_D.jpg',
+    '/gallery/DJI_20000609064227_0023_D.jpg',
   ]
 
   useEffect(() => {

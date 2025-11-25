@@ -158,8 +158,8 @@ export function generateLocalBusinessSchema() {
     ],
     sameAs: [
       `https://twitter.com/${siteConfig.social.twitter}`,
-      `https://facebook.com/${siteConfig.social.facebook}`,
-      `https://instagram.com/${siteConfig.social.instagram}`,
+      `https://www.facebook.com/profile.php?id=61583324491287`,
+      `https://www.instagram.com/the_worknest_eldoret/`,
       `https://linkedin.com/company/${siteConfig.social.linkedin}`,
     ],
   }

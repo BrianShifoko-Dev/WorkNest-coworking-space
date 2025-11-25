@@ -16,11 +16,11 @@ export function FAQClient() {
         },
         {
           q: "What are your operating hours?",
-          a: "We're open Monday-Friday 7AM-10PM, Saturday 8AM-8PM, and Sunday 9AM-6PM. Members with 24/7 access can use the space anytime.",
+          a: "We're open Monday-Friday 8AM-8PM, Saturday 9AM-5PM, and Sunday Closed. Members with access can use the space on convenient Hours.",
         },
         {
           q: "Where are you located?",
-          a: "We're located in the heart of Eldoret, Kenya, with easy access to public transport, restaurants, and amenities.",
+          a: "The WorkNest Eldoret, Elgon View Mall 3rd Floor, Near Eldoret Sports Club ",
         },
       ],
     },
@@ -54,7 +54,7 @@ export function FAQClient() {
         },
         {
           q: "Do you have parking?",
-          a: "Yes, we provide secure parking for members at an additional monthly fee of KES 5,000. Visitor parking is also available.",
+          a: "Yes, we provide Ample secure parking for everyone fro Free. Visitor parking is also available.",
         },
         {
           q: "Is there a café or restaurant on-site?",
