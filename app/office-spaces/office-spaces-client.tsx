@@ -124,7 +124,7 @@ export function OfficeSpacesClient() {
   return (
     <div className="min-h-screen bg-[#FFFFF0]">
       <Breadcrumbs
-        items={[{ name: "Products & Book" }, { name: "Office Spaces" }]}
+        items={[{ name: "Workspace Solutions" }, { name: "Office Spaces" }]}
       />
 
       {/* Hero */}

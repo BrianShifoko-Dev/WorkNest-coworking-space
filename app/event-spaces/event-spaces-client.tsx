@@ -169,7 +169,7 @@ export function EventSpacesClient() {
   return (
     <div className="min-h-screen bg-[#FFFFF0]">
       <Breadcrumbs
-        items={[{ name: "Products & Book" }, { name: "Event Spaces" }]}
+        items={[{ name: "Workspace Solutions" }, { name: "Event Spaces" }]}
       />
 
       {/* Hero */}

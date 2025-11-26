@@ -70,7 +70,7 @@ export function BoardroomsClient() {
   return (
     <div className="min-h-screen bg-[#FFFFF0]">
       <Breadcrumbs
-        items={[{ name: "Products & Book" }, { name: "Boardrooms" }]}
+        items={[{ name: "Workspace Solutions" }, { name: "Boardrooms" }]}
       />
 
       {/* Hero */}

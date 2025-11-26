@@ -58,7 +58,7 @@ export function KidsZoneClient() {
   return (
     <div className="min-h-screen bg-[#FFFFF0]">
       <Breadcrumbs
-        items={[{ name: "Products & Book" }, { name: "Kids Zone" }]}
+        items={[{ name: "Workspace Solutions" }, { name: "Kids Zone" }]}
       />
 
       {/* Hero */}

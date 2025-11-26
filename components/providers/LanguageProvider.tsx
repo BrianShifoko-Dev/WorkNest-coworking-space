@@ -14,7 +14,7 @@ const translations: Translations = {
   // Navigation
   "nav.home": { en: "Home", sw: "Nyumbani", fr: "Accueil", es: "Inicio", de: "Startseite", pt: "Início" },
   "nav.discover": { en: "Discover Us", sw: "Gundua Sisi", fr: "Découvrez-nous", es: "Descúbrenos", de: "Entdecken Sie uns", pt: "Descubra-nos" },
-  "nav.products": { en: "Products & Book", sw: "Bidhaa na Hifadhi", fr: "Produits & Réserver", es: "Productos y Reservar", de: "Produkte & Buchen", pt: "Produtos e Reservar" },
+  "nav.products": { en: "Workspace Solutions", sw: "Suluhisho za Nafasi", fr: "Solutions d'Espace", es: "Soluciones de Espacio", de: "Arbeitsplatzlösungen", pt: "Soluções de Espaço" },
   "nav.getstarted": { en: "Get Started", sw: "Anza", fr: "Commencer", es: "Empezar", de: "Loslegen", pt: "Começar" },
   "nav.restaurant": { en: "Restaurant", sw: "Mkahawa", fr: "Restaurant", es: "Restaurante", de: "Restaurant", pt: "Restaurante" },
   "nav.events": { en: "Events", sw: "Matukio", fr: "Événements", es: "Eventos", de: "Veranstaltungen", pt: "Eventos" },

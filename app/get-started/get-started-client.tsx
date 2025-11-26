@@ -34,7 +34,7 @@ export function GetStartedClient() {
       <section className="relative h-96 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-[#5C4033]/90 to-[#4A3329]/90 z-10" />
         <img
-          src="https://images.unsplash.com/photo-1758518731572-7791381c5ce8?w=1920&q=80"
+          src="/gallery/DJI_20000609070609_0057_D.jpg"
           alt="Get Started with WorkNest"
           className="w-full h-full object-cover"
         />
@@ -55,7 +55,7 @@ export function GetStartedClient() {
             <h2 className="text-[#5C4033] mb-6 text-4xl font-playfair">Welcome to WorkNest</h2>
             <p className="text-[#5C4033]/70 mb-4 text-lg">
               We're thrilled that you're considering joining our community of innovative professionals, 
-              entrepreneurs, and growing businesses in Eldoret. Getting started is easy—choose the path that's 
+              entrepreneurs, and growing businesses in Eldoret. Getting started is easy choose the path that's 
               right for you.
             </p>
             <p className="text-[#5C4033]/70 text-lg">
@@ -159,7 +159,7 @@ export function GetStartedClient() {
               {[
                 "Prime location in Eldoret city center",
                 "High-speed WiFi and modern technology",
-                "24/7 access for flexibility",
+                "Convenient Access Hours",
                 "Professional meeting rooms",
                 "Vibrant community of entrepreneurs",
                 "On-site restaurant and café",

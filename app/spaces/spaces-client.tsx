@@ -19,17 +19,18 @@ import {
   Maximize2,
 } from 'lucide-react'
 
-// Workspace data with your exact prices - Reordered as requested
+// Workspace data with links to detail pages
 const workspaces = [
   {
     id: 1,
-    name: "Executive Boardroom",
+    name: "Conference Boardroom",
     capacity: "16-20 people",
     size: "Premium venue",
-    image: "/gallery/DJI_20000609074140_0081_D.jpg",
+    image: "/gallery/DJI_20000609064845_0030_D.jpg",
     dailyRate: 12000,
     weeklyRate: null,
     monthlyRate: null,
+    link: "/boardrooms",
     amenities: [
       "4K Display Screen",
       "Video Conference System",
@@ -44,27 +45,140 @@ const workspaces = [
   },
   {
     id: 2,
-    name: "Lounge",
-    capacity: "Relaxation space",
-    size: "Social area",
+    name: "Grand Event Hall",
+    capacity: "100+ people",
+    size: "Large venue",
     image: "/gallery/IMG_0971.jpg",
     dailyRate: null,
     weeklyRate: null,
     monthlyRate: null,
+    priceLabel: "Per Session",
+    link: "/event-spaces",
     amenities: [
-      "Comfortable Seating",
-      "Coffee & Tea",
-      "WiFi Access",
-      "Social Space",
-      "Natural Lighting",
-      "Refreshments",
+      "Spacious Event Venue",
+      "Professional Sound System",
+      "Stage & Lighting",
+      "Catering Options",
+      "AV Equipment",
+      "Flexible Setup",
     ],
     featured: false,
     popular: false,
-    comingSoon: true,
+    comingSoon: false,
   },
   {
     id: 3,
+    name: "Executive Office Suite",
+    capacity: "1-2 people",
+    size: "Private office",
+    image: "/gallery/DJI_20000609074809_0100_D.jpg",
+    dailyRate: 2500,
+    weeklyRate: null,
+    monthlyRate: null,
+    link: "/office-spaces",
+    amenities: [
+      "Private Lockable Office",
+      "Premium Furniture",
+      "Natural Lighting",
+      "High-Speed WiFi",
+      "Meeting Room Credits",
+      "Professional Address",
+    ],
+    featured: false,
+    popular: true,
+    comingSoon: false,
+  },
+  {
+    id: 4,
+    name: "Hot Desk",
+    capacity: "1-20 people",
+    size: "Various sizes",
+    image: "/gallery/IMG_0983.jpg",
+    dailyRate: 500,
+    weeklyRate: null,
+    monthlyRate: null,
+    link: "/office-spaces",
+    amenities: [
+      "Fully Furnished",
+      "24/7 Access",
+      "High-Speed Internet",
+      "Meeting Room Access",
+      "Mail Handling",
+      "Flexible Terms",
+    ],
+    featured: false,
+    popular: false,
+    comingSoon: false,
+  },
+  {
+    id: 5,
+    name: "Boardrooms",
+    capacity: "6-20 people",
+    size: "Meeting rooms",
+    image: "/gallery/DJI_20000609075034_0108_D.jpg",
+    dailyRate: 7000,
+    weeklyRate: null,
+    monthlyRate: null,
+    link: "/boardrooms",
+    amenities: [
+      "Professional AV Setup",
+      "Video Conferencing",
+      "Whiteboard",
+      "High-Speed WiFi",
+      "Coffee & Tea",
+      "Flexible Booking",
+    ],
+    featured: false,
+    popular: false,
+    comingSoon: false,
+  },
+  {
+    id: 6,
+    name: "Event Lounge",
+    capacity: "50-200 people",
+    size: "Multiple venues",
+    image: "/gallery/IMG_0975.jpg",
+    dailyRate: null,
+    weeklyRate: null,
+    monthlyRate: null,
+    priceLabel: "Per Session",
+    link: "/event-spaces",
+    amenities: [
+      "Versatile Layouts",
+      "Professional Sound",
+      "Stage & Lighting",
+      "Catering Options",
+      "AV Equipment",
+      "Event Support",
+    ],
+    featured: false,
+    popular: false,
+    comingSoon: false,
+  },
+  {
+    id: 7,
+    name: "Call Pods",
+    capacity: "1 person",
+    size: "Private booth",
+    image: "/gallery/DJI_20000609070013_0047_D.jpg",
+    dailyRate: 250,
+    weeklyRate: null,
+    monthlyRate: null,
+    link: "/call-pods",
+    amenities: [
+      "Soundproof Booth",
+      "Comfortable Seating",
+      "Power Outlets",
+      "Desk Space",
+      "Good Lighting",
+      "Private Calls",
+    ],
+    featured: false,
+    popular: false,
+    comingSoon: false,
+  },
+  {
+    id: 8,
     name: "Kids Zone",
     capacity: "Family friendly",
     size: "Play area",
@@ -72,6 +186,8 @@ const workspaces = [
     dailyRate: null,
     weeklyRate: null,
     monthlyRate: null,
+    priceLabel: "Included with membership",
+    link: "/kids-zone",
     amenities: [
       "Safe Play Area",
       "Educational Toys",
@@ -110,7 +226,7 @@ export function SpacesClient() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-[#FFFFF0]/50 to-white">
-      <Breadcrumbs items={[{ name: "Products & Book", path: "/products" }, { name: "Spaces" }]} />
+      <Breadcrumbs items={[{ name: "Workspace Solutions", path: "/spaces" }, { name: "Spaces" }]} />
 
       {/* Hero Section */}
       <section className="relative py-24 md:py-32 overflow-hidden">
@@ -153,11 +269,11 @@ export function SpacesClient() {
                 </div>
                 
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 tracking-tight drop-shadow-lg">
-                  Choose Your Meeting Space
+                  Choose Your Premium Space
                 </h1>
                 
                 <p className="text-lg md:text-xl text-white/90 leading-relaxed mb-6 drop-shadow-md">
-                  Premium workspaces designed for productivity and success
+                  Premium coworking space designed for productivity and success
                 </p>
                 
                 <div className="flex items-center justify-center gap-3 flex-wrap">
@@ -266,23 +382,31 @@ export function SpacesClient() {
                     {/* Pricing Table */}
                     {!space.comingSoon && (
                       <div className="mb-6 space-y-2 bg-[#FFFFF0]/50 rounded-lg p-4 border border-[#D4AF37]/10">
-                        {space.dailyRate && (
-                          <div className="flex justify-between items-center">
-                            <span className="text-sm text-[#5C4033]/70">Daily Rate:</span>
-                            <span className="font-bold text-[#D4AF37]">{formatPrice(space.dailyRate)}</span>
+                        {space.priceLabel ? (
+                          <div className="flex justify-center items-center py-2">
+                            <span className="font-bold text-[#D4AF37] text-lg">{space.priceLabel}</span>
                           </div>
-                        )}
-                        {space.weeklyRate && (
-                          <div className="flex justify-between items-center">
-                            <span className="text-sm text-[#5C4033]/70">Weekly Rate:</span>
-                            <span className="font-semibold text-[#5C4033]">{formatPrice(space.weeklyRate)}</span>
-                          </div>
-                        )}
-                        {space.monthlyRate && (
-                          <div className="flex justify-between items-center pt-2 border-t border-[#D4AF37]/20">
-                            <span className="text-sm font-semibold text-[#5C4033]">Monthly Rate:</span>
-                            <span className="font-bold text-[#D4AF37] text-lg">{formatPrice(space.monthlyRate)}</span>
-                          </div>
+                        ) : (
+                          <>
+                            {space.dailyRate && (
+                              <div className="flex justify-between items-center">
+                                <span className="text-sm text-[#5C4033]/70">Daily Rate:</span>
+                                <span className="font-bold text-[#D4AF37]">{formatPrice(space.dailyRate)}</span>
+                              </div>
+                            )}
+                            {space.weeklyRate && (
+                              <div className="flex justify-between items-center">
+                                <span className="text-sm text-[#5C4033]/70">Weekly Rate:</span>
+                                <span className="font-semibold text-[#5C4033]">{formatPrice(space.weeklyRate)}</span>
+                              </div>
+                            )}
+                            {space.monthlyRate && (
+                              <div className="flex justify-between items-center pt-2 border-t border-[#D4AF37]/20">
+                                <span className="text-sm font-semibold text-[#5C4033]">Monthly Rate:</span>
+                                <span className="font-bold text-[#D4AF37] text-lg">{formatPrice(space.monthlyRate)}</span>
+                              </div>
+                            )}
+                          </>
                         )}
                       </div>
                     )}
@@ -309,7 +433,7 @@ export function SpacesClient() {
                       </ul>
                     </div>
 
-                    {/* Book Button */}
+                    {/* View More Button */}
                     {space.comingSoon ? (
                       <Button
                         disabled
@@ -322,8 +446,8 @@ export function SpacesClient() {
                         asChild
                         className="w-full bg-gradient-to-r from-[#D4AF37] to-[#B8941F] hover:from-[#B8941F] hover:to-[#9A7A1A] text-white shadow-lg hover:shadow-xl transition-all"
                       >
-                        <Link href="/book">
-                          Book Now
+                        <Link href={space.link || '/book'}>
+                          View More
                           <ArrowRight className="w-4 h-4 ml-2" />
                         </Link>
                       </Button>

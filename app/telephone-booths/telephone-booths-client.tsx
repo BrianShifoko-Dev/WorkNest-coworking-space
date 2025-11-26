@@ -74,7 +74,7 @@ export function TelephoneBoothsClient() {
   return (
     <div className="min-h-screen bg-[#FFFFF0]" data-section="spaces">
       <Breadcrumbs
-        items={[{ name: "Products & Book", path: "/products" }, { name: "Telephone Booths" }]}
+        items={[{ name: "Workspace Solutions", path: "/spaces" }, { name: "Telephone Booths" }]}
       />
 
       {/* Hero */}

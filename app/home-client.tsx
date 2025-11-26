@@ -71,44 +71,58 @@ const getHeroSlides = (t: (key: string) => string) => [
 // Static fallback spaces (shown if database is empty or loading fails)
 const staticFallbackSpaces = [
   {
-    title: "Private Offices",
-    description:
-      "Fully furnished offices for teams of 1-20 people with 24/7 access",
-    image:
-      "https://images.unsplash.com/photo-1692133226337-55e513450a32?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcml2YXRlJTIwb2ZmaWNlJTIwcm9vbXxlbnwxfHx8fDE3NjIyMzM2Mjd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    title: "Conference Boardroom",
+    description: "Professional meeting room equipped with state-of-the-art AV equipment, projector, and video conferencing facilities.",
+    image: "/gallery/DJI_20000609064845_0030_D.jpg",
+    link: "/boardrooms",
+    price: "KES 12,000/day",
+  },
+  {
+    title: "Grand Event Hall",
+    description: "Spacious event venue perfect for workshops, product launches, seminars, and corporate celebrations.",
+    image: "/gallery/IMG_0982.jpg",
+    link: "/event-spaces",
+    price: "Per Session",
+  },
+  {
+    title: "Executive Office Suite",
+    description: "Premium private office with modern furniture, natural lighting, and stunning city views. Perfect for executives and small teams.",
+    image: "/gallery/DJI_20000609074809_0100_D.jpg",
     link: "/office-spaces",
-    price: "From KES 35,000/month",
+    price: "KES 2,500/day",
+  },
+  {
+    title: "Private Offices",
+    description: "Fully furnished offices for teams of 1-20 people with 24/7 access",
+    image: "/gallery/DJI_20000609064227_0023_D.jpg",
+    link: "/office-spaces",
+    price: "KES 3,000/day",
   },
   {
     title: "Boardrooms",
     description: "Professional meeting rooms with cutting-edge AV technology",
-    image:
-      "https://images.unsplash.com/photo-1462826303086-329426d1aef5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb25mZXJlbmNlJTIwYm9hcmRyb29tfGVufDF8fHx8MTc2MjIzMzYyN3ww&ixlib=rb-4.1.0&q=80&w=1080",
+    image: "/gallery/DJI_20000609074926_0104_D.jpg",
     link: "/boardrooms",
-    price: "From KES 2,500/hour",
+    price: "KES 7,000/day",
   },
   {
-    title: "Event Spaces",
+    title: "Event Lounge",
     description: "Versatile venues for workshops, launches, and celebrations",
-    image:
-      "https://images.unsplash.com/photo-1759873148521-c49d9497cf64?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxldmVudCUyMHNwYWNlJTIwdmVudWV8ZW58MXx8fHwxNzYyMTgyNDEzfDA&ixlib=rb-4.1.0&q=80&w=1080",
-    link: "/events",
-    price: "From KES 15,000/day",
+    image: "https://images.unsplash.com/photo-1759873148521-c49d9497cf64?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxldmVudCUyMHNwYWNlJTIwdmVudWV8ZW58MXx8fHwxNzYyMTgyNDEzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    link: "/event-spaces",
+    price: "Per Session",
   },
   {
     title: "Call Pods",
-    description:
-      "Private soundproof pods for focused calls and video meetings",
-    image:
-      "https://images.unsplash.com/photo-1716703435698-031227389c1c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxvZmZpY2UlMjB0ZWxlcGhvbmUlMjBib290aHxlbnwxfHx8fDE3NjIyMzM2Mjl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    description: "Private soundproof pods for focused calls and video meetings",
+    image: "https://images.unsplash.com/photo-1716703435698-031227389c1c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxvZmZpY2UlMjB0ZWxlcGhvbmUlMjBib290aHxlbnwxfHx8fDE3NjIyMzM2Mjl8MA&ixlib=rb-4.1.0&q=80&w=1080",
     link: "/call-pods",
     price: "From KES 250/hour",
   },
   {
     title: "Kids Zone",
     description: "Safe, supervised play area for your little ones",
-    image:
-      "https://images.unsplash.com/photo-1587654780291-39c9404d746b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxraWRzJTIwcGxheSUyMGFyZWF8ZW58MXx8fHwxNzYyMTQzODY4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    image: "https://images.unsplash.com/photo-1587654780291-39c9404d746b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxraWRzJTIwcGxheSUyMGFyZWF8ZW58MXx8fHwxNzYyMTQzODY4fDA&ixlib=rb-4.1.0&q=80&w=1080",
     link: "/kids-zone",
     price: "Included with membership",
   },
@@ -200,22 +214,35 @@ export function HomePageClient() {
         
         // Map database spaces to homepage format
         if (Array.isArray(data) && data.length > 0) {
-          const mappedSpaces = data.map((space: any) => ({
-            title: space.name,
-            description: space.description || 'Premium workspace solution',
-            image: space.images && space.images[0] ? space.images[0] : staticFallbackSpaces[0].image,
-            link: `/book?space=${space.id}`,
-            price: space.monthly_rate 
-              ? `From KES ${space.monthly_rate.toLocaleString()}/month`
-              : space.daily_rate
-              ? `From KES ${space.daily_rate.toLocaleString()}/day`
-              : space.hourly_rate
-              ? `From KES ${space.hourly_rate.toLocaleString()}/hour`
-              : 'Contact for pricing',
-          }));
+          const mappedSpaces = data.map((space: any) => {
+            // Determine the correct detail page based on space type/category
+            let detailLink = '/spaces';
+            if (space.category) {
+              const cat = space.category.toLowerCase();
+              if (cat.includes('office')) detailLink = '/office-spaces';
+              else if (cat.includes('boardroom') || cat.includes('meeting')) detailLink = '/boardrooms';
+              else if (cat.includes('event')) detailLink = '/event-spaces';
+              else if (cat.includes('call') || cat.includes('pod')) detailLink = '/call-pods';
+              else if (cat.includes('kids')) detailLink = '/kids-zone';
+            }
+            
+            return {
+              title: space.name,
+              description: space.description || 'Premium workspace solution',
+              image: space.images && space.images[0] ? space.images[0] : staticFallbackSpaces[0].image,
+              link: detailLink,
+              price: space.monthly_rate 
+                ? `From KES ${space.monthly_rate.toLocaleString()}/month`
+                : space.daily_rate
+                ? `From KES ${space.daily_rate.toLocaleString()}/day`
+                : space.hourly_rate
+                ? `From KES ${space.hourly_rate.toLocaleString()}/hour`
+                : 'Contact for pricing',
+            };
+          });
           
-          // Combine database spaces with static fallback (database first)
-          setFeaturedSpaces([...mappedSpaces, ...staticFallbackSpaces]);
+          // Don't combine database and static - just use static fallback
+          // setFeaturedSpaces([...mappedSpaces, ...staticFallbackSpaces]);
         }
       }
     } catch (error) {
@@ -631,7 +658,7 @@ export function HomePageClient() {
               variant="outline"
               className="border-[#5C4033] text-[#5C4033] hover:bg-[#5C4033] hover:text-white"
             >
-              <Link href="/office-spaces">{t('home.viewAll')} Spaces</Link>
+              <Link href="/spaces">{t('home.viewAll')} Spaces</Link>
             </Button>
           </div>
         </div>

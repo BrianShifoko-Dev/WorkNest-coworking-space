@@ -75,7 +75,7 @@ export function CallPodsClient() {
   return (
     <div className="min-h-screen bg-[#FFFFF0]" data-section="spaces">
       <Breadcrumbs
-        items={[{ name: "Products & Book", path: "/products" }, { name: "Call Pods" }]}
+        items={[{ name: "Workspace Solutions", path: "/spaces" }, { name: "Call Pods" }]}
       />
 
       {/* Hero */}

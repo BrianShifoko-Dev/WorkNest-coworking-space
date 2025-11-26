@@ -53,8 +53,8 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/book" className="hover:text-[#D4AF37] transition-colors">
-                  Products & Book
+                <Link href="/spaces" className="hover:text-[#D4AF37] transition-colors">
+                  Workspace Solutions
                 </Link>
               </li>
               <li>
