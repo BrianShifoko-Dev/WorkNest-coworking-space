@@ -101,14 +101,14 @@ export function AboutClient() {
         <div className="container mx-auto px-4">
           <div className="w-16 h-1 bg-[#D4AF37] mb-6 mx-auto" />
           <h2 className="text-center text-[#5C4033] mb-12 text-4xl font-playfair">Our Values</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 max-w-6xl mx-auto">
             {values.map((value, index) => (
-              <div key={index} className="text-center p-6 bg-[#FFFFF0] rounded-lg border border-[#5C4033]/10 hover:shadow-lg transition-shadow">
-                <div className="w-16 h-16 bg-[#D4AF37]/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <value.icon className="w-8 h-8 text-[#D4AF37]" />
+              <div key={index} className="text-center p-3 md:p-6 bg-[#FFFFF0] rounded-lg border border-[#5C4033]/10 hover:shadow-lg transition-shadow">
+                <div className="w-12 h-12 md:w-16 md:h-16 bg-[#D4AF37]/20 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
+                  <value.icon className="w-6 h-6 md:w-8 md:h-8 text-[#D4AF37]" />
                 </div>
-                <h4 className="text-[#5C4033] mb-2 text-xl font-semibold">{value.title}</h4>
-                <p className="text-sm text-[#5C4033]/70">{value.description}</p>
+                <h4 className="text-[#5C4033] mb-2 text-base md:text-xl font-semibold">{value.title}</h4>
+                <p className="text-xs md:text-sm text-[#5C4033]/70">{value.description}</p>
               </div>
             ))}
           </div>
