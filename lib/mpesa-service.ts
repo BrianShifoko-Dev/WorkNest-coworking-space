@@ -1,7 +1,7 @@
 // M-Pesa Payment Service for WorkNest
 // Production-ready with proper error handling
 
-import { supabase } from './supabase'
+import { supabase } from './db'
 
 // M-Pesa Configuration
 const MPESA_CONFIG = {

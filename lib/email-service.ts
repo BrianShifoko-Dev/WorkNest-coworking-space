@@ -1,15 +1,20 @@
-import { Resend } from 'resend'
-import { supabase } from './supabase'
+import nodemailer from 'nodemailer'
+import { supabase } from './db'
 import { BookingConfirmationEmail, AdminNotificationEmail } from './email-templates'
 
-// Lazy initialization to avoid build-time errors
-let resend: Resend | null = null
-function getResend() {
-  if (!resend && process.env.RESEND_API_KEY) {
-    resend = new Resend(process.env.RESEND_API_KEY)
-  }
-  return resend
-}
+// Create SMTP transporter for cPanel email
+const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST || 'mail.theworknest.co.ke',
+  port: parseInt(process.env.SMTP_PORT || '465', 10),
+  secure: process.env.SMTP_PORT === '465' || parseInt(process.env.SMTP_PORT || '465', 10) === 465, // true for 465, false for other ports
+  auth: {
+    user: process.env.SMTP_USER || 'manager@theworknest.co.ke',
+    pass: process.env.SMTP_PASSWORD || '',
+  },
+  tls: {
+    rejectUnauthorized: false, // Allow self-signed certificates
+  },
+})
 
 interface SendEmailParams {
   to: string
@@ -28,44 +33,20 @@ export async function sendEmail({
   bookingId,
   customerId,
 }: SendEmailParams) {
-  const fromEmail = 'WorkNest <onboarding@resend.dev>' // Will be replaced with your domain
+  const fromEmail = process.env.SMTP_FROM || 'WorkNest <manager@theworknest.co.ke>'
 
   try {
     console.log('📧 Sending email to:', to)
     
-    const resendClient = getResend()
-    if (!resendClient) {
-      console.warn('⚠️ Resend API key not configured, skipping email send')
-      return { success: false, error: 'Email service not configured' }
-    }
-    
-    // Send email via Resend
-    const { data, error } = await resendClient.emails.send({
+    // Send email via SMTP
+    const info = await transporter.sendMail({
       from: fromEmail,
-      to: [to],
+      to: to,
       subject: subject,
       html: html,
     })
 
-    if (error) {
-      console.error('❌ Resend error:', error)
-      
-      // Log failed email
-      await logEmail({
-        to_email: to,
-        from_email: fromEmail,
-        subject,
-        email_type: emailType,
-        status: 'failed',
-        error_message: error.message || 'Unknown error',
-        booking_id: bookingId,
-        customer_id: customerId,
-      })
-
-      return { success: false, error: error.message }
-    }
-
-    console.log('✅ Email sent successfully:', data?.id)
+    console.log('✅ Email sent successfully:', info.messageId)
 
     // Log successful email
     await logEmail({
@@ -79,7 +60,7 @@ export async function sendEmail({
       sent_at: new Date().toISOString(),
     })
 
-    return { success: true, data }
+    return { success: true, data: { id: info.messageId } }
   } catch (error: any) {
     console.error('❌ Email service error:', error)
 
@@ -197,9 +178,12 @@ export async function sendAdminNotification(bookingData: {
 
   // Get admin emails from environment or database
   const adminEmails = process.env.ADMIN_EMAILS?.split(',') || ['admin@worknest.co.ke']
+  
+  // Always include info@worknest.co.ke
+  const allAdminEmails = [...new Set([...adminEmails.map(e => e.trim()), 'info@worknest.co.ke', 'manager@theworknest.co.ke'])]
 
   const results = []
-  for (const adminEmail of adminEmails) {
+  for (const adminEmail of allAdminEmails) {
     const result = await sendEmail({
       to: adminEmail.trim(),
       subject: `🔔 New Booking - ${bookingData.receiptNumber}`,

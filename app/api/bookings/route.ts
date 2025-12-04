@@ -1,16 +1,11 @@
 import { NextResponse } from 'next/server'
-import { getSupabaseClient } from '@/lib/supabase-server'
+import { supabase, getMySQLPool } from '@/lib/db'
 import { sendBookingConfirmation, sendAdminNotification } from '@/lib/email-service'
 import { format } from 'date-fns'
-
-// Force dynamic rendering for this route
-export const dynamic = 'force-dynamic'
-export const runtime = 'nodejs'
 
 // GET all bookings (with filters)
 export async function GET(request: Request) {
   try {
-    const supabase = getSupabaseClient()
     const { searchParams } = new URL(request.url)
     
     const status = searchParams.get('status')
@@ -92,7 +87,6 @@ export async function GET(request: Request) {
 // POST create new booking
 export async function POST(request: Request) {
   try {
-    const supabase = getSupabaseClient()
     const body = await request.json()
 
     // Validate required fields
@@ -104,27 +98,32 @@ export async function POST(request: Request) {
     }
 
     // 1. CHECK FOR CONFLICTS - prevent double booking
-    const { data: conflicts, error: conflictError } = await supabase
-      .from('bookings')
-      .select('*')
-      .eq('space_id', body.space_id)
-      .in('status', ['pending', 'confirmed'])
-      .or(`and(start_datetime.lt.${body.end_datetime},end_datetime.gt.${body.start_datetime})`)
+    // Use direct MySQL query for complex date range check
+    const pool = getMySQLPool()
+    
+    try {
+      const [conflicts]: any = await pool.execute(
+        `SELECT * FROM bookings 
+         WHERE space_id = ? 
+         AND status IN ('pending', 'confirmed')
+         AND start_datetime < ? 
+         AND end_datetime > ?`,
+        [body.space_id, body.end_datetime, body.start_datetime]
+      )
 
-    if (conflictError) {
+      if (conflicts && conflicts.length > 0) {
+        return NextResponse.json(
+          {
+            error: 'Space is already booked for this time',
+            conflicts: conflicts,
+            message: 'This space is not available for the selected time. Please choose a different time or space.'
+          },
+          { status: 409 }
+        )
+      }
+    } catch (conflictError: any) {
       console.error('Error checking conflicts:', conflictError)
       return NextResponse.json({ error: 'Error checking availability' }, { status: 500 })
-    }
-
-    if (conflicts && conflicts.length > 0) {
-      return NextResponse.json(
-        {
-          error: 'Space is already booked for this time',
-          conflicts: conflicts,
-          message: 'This space is not available for the selected time. Please choose a different time or space.'
-        },
-        { status: 409 }
-      )
     }
 
     // 2. CHECK SPACE CAPACITY (if number_of_people provided)
@@ -154,7 +153,7 @@ export async function POST(request: Request) {
     const receiptNumber = await generateUniqueReceiptNumber(supabase)
 
     // 4. CREATE BOOKING
-    const { data: booking, error: bookingError } = await supabase
+    const insertResult = await supabase
       .from('bookings')
       .insert({
         space_id: body.space_id,
@@ -170,16 +169,46 @@ export async function POST(request: Request) {
         booking_type: body.booking_type || 'online',
         booked_by: body.booked_by || null, // ID of staff who made the booking
       })
-      .select(`
-        *,
-        space:spaces(id, name, type, hourly_rate, daily_rate),
-        customer:customers(id, full_name, email, phone)
-      `)
+
+    if (insertResult.error) {
+      console.error('Error creating booking:', insertResult.error)
+      return NextResponse.json({ error: insertResult.error.message }, { status: 500 })
+    }
+
+    // Fetch the created booking with relationships
+    const bookingId = insertResult.data?.id || (Array.isArray(insertResult.data) ? insertResult.data[0]?.id : null)
+    if (!bookingId) {
+      return NextResponse.json({ error: 'Failed to create booking' }, { status: 500 })
+    }
+
+    const { data: bookingData, error: fetchError } = await supabase
+      .from('bookings')
+      .select('*')
+      .eq('id', bookingId)
       .single()
 
-    if (bookingError) {
-      console.error('Error creating booking:', bookingError)
-      return NextResponse.json({ error: bookingError.message }, { status: 500 })
+    if (fetchError || !bookingData) {
+      console.error('Error fetching created booking:', fetchError)
+      return NextResponse.json({ error: 'Booking created but failed to fetch details' }, { status: 500 })
+    }
+
+    // Fetch related data
+    const { data: space } = await supabase
+      .from('spaces')
+      .select('id, name, type, hourly_rate, daily_rate')
+      .eq('id', bookingData.space_id)
+      .single()
+
+    const { data: customer } = await supabase
+      .from('customers')
+      .select('id, full_name, email, phone')
+      .eq('id', bookingData.customer_id)
+      .single()
+
+    const booking = {
+      ...bookingData,
+      space: space || null,
+      customer: customer || null
     }
 
     // 5. LOG ACTIVITY

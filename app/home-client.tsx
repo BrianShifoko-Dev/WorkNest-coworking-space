@@ -25,6 +25,8 @@ import {
   Zap,
   Globe,
   MessageCircle,
+  Monitor,
+  Layout,
 } from "lucide-react";
 import Link from "next/link";
 import { BookingForm } from "@/components/site/BookingForm";
@@ -33,98 +35,78 @@ import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { SpaceImage } from "@/components/site/ImageLightbox";
 import { useLanguage } from "@/components/providers/LanguageProvider";
+import { useCurrency } from "@/components/providers/CurrencyProvider";
 
 // Hero slides will use translation keys instead of hardcoded text
 const getHeroSlides = (t: (key: string) => string) => [
   {
-    image: "/gallery/DJI_20000609070430_0054_D.jpg",
+    image: "/gallery/DJI_20000609070609_0057_D.jpg",
     title: t('hero.title1'),
     subtitle: t('hero.subtitle1'),
   },
   {
-    image: "/gallery/IMG_1031.jpg",
+    image: "/gallery/DJI_20000609074712_0098_D.jpg",
     title: t('hero.title2'),
     subtitle: t('hero.subtitle2'),
   },
   {
-    image: "/gallery/DJI_20000609075456_0128_D.jpg",
+    image: "/gallery/DJI_20000609074357_0094_D.jpg",
     title: t('hero.title3'),
     subtitle: t('hero.subtitle3'),
   },
   {
-    image: "/gallery/DJI_20000609070326_0052_D.jpg",
+    image: "/gallery/IMG_0971.jpg",
     title: t('hero.title1'),
     subtitle: t('hero.subtitle1'),
   },
   {
-    image: "/gallery/DJI_20000609064317_0024_D.jpg",
+    image: "/gallery/DJI_20000609065230_0035_D(1).jpg",
     title: t('hero.title2'),
     subtitle: t('hero.subtitle2'),
   },
   {
-    image: "/gallery/DJI_20000609070717_0059_D.jpg",
+    image: "/gallery/DJI_20000609071150_0065_D.jpg",
     title: t('hero.title3'),
     subtitle: t('hero.subtitle3'),
   },
 ];
 
-// Static fallback spaces (shown if database is empty or loading fails)
-const staticFallbackSpaces = [
+// Static fallback spaces factory function (needs translations and currency)
+const getStaticFallbackSpaces = (t: (key: string) => string, formatPrice: (amount: number, period?: string) => string) => [
   {
-    title: "Conference Boardroom",
-    description: "Professional meeting room equipped with state-of-the-art AV equipment, projector, and video conferencing facilities.",
-    image: "/gallery/DJI_20000609064845_0030_D.jpg",
-    link: "/boardrooms",
-    price: "KES 12,000/day",
-  },
-  {
-    title: "Grand Event Hall",
-    description: "Spacious event venue perfect for workshops, product launches, seminars, and corporate celebrations.",
-    image: "/gallery/IMG_0982.jpg",
-    link: "/event-spaces",
-    price: "Per Session",
-  },
-  {
-    title: "Executive Office Suite",
-    description: "Premium private office with modern furniture, natural lighting, and stunning city views. Perfect for executives and small teams.",
+    title: t("spaces.privateOffices"),
+    description: t("spaces.privateOfficesDesc"),
     image: "/gallery/DJI_20000609074809_0100_D.jpg",
     link: "/office-spaces",
-    price: "KES 2,500/day",
+    price: `${t("spaces.from")} ${formatPrice(2500, t("price.day"))}`,
   },
   {
-    title: "Private Offices",
-    description: "Fully furnished offices for teams of 1-20 people with 24/7 access",
-    image: "/gallery/DJI_20000609064227_0023_D.jpg",
-    link: "/office-spaces",
-    price: "KES 3,000/day",
-  },
-  {
-    title: "Boardrooms",
-    description: "Professional meeting rooms with cutting-edge AV technology",
-    image: "/gallery/DJI_20000609074926_0104_D.jpg",
+    title: t("spaces.meetingRooms"),
+    description: t("spaces.meetingRoomsDesc"),
+    image: "/gallery/DJI_20000609075034_0108_D.jpg",
     link: "/boardrooms",
-    price: "KES 7,000/day",
+    price: `${t("spaces.from")} ${formatPrice(2500, t("price.hour"))}`,
   },
   {
-    title: "Event Lounge",
-    description: "Versatile venues for workshops, launches, and celebrations",
+    title: t("spaces.eventSpaces"),
+    description: t("spaces.eventSpacesDesc"),
     image: "https://images.unsplash.com/photo-1759873148521-c49d9497cf64?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxldmVudCUyMHNwYWNlJTIwdmVudWV8ZW58MXx8fHwxNzYyMTgyNDEzfDA&ixlib=rb-4.1.0&q=80&w=1080",
-    link: "/event-spaces",
-    price: "Per Session",
+    link: "/events",
+    price: t("spaces.requestQuote"),
   },
   {
-    title: "Call Pods",
-    description: "Private soundproof pods for focused calls and video meetings",
+    title: t("spaces.callPods"),
+    description: t("spaces.callPodsDesc"),
     image: "https://images.unsplash.com/photo-1716703435698-031227389c1c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxvZmZpY2UlMjB0ZWxlcGhvbmUlMjBib290aHxlbnwxfHx8fDE3NjIyMzM2Mjl8MA&ixlib=rb-4.1.0&q=80&w=1080",
     link: "/call-pods",
-    price: "From KES 250/hour",
+    price: `${t("spaces.from")} ${formatPrice(250, t("price.hour"))}`,
   },
   {
-    title: "Kids Zone",
-    description: "Safe, supervised play area for your little ones",
-    image: "https://images.unsplash.com/photo-1587654780291-39c9404d746b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxraWRzJTIwcGxheSUyMGFyZWF8ZW58MXx8fHwxNzYyMTQzODY4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    title: t("spaces.kidsZone"),
+    description: t("spaces.kidsZoneDesc"),
+    image: "/gallery/28813a126a418396b4062ab859168dc4.jpg",
     link: "/kids-zone",
-    price: "Included with membership",
+    price: t("spaces.comingSoon"),
   },
 ];
 
@@ -187,14 +169,30 @@ const magazineArticles = [
 
 export function HomePageClient() {
   const { t } = useLanguage();
+  const { formatPrice } = useCurrency();
   const heroSlides = getHeroSlides(t); // Get translated hero slides
   const [currentSlide, setCurrentSlide] = useState(0);
   const [currentSpaceIndex, setCurrentSpaceIndex] = useState(0);
   const [isFormActive, setIsFormActive] = useState(false);
-  const [featuredSpaces, setFeaturedSpaces] = useState(staticFallbackSpaces);
+  const staticSpaces = getStaticFallbackSpaces(t, formatPrice);
+  const [featuredSpaces, setFeaturedSpaces] = useState(staticSpaces);
   const [upcomingEvents, setUpcomingEvents] = useState<any[]>([]);
   const [loadingSpaces, setLoadingSpaces] = useState(true);
   const [loadingEvents, setLoadingEvents] = useState(true);
+  
+  // Update static spaces when language/currency changes
+  useEffect(() => {
+    const updatedSpaces = getStaticFallbackSpaces(t, formatPrice);
+    setFeaturedSpaces(prev => {
+      // Only update if we're using static spaces (not from database)
+      // Check if current spaces match the pattern of static spaces
+      const isUsingStaticSpaces = prev.length >= 5 && prev.some(s => s.link === '/office-spaces');
+      if (isUsingStaticSpaces) {
+        return updatedSpaces;
+      }
+      return prev;
+    });
+  }, [t, formatPrice]);
 
   // Fetch featured spaces from database
   useEffect(() => {
@@ -206,6 +204,26 @@ export function HomePageClient() {
     fetchUpcomingEvents();
   }, []);
 
+  // Helper function to determine route based on space name/type
+  const getSpaceRoute = (space: any): string => {
+    const name = (space.name || '').toLowerCase();
+    const type = (space.type || '').toLowerCase();
+    
+    // Route based on space name keywords
+    if (name.includes('executive') || name.includes('office') || type === 'office') {
+      return '/office-spaces';
+    }
+    if (name.includes('event') || name.includes('hall') || type === 'event' || type === 'event space') {
+      return '/event-spaces';
+    }
+    if (name.includes('conference') || name.includes('boardroom') || name.includes('meeting') || type === 'boardroom' || type === 'meeting room') {
+      return '/boardrooms';
+    }
+    
+    // Default fallback
+    return `/book?space=${space.id}`;
+  };
+
   const fetchFeaturedSpaces = async () => {
     try {
       const response = await fetch('/api/spaces?featured=true');
@@ -214,35 +232,22 @@ export function HomePageClient() {
         
         // Map database spaces to homepage format
         if (Array.isArray(data) && data.length > 0) {
-          const mappedSpaces = data.map((space: any) => {
-            // Determine the correct detail page based on space type/category
-            let detailLink = '/spaces';
-            if (space.category) {
-              const cat = space.category.toLowerCase();
-              if (cat.includes('office')) detailLink = '/office-spaces';
-              else if (cat.includes('boardroom') || cat.includes('meeting')) detailLink = '/boardrooms';
-              else if (cat.includes('event')) detailLink = '/event-spaces';
-              else if (cat.includes('call') || cat.includes('pod')) detailLink = '/call-pods';
-              else if (cat.includes('kids')) detailLink = '/kids-zone';
-            }
-            
-            return {
-              title: space.name,
-              description: space.description || 'Premium workspace solution',
-              image: space.images && space.images[0] ? space.images[0] : staticFallbackSpaces[0].image,
-              link: detailLink,
-              price: space.monthly_rate 
-                ? `From KES ${space.monthly_rate.toLocaleString()}/month`
-                : space.daily_rate
-                ? `From KES ${space.daily_rate.toLocaleString()}/day`
-                : space.hourly_rate
-                ? `From KES ${space.hourly_rate.toLocaleString()}/hour`
-                : 'Contact for pricing',
-            };
-          });
+          const mappedSpaces = data.map((space: any) => ({
+            title: space.name,
+            description: space.description || 'Premium workspace solution',
+            image: space.images && space.images[0] ? space.images[0] : staticSpaces[0].image,
+            link: getSpaceRoute(space),
+            price: space.monthly_rate 
+              ? `${t("spaces.from")} ${formatPrice(space.monthly_rate, t("price.month"))}`
+              : space.daily_rate
+              ? `${t("spaces.from")} ${formatPrice(space.daily_rate, t("price.day"))}`
+              : space.hourly_rate
+              ? `${t("spaces.from")} ${formatPrice(space.hourly_rate, t("price.hour"))}`
+              : t("spaces.requestQuote"),
+          }));
           
-          // Don't combine database and static - just use static fallback
-          // setFeaturedSpaces([...mappedSpaces, ...staticFallbackSpaces]);
+          // Combine database spaces with static fallback (database first)
+          setFeaturedSpaces([...mappedSpaces, ...staticSpaces]);
         }
       }
     } catch (error) {
@@ -333,37 +338,55 @@ export function HomePageClient() {
         data-section="trust-bar"
       >
         <div className="container mx-auto px-4 py-2">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="flex items-center gap-2">
-              <Users className="w-5 h-5 text-[#D4AF37] flex-shrink-0" />
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+            <div className="flex items-center gap-1.5">
+              <Users className="w-4 h-4 text-[#D4AF37] flex-shrink-0" />
               <div className="flex items-baseline gap-1">
-                <span className="text-[#5C4033]">500+</span>
-                <span className="text-xs text-[#5C4033]/60">
-                  Active Members
+                <span className="text-sm text-[#5C4033] font-semibold">500+</span>
+                <span className="text-[10px] text-[#5C4033]/60">
+                  {t("stats.activeMembers")}
                 </span>
               </div>
             </div>
-            <div className="flex items-center gap-2">
-              <Building className="w-5 h-5 text-[#D4AF37] flex-shrink-0" />
+            <div className="flex items-center gap-1.5">
+              <Monitor className="w-4 h-4 text-[#D4AF37] flex-shrink-0" />
               <div className="flex items-baseline gap-1">
-                <span className="text-[#5C4033]">5+</span>
-                <span className="text-xs text-[#5C4033]/60">
-                  Private Offices
+                <span className="text-sm text-[#5C4033] font-semibold">20+</span>
+                <span className="text-[10px] text-[#5C4033]/60">
+                  {t("stats.hotDesks")}
                 </span>
               </div>
             </div>
-            <div className="flex items-center gap-2">
-              <Briefcase className="w-5 h-5 text-[#D4AF37] flex-shrink-0" />
+            <div className="flex items-center gap-1.5">
+              <Layout className="w-4 h-4 text-[#D4AF37] flex-shrink-0" />
               <div className="flex items-baseline gap-1">
-                <span className="text-[#5C4033]">2+</span>
-                <span className="text-xs text-[#5C4033]/60">Meeting Rooms</span>
+                <span className="text-sm text-[#5C4033] font-semibold">8+</span>
+                <span className="text-[10px] text-[#5C4033]/60">
+                  {t("stats.dedicatedDesks")}
+                </span>
               </div>
             </div>
-            <div className="flex items-center gap-2">
-              <Award className="w-5 h-5 text-[#D4AF37] flex-shrink-0" />
+            <div className="flex items-center gap-1.5">
+              <Building className="w-4 h-4 text-[#D4AF37] flex-shrink-0" />
               <div className="flex items-baseline gap-1">
-                <span className="text-[#5C4033]">Since 2025</span>
-                <span className="text-xs text-[#5C4033]/60">Serving Kenya</span>
+                <span className="text-sm text-[#5C4033] font-semibold">5+</span>
+                <span className="text-[10px] text-[#5C4033]/60">
+                  {t("stats.privateOffices")}
+                </span>
+              </div>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <Briefcase className="w-4 h-4 text-[#D4AF37] flex-shrink-0" />
+              <div className="flex items-baseline gap-1">
+                <span className="text-sm text-[#5C4033] font-semibold">2+</span>
+                <span className="text-[10px] text-[#5C4033]/60">{t("stats.meetingRooms")}</span>
+              </div>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <Award className="w-4 h-4 text-[#D4AF37] flex-shrink-0" />
+              <div className="flex items-baseline gap-1">
+                <span className="text-sm text-[#5C4033] font-semibold">Since 2025</span>
+                <span className="text-[10px] text-[#5C4033]/60">{t("stats.servingKenya")}</span>
               </div>
             </div>
           </div>
@@ -404,10 +427,7 @@ export function HomePageClient() {
             <img
               src={slide.image}
               alt={slide.title}
-              className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-              style={{
-                transform: index === currentSlide ? "scale(1.02)" : "scale(1)",
-              }}
+              className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700"
             />
             <div className="absolute inset-0 z-20 flex flex-col items-center justify-center md:justify-start md:pt-24">
               <div className="container mx-auto px-4">
@@ -495,10 +515,10 @@ export function HomePageClient() {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-[#5C4033] mb-4">
-              A Space Where Productivity Meets Comfort in Kenya
+              {t("intro.title")}
             </h2>
             <p className="text-[#5C4033]/80 leading-relaxed">
-              At The WorkNest Eldoret, we redefine professional environments in Kenya's vibrant western hub. Our world-class amenities blend seamlessly with authentic Kenyan hospitality, creating spaces where businesses thrive, ideas grow, and communities flourish
+              {t("intro.description")}
             </p>
           </div>
 
@@ -510,9 +530,9 @@ export function HomePageClient() {
               <div className="w-16 h-16 bg-[#D4AF37]/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Building className="w-8 h-8 text-[#D4AF37]" />
               </div>
-              <h3 className="text-xl font-semibold text-[#5C4033] mb-3">Who We Are</h3>
+              <h3 className="text-xl font-semibold text-[#5C4033] mb-3">{t("intro.whoWeAre")}</h3>
               <p className="text-sm text-[#5C4033]/70 mb-4">
-                The WorkNest Eldoret is a premium coworking and innovation space in Elgon View, offering flexible, executive-grade workspaces that inspire productivity, collaboration, and growth. From hot desks and private offices to meeting suites, event spaces, and a kids' zone, every detail is designed to help businesses thrive and ideas take flight.
+                {t("intro.whoWeAreDesc")}
               </p>
             </Card>
 
@@ -523,9 +543,9 @@ export function HomePageClient() {
               <div className="w-16 h-16 bg-[#D4AF37]/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Target className="w-8 h-8 text-[#D4AF37]" />
               </div>
-              <h3 className="text-xl font-semibold text-[#5C4033] mb-3">Our Mission</h3>
+              <h3 className="text-xl font-semibold text-[#5C4033] mb-3">{t("intro.ourMission")}</h3>
               <p className="text-sm text-[#5C4033]/70 mb-4">
-                To provide flexible, world-class workspaces that enhance productivity, foster meaningful connections, and support growth through exceptional service, modern design, and a vibrant community.
+                {t("intro.ourMissionDesc")}
               </p>
             </Card>
 
@@ -536,9 +556,9 @@ export function HomePageClient() {
               <div className="w-16 h-16 bg-[#D4AF37]/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Heart className="w-8 h-8 text-[#D4AF37]" />
               </div>
-              <h3 className="text-xl font-semibold text-[#5C4033] mb-3">Our Vision</h3>
+              <h3 className="text-xl font-semibold text-[#5C4033] mb-3">{t("intro.ourVision")}</h3>
               <p className="text-sm text-[#5C4033]/70 mb-4">
-                To be Kenya's leading hub for innovation and collaboration empowering professionals, entrepreneurs, and businesses to thrive in a dynamic, inspiring workspace.
+                {t("intro.ourVisionDesc")}
               </p>
             </Card>
           </div>
@@ -548,7 +568,7 @@ export function HomePageClient() {
               asChild
               className="bg-[#5C4033] hover:bg-[#4A3329] text-white"
             >
-              <Link href="/discover">Discover Our Story</Link>
+              <Link href="/discover">{t("intro.discoverStory")}</Link>
             </Button>
           </div>
         </div>
@@ -563,8 +583,7 @@ export function HomePageClient() {
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-[#5C4033] mb-4">{t('home.exploreSpaces')}</h2>
             <p className="text-[#5C4033]/70 max-w-2xl mx-auto">
-              From private offices to collaborative areas, discover workspace
-              solutions designed for every need
+              {t("spaces.discoverSolutions")}
             </p>
           </div>
 
@@ -658,7 +677,7 @@ export function HomePageClient() {
               variant="outline"
               className="border-[#5C4033] text-[#5C4033] hover:bg-[#5C4033] hover:text-white"
             >
-              <Link href="/spaces">{t('home.viewAll')} Spaces</Link>
+              <Link href="/office-spaces">{t('home.viewAll')} Spaces</Link>
             </Button>
           </div>
         </div>

@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react'
 import { Card } from '@/components/ui/card'
 import { Calendar, DollarSign, Users, TrendingUp, Building2 } from 'lucide-react'
-import { supabase } from '@/lib/supabase'
 
 interface Stats {
   todaysBookings: number
@@ -25,7 +24,7 @@ export function DashboardStats() {
 
   useEffect(() => {
     fetchStats()
-    
+
     // Auto-refresh stats every 30 seconds
     const interval = setInterval(() => {
       fetchStats()
@@ -36,78 +35,75 @@ export function DashboardStats() {
 
   const fetchStats = async () => {
     try {
-      // Set up date ranges
+      console.log('📊 Fetching dashboard stats via API...')
+
+      // Fetch all data in parallel for better performance
+      const [bookingsRes, customersRes, spacesRes] = await Promise.all([
+        fetch('/api/bookings'),
+        fetch('/api/customers'),
+        fetch('/api/spaces')
+      ])
+
+      if (!bookingsRes.ok || !customersRes.ok || !spacesRes.ok) {
+        throw new Error('Failed to fetch data from API')
+      }
+
+      const bookings = await bookingsRes.json()
+      const customers = await customersRes.json()
+      const spaces = await spacesRes.json()
+
+      // Calculate statistics
       const now = new Date()
       const todayStart = new Date(now)
       todayStart.setHours(0, 0, 0, 0)
       const todayEnd = new Date(now)
       todayEnd.setHours(23, 59, 59, 999)
-      
       const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1)
       firstDayOfMonth.setHours(0, 0, 0, 0)
 
-      console.log('📊 Fetching dashboard stats...')
+      // Today's bookings
+      const todaysBookings = bookings.filter((b: any) => {
+        const bookingDate = new Date(b.booking_date || b.start_datetime)
+        return bookingDate >= todayStart && bookingDate <= todayEnd &&
+               ['pending', 'confirmed'].includes(b.status || b.booking_status)
+      }).length
 
-      // Today's bookings (using start_datetime)
-      const { count: todaysBookings, error: todayError } = await supabase
-        .from('bookings')
-        .select('*', { count: 'exact', head: true })
-        .gte('start_datetime', todayStart.toISOString())
-        .lte('start_datetime', todayEnd.toISOString())
-        .in('status', ['pending', 'confirmed'])
+      // Total bookings
+      const totalBookings = bookings.length
 
-      console.log('Today\'s bookings:', todaysBookings, todayError)
-
-      // Total bookings (all time)
-      const { count: totalBookings, error: totalError } = await supabase
-        .from('bookings')
-        .select('*', { count: 'exact', head: true })
-
-      console.log('Total bookings:', totalBookings, totalError)
-
-      // Total revenue (this month - confirmed bookings)
-      const { data: revenueData, error: revenueError } = await supabase
-        .from('bookings')
-        .select('total_amount')
-        .gte('start_datetime', firstDayOfMonth.toISOString())
-        .eq('status', 'confirmed')
-
-      const totalRevenue = revenueData?.reduce((sum, booking) => sum + Number(booking.total_amount || 0), 0) || 0
-      console.log('Revenue this month:', totalRevenue, revenueError)
+      // Total revenue this month (confirmed bookings)
+      const totalRevenue = bookings
+        .filter((b: any) => {
+          const bookingDate = new Date(b.booking_date || b.start_datetime)
+          return bookingDate >= firstDayOfMonth &&
+                 (b.status === 'confirmed' || b.booking_status === 'confirmed')
+        })
+        .reduce((sum: number, b: any) => sum + Number(b.total_amount || 0), 0)
 
       // Total customers
-      const { count: totalCustomers, error: customersError } = await supabase
-        .from('customers')
-        .select('*', { count: 'exact', head: true })
+      const totalCustomers = customers.length
 
-      console.log('Total customers:', totalCustomers, customersError)
-
-      // Total spaces
-      const { count: totalSpaces, error: spacesError } = await supabase
-        .from('spaces')
-        .select('*', { count: 'exact', head: true })
-        .eq('status', 'active')
-
-      console.log('Total spaces:', totalSpaces, spacesError)
-
-      // Occupancy rate (today's bookings / total spaces)
-      const occupancyRate = totalSpaces && todaysBookings 
-        ? Math.round((todaysBookings / totalSpaces) * 100) 
+      // Occupancy rate (today's bookings / active spaces)
+      const activeSpaces = spaces.filter((s: any) =>
+        s.status === 'available' || s.status === 'active'
+      ).length
+      const occupancyRate = activeSpaces > 0
+        ? Math.round((todaysBookings / activeSpaces) * 100)
         : 0
 
       setStats({
-        todaysBookings: todaysBookings || 0,
-        totalBookings: totalBookings || 0,
+        todaysBookings,
+        totalBookings,
         totalRevenue,
-        totalCustomers: totalCustomers || 0,
+        totalCustomers,
         occupancyRate
       })
 
       console.log('✅ Stats updated:', {
-        todaysBookings: todaysBookings || 0,
-        totalBookings: totalBookings || 0,
+        todaysBookings,
+        totalBookings,
         totalRevenue,
-        totalCustomers: totalCustomers || 0,
+        totalCustomers,
         occupancyRate
       })
     } catch (error) {
@@ -170,4 +166,3 @@ export function DashboardStats() {
     </div>
   )
 }
-

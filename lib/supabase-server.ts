@@ -1,17 +1,13 @@
-import { createClient } from '@supabase/supabase-js'
+// Re-export MySQL wrapper as Supabase-compatible client for backwards compatibility
+// This ensures all API routes use MySQL (cPanel) instead of Supabase
+
+import { supabase } from './db'
 
 /**
- * Get Supabase client for server-side API routes
- * Lazy initialization to avoid build-time errors
+ * Get database client for server-side API routes
+ * Returns MySQL wrapper (not Supabase) for cPanel deployment
  */
 export function getSupabaseClient() {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-  
-  if (!supabaseUrl || !supabaseKey) {
-    throw new Error('Missing Supabase environment variables')
-  }
-  
-  return createClient(supabaseUrl, supabaseKey)
+  // Return MySQL wrapper instead of Supabase client
+  return supabase
 }
-

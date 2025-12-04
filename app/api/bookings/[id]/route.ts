@@ -1,8 +1,5 @@
 import { NextResponse } from 'next/server'
-import { createClient } from '@supabase/supabase-js'
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+import { supabase } from '@/lib/db'
 
 // GET single booking
 export async function GET(
@@ -10,15 +7,10 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    const supabase = createClient(supabaseUrl, supabaseKey)
-
-    const { data, error } = await supabase
+    // Fetch booking
+    const { data: booking, error } = await supabase
       .from('bookings')
-      .select(`
-        *,
-        space:spaces(id, name, type, capacity, hourly_rate, daily_rate),
-        customer:customers(id, full_name, email, phone)
-      `)
+      .select('*')
       .eq('id', params.id)
       .single()
 
@@ -30,7 +22,24 @@ export async function GET(
       return NextResponse.json({ error: error.message }, { status: 500 })
     }
 
-    return NextResponse.json(data)
+    // Fetch related space and customer manually (MySQL doesn't support relationship queries)
+    const space = booking.space_id ? await supabase
+      .from('spaces')
+      .select('id, name, type, capacity, hourly_rate, daily_rate')
+      .eq('id', booking.space_id)
+      .single() : { data: null }
+
+    const customer = booking.customer_id ? await supabase
+      .from('customers')
+      .select('id, full_name, email, phone')
+      .eq('id', booking.customer_id)
+      .single() : { data: null }
+
+    return NextResponse.json({
+      ...booking,
+      space: space.data,
+      customer: customer.data,
+    })
   } catch (error) {
     console.error('Error:', error)
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
@@ -43,7 +52,6 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   try {
-    const supabase = createClient(supabaseUrl, supabaseKey)
     const body = await request.json()
 
     // If updating time, check for conflicts
@@ -75,18 +83,14 @@ export async function PUT(
       }
     }
 
-    const { data, error } = await supabase
+    const { data: updatedBooking, error } = await supabase
       .from('bookings')
       .update({
         ...body,
         updated_at: new Date().toISOString(),
       })
       .eq('id', params.id)
-      .select(`
-        *,
-        space:spaces(id, name, type),
-        customer:customers(id, full_name, email, phone)
-      `)
+      .select('*')
       .single()
 
     if (error) {
@@ -97,20 +101,37 @@ export async function PUT(
       return NextResponse.json({ error: error.message }, { status: 500 })
     }
 
+    // Fetch related space and customer manually
+    const space = updatedBooking.space_id ? await supabase
+      .from('spaces')
+      .select('id, name, type')
+      .eq('id', updatedBooking.space_id)
+      .single() : { data: null }
+
+    const customer = updatedBooking.customer_id ? await supabase
+      .from('customers')
+      .select('id, full_name, email, phone')
+      .eq('id', updatedBooking.customer_id)
+      .single() : { data: null }
+
     // Log activity
     if (body.status) {
       await supabase.from('audit_logs').insert({
         action: `booking_${body.status}`,
         entity_type: 'booking',
         entity_id: params.id,
-        details: {
+        details: JSON.stringify({
           old_status: body.old_status,
           new_status: body.status,
-        },
+        }),
       })
     }
 
-    return NextResponse.json(data)
+    return NextResponse.json({
+      ...updatedBooking,
+      space: space.data,
+      customer: customer.data,
+    })
   } catch (error) {
     console.error('Error:', error)
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
@@ -123,7 +144,6 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
-    const supabase = createClient(supabaseUrl, supabaseKey)
 
     // Soft delete - update status to cancelled
     const { data, error } = await supabase

@@ -1,10 +1,8 @@
 import { NextResponse } from 'next/server'
-import { getSupabaseClient } from '@/lib/supabase-server'
-
+import { supabase } from '@/lib/db'
 
 export async function GET(request: Request) {
   try {
-    const supabase = getSupabaseClient()
     const { searchParams } = new URL(request.url)
     
     const timeRange = searchParams.get('range') || '30days' // 7days, 30days, 90days, year, all
@@ -48,14 +46,10 @@ export async function GET(request: Request) {
       .gte('created_at', startDate.toISOString())
       .order('created_at', { ascending: true })
 
-    // 3. Popular Spaces
+    // 3. Popular Spaces - Fetch bookings with space info separately
     const { data: spaceBookings } = await supabase
       .from('bookings')
-      .select(`
-        space_id,
-        space:spaces(name, type),
-        total_amount
-      `)
+      .select('space_id, total_amount')
       .gte('created_at', startDate.toISOString())
 
     // 4. Customer Stats
@@ -87,7 +81,7 @@ export async function GET(request: Request) {
     const bookingsByDate = processBookingsData(bookings || [], timeRange)
 
     // Process popular spaces
-    const popularSpaces = processPopularSpaces(spaceBookings || [])
+    const popularSpaces = await processPopularSpaces(spaceBookings || [])
 
     // Process customer growth
     const customerGrowth = processCustomerGrowth(customers || [], timeRange)
@@ -186,16 +180,31 @@ function processBookingsData(bookings: any[], timeRange: string) {
 }
 
 // Helper: Process popular spaces
-function processPopularSpaces(bookings: any[]) {
+async function processPopularSpaces(bookings: any[]) {
   const grouped: Record<string, { name: string; type: string; bookings: number; revenue: number }> = {}
+  const spaceIds = [...new Set(bookings.map(b => b.space_id).filter(Boolean))]
+
+  // Fetch space details
+  const spaceMap: Record<string, { name: string; type: string }> = {}
+  if (spaceIds.length > 0) {
+    for (const spaceId of spaceIds) {
+      const { data: space } = await supabase
+        .from('spaces')
+        .select('name, type')
+        .eq('id', spaceId)
+        .single()
+      if (space) {
+        spaceMap[spaceId] = { name: space.name, type: space.type }
+      }
+    }
+  }
 
   bookings.forEach(booking => {
     const spaceId = booking.space_id
-    const spaceName = booking.space?.name || 'Unknown Space'
-    const spaceType = booking.space?.type || 'unknown'
+    const spaceInfo = spaceMap[spaceId] || { name: 'Unknown Space', type: 'unknown' }
 
     if (!grouped[spaceId]) {
-      grouped[spaceId] = { name: spaceName, type: spaceType, bookings: 0, revenue: 0 }
+      grouped[spaceId] = { name: spaceInfo.name, type: spaceInfo.type, bookings: 0, revenue: 0 }
     }
 
     grouped[spaceId].bookings++

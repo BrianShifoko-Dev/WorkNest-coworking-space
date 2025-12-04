@@ -23,7 +23,7 @@ export function CallPodsClient() {
     {
       icon: Wifi,
       title: "Tech-Equipped",
-      description: "WiFi, USB charging ports, and power outlets built-in",
+      description: "High-speed WiFi and power outlets built-in",
     },
     {
       icon: Zap,
@@ -119,7 +119,7 @@ export function CallPodsClient() {
               </div>
               <div className="text-center">
                 <div className="text-3xl mb-2">🔌</div>
-                <p className="text-sm text-[#5C4033]/70">Power & USB</p>
+                <p className="text-sm text-[#5C4033]/70">Power Outlets</p>
               </div>
               <div className="text-center">
                 <div className="text-3xl mb-2">❄️</div>
@@ -222,7 +222,7 @@ export function CallPodsClient() {
               <CheckCircle2 className="w-6 h-6 text-[#D4AF37] flex-shrink-0 mt-1" />
               <div>
                 <h4 className="font-semibold text-[#5C4033]">Dimensions</h4>
-                <p className="text-[#5C4033]/70">1.2m x 1.2m x 2.2m (W x D x H)</p>
+                <p className="text-[#5C4033]/70">Spacious</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
@@ -243,14 +243,14 @@ export function CallPodsClient() {
               <CheckCircle2 className="w-6 h-6 text-[#D4AF37] flex-shrink-0 mt-1" />
               <div>
                 <h4 className="font-semibold text-[#5C4033]">Connectivity</h4>
-                <p className="text-[#5C4033]/70">High-speed WiFi, USB-C, USB-A</p>
+                <p className="text-[#5C4033]/70">High-speed WiFi</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
               <CheckCircle2 className="w-6 h-6 text-[#D4AF37] flex-shrink-0 mt-1" />
               <div>
                 <h4 className="font-semibold text-[#5C4033]">Lighting</h4>
-                <p className="text-[#5C4033]/70">Adjustable LED with motion sensor</p>
+                <p className="text-[#5C4033]/70">Modern ambient lighting</p>
               </div>
             </div>
             <div className="flex items-start gap-3">

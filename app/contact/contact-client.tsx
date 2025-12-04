@@ -8,8 +8,10 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import Link from "next/link";
+import { useLanguage } from "@/components/providers/LanguageProvider";
 
 export function ContactClient() {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -20,7 +22,7 @@ export function ContactClient() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Contact form:", formData);
-    toast.success("Message sent! We'll get back to you shortly.");
+    toast.success(t("contact.messageSent"));
     setFormData({ name: "", email: "", subject: "", message: "" });
   };
 
@@ -38,13 +40,13 @@ export function ContactClient() {
         </div>
         <div className="relative z-10 container mx-auto px-4 h-full flex flex-col items-center justify-center text-center text-white">
           <div className="w-16 h-1 bg-[#D4AF37] mb-6" />
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Get In Touch</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">{t("contact.title")}</h1>
           <p className="text-xl max-w-2xl mx-auto mb-6">
-            Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+            {t("contact.subtitle")}
           </p>
           <div className="flex items-center gap-2 text-sm">
             <CheckCircle className="w-4 h-4 text-[#D4AF37]" />
-            <span>Response time: Within 1 hours</span>
+            <span>{t("contact.responseTime")}</span>
           </div>
         </div>
       </section>
@@ -55,14 +57,14 @@ export function ContactClient() {
           <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
             {/* Contact Information */}
             <div>
-              <h2 className="text-3xl font-bold text-[#5C4033] mb-8">Get In Touch</h2>
+              <h2 className="text-3xl font-bold text-[#5C4033] mb-8">{t("contact.title")}</h2>
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-[#D4AF37]/20 rounded-lg flex items-center justify-center flex-shrink-0">
                     <Phone className="w-6 h-6 text-[#D4AF37]" />
                   </div>
                   <div>
-                    <h4 className="text-lg font-semibold text-[#5C4033] mb-1">Phone</h4>
+                    <h4 className="text-lg font-semibold text-[#5C4033] mb-1">{t("contact.phone")}</h4>
                     <p className="text-[#5C4033]/70">+254 745 319 042</p>
                   </div>
                 </div>
@@ -72,7 +74,7 @@ export function ContactClient() {
                     <Mail className="w-6 h-6 text-[#D4AF37]" />
                   </div>
                   <div>
-                    <h4 className="text-lg font-semibold text-[#5C4033] mb-1">Email</h4>
+                    <h4 className="text-lg font-semibold text-[#5C4033] mb-1">{t("contact.email")}</h4>
                     <p className="text-[#5C4033]/70">
                       info@worknest.co.ke
                     </p>
@@ -84,7 +86,7 @@ export function ContactClient() {
                     <MapPin className="w-6 h-6 text-[#D4AF37]" />
                   </div>
                   <div>
-                    <h4 className="text-lg font-semibold text-[#5C4033] mb-1">Address</h4>
+                    <h4 className="text-lg font-semibold text-[#5C4033] mb-1">{t("contact.address")}</h4>
                     <p className="text-[#5C4033]/70">
                       The WorkNest Eldoret, Elgon View Mall 3rd floor, 
                       <br />
@@ -174,12 +176,12 @@ export function ContactClient() {
                 onSubmit={handleSubmit}
                 className="bg-white p-8 rounded-lg shadow-lg border border-[#5C4033]/10"
               >
-                <h3 className="text-2xl font-bold text-[#5C4033] mb-6">Send Us a Message</h3>
+                <h3 className="text-2xl font-bold text-[#5C4033] mb-6">{t("contact.sendMessage")}</h3>
 
                 <div className="space-y-4">
                   <div>
                     <Label htmlFor="name" className="text-[#5C4033]">
-                      Full Name
+                      {t("contact.name")}
                     </Label>
                     <Input
                       id="name"
@@ -212,7 +214,7 @@ export function ContactClient() {
 
                   <div>
                     <Label htmlFor="subject" className="text-[#5C4033]">
-                      Subject
+                      {t("contact.subject")}
                     </Label>
                     <Input
                       id="subject"
@@ -228,7 +230,7 @@ export function ContactClient() {
 
                   <div>
                     <Label htmlFor="message" className="text-[#5C4033]">
-                      Message
+                      {t("contact.message")}
                     </Label>
                     <Textarea
                       id="message"
@@ -248,7 +250,7 @@ export function ContactClient() {
                     className="w-full bg-[#D4AF37] hover:bg-[#B8941F] text-[#5C4033] font-semibold"
                   >
                     <Send className="w-4 h-4 mr-2" />
-                    Send Message
+                    {t("contact.sendMessage")}
                   </Button>
                 </div>
               </form>

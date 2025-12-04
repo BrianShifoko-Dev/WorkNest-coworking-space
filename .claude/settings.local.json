@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell -Command \"(Get-Content ''app\\api\\analytics\\route.ts'') -replace \"\"from ''@/lib/supabase''\"\", \"\"from ''@/lib/db''\"\" | Set-Content ''app\\api\\analytics\\route.ts''\")",
+      "Bash(powershell -Command \"(Get-Content ''app\\api\\spaces\\route.ts'') -replace \"\"from ''@/lib/supabase''\"\", \"\"from ''@/lib/db''\"\" | Set-Content ''app\\api\\spaces\\route.ts''\")",
+      "Bash(powershell -Command \"(Get-Content ''app\\api\\customers\\route.ts'') -replace \"\"from ''@/lib/supabase''\"\", \"\"from ''@/lib/db''\"\" | Set-Content ''app\\api\\customers\\route.ts''\")",
+      "Bash(powershell -Command \"(Get-Content ''app\\api\\bookings\\check-availability\\route.ts'') -replace \"\"from ''@/lib/supabase''\"\", \"\"from ''@/lib/db''\"\" | Set-Content ''app\\api\\bookings\\check-availability\\route.ts''\")",
+      "Bash(powershell -Command \"(Get-Content ''app\\api\\events\\route.ts'') -replace \"\"from ''@/lib/supabase''\"\", \"\"from ''@/lib/db''\"\" | Set-Content ''app\\api\\events\\route.ts''\")",
+      "Bash(powershell -Command \"Get-ChildItem -Path ''app\\api'' -Filter ''*.ts'' -Recurse | ForEach-Object { (Get-Content $_FullName) -replace \"\"from ''@/lib/supabase''\"\", \"\"from ''@/lib/db''\"\" | Set-Content $_FullName }\")",
+      "Bash(powershell -Command \"Get-ChildItem -Path ''app\\api'' -Filter ''*.ts'' -Recurse | ForEach-Object { (Get-Content $_FullName) -replace ''from \"\"@/lib/supabase\"\"'', ''from \"\"@/lib/db\"\"'' | Set-Content $_FullName }\")",
+      "Bash(powershell -ExecutionPolicy Bypass -File replace-supabase.ps1:*)",
+      "Bash(npm run build:*)",
+      "Bash(powershell -Command:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

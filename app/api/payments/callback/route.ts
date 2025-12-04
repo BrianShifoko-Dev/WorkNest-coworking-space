@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { updatePaymentStatus } from '@/lib/mpesa-service'
-import { supabase } from '@/lib/supabase'
+import { supabase } from '@/lib/db'
 
 // Force dynamic rendering to prevent build-time initialization
 export const dynamic = 'force-dynamic'

@@ -1,8 +1,5 @@
 import { NextResponse } from 'next/server'
-import { createClient } from '@supabase/supabase-js'
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+import { supabase } from '@/lib/db'
 
 // GET single menu item by ID
 export async function GET(
@@ -10,7 +7,6 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    const supabase = createClient(supabaseUrl, supabaseKey)
     
     const { data, error } = await supabase
       .from('menu_items')
@@ -34,7 +30,6 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   try {
-    const supabase = createClient(supabaseUrl, supabaseKey)
     const body = await request.json()
 
     console.log('🍽️ Updating menu item:', params.id)
@@ -67,7 +62,6 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
-    const supabase = createClient(supabaseUrl, supabaseKey)
 
     console.log('🍽️ Deleting menu item:', params.id)
 

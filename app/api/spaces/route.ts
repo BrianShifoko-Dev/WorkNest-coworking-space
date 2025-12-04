@@ -1,10 +1,9 @@
 import { NextResponse } from 'next/server'
-import { getSupabaseClient } from '@/lib/supabase-server'
+import { supabase } from '@/lib/db'
 
 // GET all spaces (with optional filters)
 export async function GET(request: Request) {
   try {
-    const supabase = getSupabaseClient()
     const { searchParams } = new URL(request.url)
     
     const featured = searchParams.get('featured')
@@ -47,10 +46,9 @@ export async function GET(request: Request) {
 // POST create new space
 export async function POST(request: Request) {
   try {
-    const supabase = getSupabaseClient()
     const body = await request.json()
 
-    const { data, error } = await supabase
+    const insertResult = await supabase
       .from('spaces')
       .insert({
         name: body.name,
@@ -63,18 +61,33 @@ export async function POST(request: Request) {
         monthly_rate: body.monthly_rate,
         images: body.images || [],
         amenities: body.amenities || [],
-        status: 'available',
+        status: body.status || 'available',
         is_featured: body.is_featured || false
       })
-      .select()
-      .single()
 
-    if (error) {
-      console.error('Error creating space:', error)
-      return NextResponse.json({ error: error.message }, { status: 500 })
+    if (insertResult.error) {
+      console.error('Error creating space:', insertResult.error)
+      return NextResponse.json({ error: insertResult.error.message }, { status: 500 })
     }
 
-    return NextResponse.json({ space: data }, { status: 201 })
+    // Fetch the created space
+    const spaceId = insertResult.data?.id || (Array.isArray(insertResult.data) ? insertResult.data[0]?.id : null)
+    if (!spaceId) {
+      return NextResponse.json({ error: 'Failed to create space' }, { status: 500 })
+    }
+
+    const { data: space, error: fetchError } = await supabase
+      .from('spaces')
+      .select('*')
+      .eq('id', spaceId)
+      .single()
+
+    if (fetchError || !space) {
+      console.error('Error fetching created space:', fetchError)
+      return NextResponse.json({ error: 'Space created but failed to fetch details' }, { status: 500 })
+    }
+
+    return NextResponse.json({ space, id: space.id }, { status: 201 })
   } catch (error) {
     console.error('Error:', error)
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })

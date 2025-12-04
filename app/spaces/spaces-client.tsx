@@ -100,7 +100,7 @@ const workspaces = [
     link: "/office-spaces",
     amenities: [
       "Fully Furnished",
-      "24/7 Access",
+      "Convenient Access Hours",
       "High-Speed Internet",
       "Meeting Room Access",
       "Mail Handling",

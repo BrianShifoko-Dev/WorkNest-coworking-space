@@ -4,6 +4,7 @@ import '../styles/globals.css'
 import { siteConfig, generateLocalBusinessSchema } from '@/lib/seo'
 import { Toaster } from 'sonner'
 import { LanguageProvider } from '@/components/providers/LanguageProvider'
+import { CurrencyProvider } from '@/components/providers/CurrencyProvider'
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -112,8 +113,10 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen bg-background text-foreground antialiased">
         <LanguageProvider>
-          {children}
-          <Toaster position="top-right" />
+          <CurrencyProvider>
+            {children}
+            <Toaster position="top-right" />
+          </CurrencyProvider>
         </LanguageProvider>
       </body>
     </html>

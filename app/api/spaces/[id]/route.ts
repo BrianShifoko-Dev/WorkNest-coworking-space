@@ -1,8 +1,5 @@
 import { NextResponse } from 'next/server'
-import { createClient } from '@supabase/supabase-js'
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+import { supabase } from '@/lib/db'
 
 // GET single space
 export async function GET(
@@ -10,7 +7,6 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    const supabase = createClient(supabaseUrl, supabaseKey)
 
     const { data, error } = await supabase
       .from('spaces')
@@ -35,7 +31,6 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   try {
-    const supabase = createClient(supabaseUrl, supabaseKey)
     const body = await request.json()
 
     const { data, error } = await supabase
@@ -75,7 +70,6 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
-    const supabase = createClient(supabaseUrl, supabaseKey)
 
     const { error } = await supabase
       .from('spaces')

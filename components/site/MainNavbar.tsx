@@ -217,7 +217,7 @@ export function MainNavbar() {
 
           {/* CTA Button */}
           <Link
-            href="/book"
+            href="/contact"
             className="hidden xl:flex items-center px-6 py-2.5 bg-[#D4AF37] text-[#5C4033] font-medium rounded-md hover:bg-[#C19B2F] transition-colors shadow-sm"
           >
             Book a Tour
@@ -288,13 +288,15 @@ export function MainNavbar() {
                   )}
                 </div>
               ))}
-              <Link
-                href="/book"
+              <a
+                href="https://wa.me/254745319042"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="mt-4 block text-center px-6 py-3 bg-[#D4AF37] text-[#5C4033] font-medium rounded-md hover:bg-[#C19B2F] transition-colors"
                 onClick={handleNavClick}
               >
                 Book a Tour
-              </Link>
+              </a>
             </div>
           </div>
         )}

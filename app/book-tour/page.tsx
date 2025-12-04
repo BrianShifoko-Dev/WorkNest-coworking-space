@@ -2,13 +2,13 @@ import { generatePageMetadata } from '@/lib/seo'
 import { BookTourClient } from './book-tour-client'
 
 export const metadata = generatePageMetadata({
-  title: 'Book a Tour - Visit WorkNest Coworking Space in Eldoret',
-  description: 'Schedule a personalized tour of WorkNest coworking space in Eldoret, Kenya. See our private offices, meeting rooms, amenities, and meet our team. Book your visit today.',
+  title: 'Book a Meeting Room - WorkNest Coworking Space in Eldoret',
+  description: 'Reserve a professional meeting room or boardroom at WorkNest coworking space in Eldoret, Kenya. Book your meeting space today.',
   keywords: [
-    'tour coworking Eldoret',
-    'visit workspace Kenya',
-    'schedule tour Eldoret office',
-    'view coworking space',
+    'book meeting room Eldoret',
+    'reserve boardroom Kenya',
+    'meeting room booking Eldoret',
+    'conference room Eldoret',
   ],
   path: '/book-tour',
 })
@@ -16,4 +16,3 @@ export const metadata = generatePageMetadata({
 export default function BookTourPage() {
   return <BookTourClient />
 }
-

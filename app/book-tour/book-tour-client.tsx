@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from "react";
-import { Calendar, Clock, Users, Mail, Phone, User } from "lucide-react";
+import { Calendar, Clock, Users, Mail, Phone, User, Building2 } from "lucide-react";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,7 +18,7 @@ export function BookTourClient() {
     date: "",
     time: "",
     attendees: "",
-    interests: "",
+    space: "",
     notes: "",
   });
 
@@ -30,10 +30,10 @@ export function BookTourClient() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // TODO: Implement API route at /api/tour
-    console.log("Tour booking:", formData);
+    // TODO: Implement API route for meeting room booking
+    console.log("Meeting room booking:", formData);
     
-    toast.success("Tour booked successfully! We'll send you a confirmation email.");
+    toast.success("Booking request submitted successfully! We'll send you a confirmation email.");
     
     setFormData({
       name: "",
@@ -42,21 +42,21 @@ export function BookTourClient() {
       date: "",
       time: "",
       attendees: "",
-      interests: "",
+      space: "",
       notes: "",
     });
   };
 
   return (
     <div className="min-h-screen bg-[#FFFFF0]">
-      <Breadcrumbs items={[{ name: "Get Started" }, { name: "Book a Tour" }]} />
+      <Breadcrumbs items={[{ name: "Get Started" }, { name: "Book Meeting Room" }]} />
 
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4 text-center">
           <div className="w-16 h-1 bg-[#D4AF37] mb-6 mx-auto" />
-          <h1 className="text-5xl text-[#5C4033] mb-6 font-playfair">Book Your Workspace Tour</h1>
+          <h1 className="text-5xl text-[#5C4033] mb-6 font-playfair">Book Your Meeting Room</h1>
           <p className="text-xl text-[#5C4033]/70 max-w-3xl mx-auto">
-            Experience our Eldoret coworking spaces firsthand. Schedule a personalized tour with our team.
+            Reserve a professional meeting room or boardroom for your next business meeting or presentation.
           </p>
         </div>
       </section>
@@ -126,10 +126,11 @@ export function BookTourClient() {
                       <SelectValue placeholder="Select" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="1">Just me</SelectItem>
-                      <SelectItem value="2-3">2-3 people</SelectItem>
-                      <SelectItem value="4-5">4-5 people</SelectItem>
-                      <SelectItem value="6+">6+ people</SelectItem>
+                      <SelectItem value="1-5">1-5 people</SelectItem>
+                      <SelectItem value="6-10">6-10 people</SelectItem>
+                      <SelectItem value="11-15">11-15 people</SelectItem>
+                      <SelectItem value="16-20">16-20 people</SelectItem>
+                      <SelectItem value="20+">20+ people</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -175,30 +176,27 @@ export function BookTourClient() {
                 </div>
 
                 <div className="md:col-span-2">
-                  <Label htmlFor="interests" className="text-[#5C4033]">
-                    What spaces are you interested in?
+                  <Label htmlFor="space" className="text-[#5C4033]">
+                    <Building2 className="w-4 h-4 inline mr-2" />
+                    Select Meeting Room
                   </Label>
                   <Select
-                    value={formData.interests}
-                    onValueChange={(value) => setFormData({ ...formData, interests: value })}
+                    value={formData.space}
+                    onValueChange={(value) => setFormData({ ...formData, space: value })}
                   >
-                    <SelectTrigger id="interests" className="mt-1 border-[#5C4033]/20 focus:border-[#D4AF37]">
+                    <SelectTrigger id="space" className="mt-1 border-[#5C4033]/20 focus:border-[#D4AF37]">
                       <SelectValue placeholder="Select space type" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="private-office">Private Office</SelectItem>
-                      <SelectItem value="dedicated-desk">Dedicated Desk</SelectItem>
-                      <SelectItem value="hot-desk">Hot Desk</SelectItem>
-                      <SelectItem value="meeting-rooms">Meeting Rooms</SelectItem>
-                      <SelectItem value="event-space">Event Space</SelectItem>
-                      <SelectItem value="all">See Everything</SelectItem>
+                      <SelectItem value="executive-boardroom">Executive Boardroom</SelectItem>
+                      <SelectItem value="meeting-room-large">Meeting Room - Large</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
                 <div className="md:col-span-2">
                   <Label htmlFor="notes" className="text-[#5C4033]">
-                    Additional Notes or Questions
+                    Additional Notes or Special Requirements
                   </Label>
                   <Textarea
                     id="notes"
@@ -206,7 +204,7 @@ export function BookTourClient() {
                     onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                     className="mt-1 border-[#5C4033]/20 focus:border-[#D4AF37]"
                     rows={4}
-                    placeholder="Tell us about your workspace needs..."
+                    placeholder="Any special requirements for your meeting..."
                   />
                 </div>
               </div>
@@ -215,45 +213,12 @@ export function BookTourClient() {
                 type="submit"
                 className="w-full mt-6 bg-[#D4AF37] hover:bg-[#B8941F] text-[#5C4033] py-6 text-lg"
               >
-                Schedule My Tour
+                Submit Booking Request
               </Button>
             </form>
 
             <div className="mt-8 text-center text-sm text-[#5C4033]/70">
-              <p>Have questions? Call us at <span className="text-[#D4AF37] font-semibold">+254 XXX XXX XXX</span> or WhatsApp us anytime.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* What to Expect */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="w-16 h-1 bg-[#D4AF37] mb-6 mx-auto" />
-            <h2 className="text-center text-[#5C4033] mb-12 text-4xl font-playfair">What to Expect on Your Tour</h2>
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="text-center">
-                <div className="w-12 h-12 bg-[#D4AF37]/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl text-[#D4AF37] font-bold">1</span>
-                </div>
-                <h4 className="text-[#5C4033] mb-2 font-semibold">Meet Your Guide</h4>
-                <p className="text-sm text-[#5C4033]/70">A friendly team member will greet you and learn about your needs</p>
-              </div>
-              <div className="text-center">
-                <div className="w-12 h-12 bg-[#D4AF37]/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl text-[#D4AF37] font-bold">2</span>
-                </div>
-                <h4 className="text-[#5C4033] mb-2 font-semibold">Explore the Space</h4>
-                <p className="text-sm text-[#5C4033]/70">Tour our offices, meeting rooms, and amenities at your pace</p>
-              </div>
-              <div className="text-center">
-                <div className="w-12 h-12 bg-[#D4AF37]/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl text-[#D4AF37] font-bold">3</span>
-                </div>
-                <h4 className="text-[#5C4033] mb-2 font-semibold">Find Your Fit</h4>
-                <p className="text-sm text-[#5C4033]/70">Discuss membership options and get answers to all your questions</p>
-              </div>
+              <p>Have questions? Call us at <span className="text-[#D4AF37] font-semibold">+254 745 319 042</span> or WhatsApp us anytime.</p>
             </div>
           </div>
         </div>
@@ -261,4 +226,3 @@ export function BookTourClient() {
     </div>
   );
 }
-

@@ -3,28 +3,31 @@
 import Link from "next/link";
 import { Briefcase, Calendar as CalendarIcon, BookOpen, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/components/providers/LanguageProvider";
 
 export function GetStartedClient() {
+  const { t } = useLanguage();
+  
   const steps = [
     {
       number: "01",
-      title: "Choose Your Space",
-      description: "Browse our flexible workspace options and find the perfect fit for your needs"
+      title: t("getStarted.chooseSpace"),
+      description: t("getStarted.chooseSpaceDesc")
     },
     {
       number: "02",
-      title: "Schedule a Tour",
-      description: "Visit us in person to experience the WorkNest environment and meet our team"
+      title: t("getStarted.scheduleTour"),
+      description: t("getStarted.scheduleTourDesc")
     },
     {
       number: "03",
-      title: "Select Your Plan",
-      description: "Pick the membership plan that works best for your schedule and budget"
+      title: t("getStarted.selectPlan"),
+      description: t("getStarted.selectPlanDesc")
     },
     {
       number: "04",
-      title: "Move In & Thrive",
-      description: "Get your access, set up your space, and start working in your new home"
+      title: t("getStarted.moveIn"),
+      description: t("getStarted.moveInDesc")
     },
   ];
 
@@ -40,9 +43,9 @@ export function GetStartedClient() {
         />
         <div className="absolute inset-0 z-20 flex items-center justify-center">
           <div className="text-center text-white px-4">
-            <h1 className="text-5xl mb-4 font-playfair">Begin Your Workspace Journey</h1>
+            <h1 className="text-5xl mb-4 font-playfair">{t("getStarted.title")}</h1>
             <p className="text-xl max-w-2xl mx-auto">
-              Join Eldoret's premier business community and take your work to the next level
+              {t("getStarted.subtitle")}
             </p>
           </div>
         </div>
@@ -52,15 +55,12 @@ export function GetStartedClient() {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-[#5C4033] mb-6 text-4xl font-playfair">Welcome to WorkNest</h2>
+            <h2 className="text-[#5C4033] mb-6 text-4xl font-playfair">{t("getStarted.welcome")}</h2>
             <p className="text-[#5C4033]/70 mb-4 text-lg">
-              We're thrilled that you're considering joining our community of innovative professionals, 
-              entrepreneurs, and growing businesses in Eldoret. Getting started is easy choose the path that's 
-              right for you.
+              {t("getStarted.welcomeDesc1")}
             </p>
             <p className="text-[#5C4033]/70 text-lg">
-              Whether you need a dedicated office, a space for events, or want to be part of Kenya's most 
-              dynamic coworking community, we're here to support your journey every step of the way.
+              {t("getStarted.welcomeDesc2")}
             </p>
           </div>
         </div>
@@ -75,14 +75,13 @@ export function GetStartedClient() {
               <div className="w-16 h-16 bg-[#D4AF37]/20 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Briefcase className="w-8 h-8 text-[#D4AF37]" />
               </div>
-              <h3 className="text-[#5C4033] mb-4 text-2xl font-playfair">Book a Space</h3>
+              <h3 className="text-[#5C4033] mb-4 text-2xl font-playfair">{t("getStarted.bookSpace")}</h3>
               <p className="text-sm text-[#5C4033]/70 mb-6">
-                Find the perfect workspace solution for your needs in Eldoret. From private offices to shared desks, 
-                we have options for everyone.
+                {t("getStarted.bookSpaceDesc")}
               </p>
               <Link href="/office-spaces">
                 <Button className="w-full bg-[#D4AF37] hover:bg-[#B8941F] text-[#5C4033]">
-                  Browse Spaces
+                  {t("getStarted.browseSpaces")}
                 </Button>
               </Link>
             </div>
@@ -99,7 +98,7 @@ export function GetStartedClient() {
               </p>
               <Link href="/events">
                 <Button className="w-full bg-[#D4AF37] hover:bg-[#B8941F] text-[#5C4033]">
-                  Explore Events
+                  {t("getStarted.viewEvents")}
                 </Button>
               </Link>
             </div>
@@ -109,14 +108,13 @@ export function GetStartedClient() {
               <div className="w-16 h-16 bg-[#D4AF37]/20 rounded-full flex items-center justify-center mx-auto mb-6">
                 <BookOpen className="w-8 h-8 text-[#D4AF37]" />
               </div>
-              <h3 className="text-[#5C4033] mb-4 text-2xl font-playfair">View Pricing</h3>
+              <h3 className="text-[#5C4033] mb-4 text-2xl font-playfair">{t("discover.viewPricing")}</h3>
               <p className="text-sm text-[#5C4033]/70 mb-6">
-                Explore our transparent pricing plans and find a membership that fits your budget. No hidden fees, 
-                just great value.
+                {t("getStarted.viewPricingDesc")}
               </p>
               <Link href="/pricing">
                 <Button className="w-full bg-[#D4AF37] hover:bg-[#B8941F] text-[#5C4033]">
-                  See Pricing
+                  {t("discover.viewPricing")}
                 </Button>
               </Link>
             </div>

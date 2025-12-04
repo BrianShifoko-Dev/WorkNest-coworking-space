@@ -6,50 +6,51 @@ import { WorkspaceCarousel } from "@/components/site/WorkspaceCarousel";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { BookingForm } from "@/components/site/BookingForm";
-import { Users, Monitor, Wifi, Coffee, Clock, Video, Projector, CheckCircle2 } from "lucide-react";
+import { Users, Wifi, Coffee, Clock, Projector, CheckCircle2 } from "lucide-react";
+import { useLanguage } from "@/components/providers/LanguageProvider";
+import { useCurrency } from "@/components/providers/CurrencyProvider";
 
 export function BoardroomsClient() {
-  const boardrooms = [
+  const { t } = useLanguage();
+  const { formatPrice } = useCurrency();
+  
+  const getBoardrooms = () => [
     {
       name: "Executive Boardroom",
-      capacity: "16-20 people",
-      size: "45 sqm",
-      hourlyRate: "KES 2,500",
-      halfDayRate: "KES 6,000",
-      fullDayRate: "KES 12,000",
+      capacity: `16-20 ${t("boardrooms.people")}`,
+      hourlyRate: formatPrice(2500, t("price.hour")),
+      halfDayRate: formatPrice(6000, t("price.halfDay")),
+      fullDayRate: formatPrice(12000, t("price.day")),
       images: [
         { url: "/gallery/DJI_20000609074926_0104_D.jpg", title: "Executive Boardroom", description: "Premium boardroom with executive seating for 16-20 people" },
-        { url: "/gallery/DJI_20000609075034_0108_D.jpg", title: "Executive Boardroom", description: "State-of-the-art presentation and video conferencing setup" },
+        { url: "/gallery/DJI_20000609075034_0108_D.jpg", title: "Executive Boardroom", description: "State-of-the-art presentation setup" },
         { url: "/gallery/DJI_20000609064434_0026_D.jpg", title: "Executive Boardroom", description: "Professional ambiance perfect for board meetings" },
         { url: "/gallery/IMG_1039.jpg", title: "Executive Boardroom", description: "Executive meeting space with premium amenities" },
       ],
-      description: "Our flagship boardroom designed for high-level meetings and presentations. Features state-of-the-art AV equipment, executive seating for up to 16 guests, and a professional ambiance perfect for board meetings, investor pitches, and strategic planning sessions.",
+      description: "Our flagship boardroom designed for high-level meetings and presentations. Features projector, executive seating for up to 16 guests, refreshments, and a professional ambiance perfect for board meetings, investor pitches, and strategic planning sessions.",
       features: [
-        "4K Display Screen",
-        "Video Conferencing System",
-        "Premium Sound System",
+        "Projector",
+        "Refreshments",
         "Executive Seating",
         "Whiteboard & Flipchart",
-        "Climate Control",
+        "Air-Conditioned Environment",
       ],
     },
     {
       name: "Meeting Room - Large",
-      capacity: "6-8 people",
-      size: "30 sqm",
-      hourlyRate: "KES 1,000",
-      halfDayRate: "KES 4,000",
-      fullDayRate: "KES 7,000",
+      capacity: `6-8 ${t("boardrooms.people")}`,
+      hourlyRate: formatPrice(1000, t("price.hour")),
+      halfDayRate: formatPrice(4000, t("price.halfDay")),
+      fullDayRate: formatPrice(7000, t("price.day")),
       images: [
         { url: "/gallery/DJI_20000609074926_0104_D.jpg", title: "Meeting Room - Large", description: "Spacious meeting room for 6-8 people with modern setup" },
-        { url: "/gallery/DJI_20000609075034_0108_D.jpg", title: "Meeting Room - Large", description: "HD display and presentation tools for workshops" },
+        { url: "/gallery/DJI_20000609075034_0108_D.jpg", title: "Meeting Room - Large", description: "Projector and presentation tools for workshops" },
         { url: "/gallery/DJI_20000609064434_0026_D.jpg", title: "Meeting Room - Large", description: "Professional environment for client presentations" },
         { url: "/gallery/IMG_1039.jpg", title: "Meeting Room - Large", description: "Versatile meeting space setup" },
       ],
-      description: "Spacious meeting room ideal for team workshops, client presentations, and collaborative sessions. Equipped with HD display, video conferencing capabilities, and comfortable seating for productive discussions.",
+      description: "Spacious meeting room ideal for team workshops, client presentations, and collaborative sessions. Equipped with projector, refreshments, and comfortable seating for productive discussions.",
       features: [
-        "HD Display",
-        "Video Calling Setup",
+        "Projector",
         "High-Speed WiFi",
         "Conference Table",
         "Presentation Tools",
@@ -57,13 +58,13 @@ export function BoardroomsClient() {
       ],
     },
   ];
+  
+  const boardrooms = getBoardrooms();
 
   const amenities = [
-    { icon: Projector, title: "AV Equipment", description: "Professional presentation tools" },
-    { icon: Video, title: "Video Conferencing", description: "HD cameras and microphones" },
+    { icon: Projector, title: "Projector", description: "Professional presentation tools" },
     { icon: Wifi, title: "High-Speed WiFi", description: "Dedicated fiber connection" },
-    { icon: Coffee, title: "Refreshments", description: "Complimentary coffee & tea" },
-    { icon: Monitor, title: "Smart Displays", description: "4K screens in all rooms" },
+    { icon: Coffee, title: "Refreshments", description: "Available on request" },
     { icon: Clock, title: "Flexible Booking", description: "Hourly, half-day, or full-day" },
   ];
 
@@ -84,12 +85,11 @@ export function BoardroomsClient() {
         <div className="absolute inset-0 z-20 flex items-center justify-center">
           <div className="text-center text-white px-4">
             <Badge className="bg-[#D4AF37] text-[#5C4033] mb-4 px-4 py-1">
-              Premium Meeting Spaces
+              {t("boardrooms.premiumMeetingSpaces")}
             </Badge>
-            <h1 className="text-5xl mb-4 font-playfair">Professional Boardrooms in Eldoret</h1>
+            <h1 className="text-5xl mb-4 font-playfair">{t("boardrooms.title")}</h1>
             <p className="text-xl max-w-3xl mx-auto">
-              State-of-the-art meeting rooms designed for presentations, client meetings, 
-              and important discussions
+              {t("boardrooms.subtitle")}
             </p>
           </div>
         </div>
@@ -100,11 +100,9 @@ export function BoardroomsClient() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <div className="w-16 h-1 bg-[#D4AF37] mb-6 mx-auto" />
-            <h2 className="text-[#5C4033] mb-6 text-4xl font-playfair">Impress Clients, Close Deals</h2>
+            <h2 className="text-[#5C4033] mb-6 text-4xl font-playfair">{t("boardrooms.impressClients")}</h2>
             <p className="text-xl text-[#5C4033]/70 mb-8">
-              Our fully-equipped boardrooms provide the perfect setting for board meetings, client 
-              presentations, team workshops, and important discussions. Book by the hour, half-day, 
-              or full day with all amenities included.
+              {t("boardrooms.introDescription")}
             </p>
           </div>
         </div>
@@ -114,7 +112,7 @@ export function BoardroomsClient() {
       <section className="py-16 bg-[#FFFFF0]">
         <div className="container mx-auto px-4">
           <div className="w-16 h-1 bg-[#D4AF37] mb-6 mx-auto" />
-          <h2 className="text-center text-[#5C4033] mb-12 text-4xl font-playfair">Choose Your Meeting Space</h2>
+          <h2 className="text-center text-[#5C4033] mb-12 text-4xl font-playfair">{t("boardrooms.chooseMeetingSpace")}</h2>
           <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {boardrooms.map((room, index) => (
               <div
@@ -130,21 +128,20 @@ export function BoardroomsClient() {
                 </div>
                 <div className="p-6">
                   <h3 className="text-2xl text-[#5C4033] mb-2 font-playfair">{room.name}</h3>
-                  <p className="text-sm text-[#5C4033]/60 mb-6">{room.size}</p>
 
                   {/* Pricing */}
                   <div className="bg-[#FFFFF0] rounded-lg p-4 mb-6">
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
-                        <span className="text-[#5C4033]/70">Hourly Rate:</span>
-                        <span className="text-[#D4AF37] font-semibold">{room.hourlyRate}/hr</span>
+                        <span className="text-[#5C4033]/70">{t("price.hourlyRate")}</span>
+                        <span className="text-[#D4AF37] font-semibold">{room.hourlyRate}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-[#5C4033]/70">Half Day (4hrs):</span>
+                        <span className="text-[#5C4033]/70">{t("price.halfDayLabel")}</span>
                         <span className="text-[#D4AF37] font-semibold">{room.halfDayRate}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-[#5C4033]/70">Full Day (8hrs):</span>
+                        <span className="text-[#5C4033]/70">{t("price.fullDayLabel")}</span>
                         <span className="text-[#D4AF37] font-semibold">{room.fullDayRate}</span>
                       </div>
                     </div>
@@ -162,7 +159,7 @@ export function BoardroomsClient() {
 
                   <Link href="/book-tour">
                     <Button className="w-full bg-[#D4AF37] hover:bg-[#B8941F] text-[#5C4033]">
-                      Book Now
+                      {t("common.bookNow")}
                     </Button>
                   </Link>
                 </div>
@@ -176,16 +173,16 @@ export function BoardroomsClient() {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="w-16 h-1 bg-[#D4AF37] mb-6 mx-auto" />
-          <h2 className="text-center text-[#5C4033] mb-12 text-4xl font-playfair">Everything You Need</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <h2 className="text-center text-[#5C4033] mb-12 text-4xl font-playfair">{t("boardrooms.everythingYouNeed")}</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-5xl mx-auto">
             {amenities.map((amenity, index) => (
-              <div key={index} className="flex gap-4 p-6 bg-[#FFFFF0] rounded-lg border border-[#5C4033]/10 hover:shadow-md transition-shadow group">
-                <div className="w-12 h-12 bg-[#D4AF37]/15 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <amenity.icon className="w-6 h-6 text-[#D4AF37] transition-transform duration-500 group-hover:rotate-[360deg] group-hover:scale-110" />
+              <div key={index} className="flex flex-col items-center text-center p-4 md:p-6 bg-[#FFFFF0] rounded-lg border border-[#5C4033]/10 hover:shadow-lg transition-all duration-300 group">
+                <div className="w-10 h-10 md:w-12 md:h-12 bg-[#D4AF37]/15 rounded-lg flex items-center justify-center mb-3 md:mb-4">
+                  <amenity.icon className="w-5 h-5 md:w-6 md:h-6 text-[#D4AF37] transition-transform duration-500 group-hover:rotate-[360deg] group-hover:scale-110" />
                 </div>
-                <div>
-                  <h4 className="text-[#5C4033] mb-1 font-semibold">{amenity.title}</h4>
-                  <p className="text-sm text-[#5C4033]/60">{amenity.description}</p>
+                <div className="w-full">
+                  <h4 className="text-[#5C4033] mb-1 text-sm md:text-base font-semibold">{amenity.title}</h4>
+                  <p className="text-xs md:text-sm text-[#5C4033]/60">{amenity.description}</p>
                 </div>
               </div>
             ))}
@@ -198,10 +195,9 @@ export function BoardroomsClient() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="w-16 h-1 bg-[#D4AF37] mb-6 mx-auto" />
-            <h2 className="text-center text-[#5C4033] mb-4 text-4xl font-playfair">Book Your Boardroom</h2>
+            <h2 className="text-center text-[#5C4033] mb-4 text-4xl font-playfair">{t("boardrooms.bookBoardroom")}</h2>
             <p className="text-center text-[#5C4033]/70 mb-12 max-w-2xl mx-auto">
-              Reserve your preferred meeting space today. Our team will confirm availability 
-              and prepare the room to your specifications.
+              {t("boardrooms.bookDescription")}
             </p>
             <div className="bg-white rounded-lg shadow-lg p-8 border border-[#5C4033]/10">
               <BookingForm variant="full" />
@@ -213,15 +209,14 @@ export function BoardroomsClient() {
       {/* CTA */}
       <section className="py-16 bg-gradient-to-r from-[#5C4033] to-[#4A3329]">
         <div className="container mx-auto px-4 text-center">
-          <h3 className="text-white mb-4 text-3xl font-playfair">Need Help Choosing?</h3>
+          <h3 className="text-white mb-4 text-3xl font-playfair">{t("boardrooms.needHelp")}</h3>
           <p className="text-white/90 mb-8 max-w-2xl mx-auto">
-            Our team can help you select the perfect boardroom for your meeting needs 
-            and provide custom setup options.
+            {t("boardrooms.helpDescription")}
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <Link href="/contact">
               <Button className="bg-[#D4AF37] hover:bg-[#B8941F] text-[#5C4033] px-8 py-6 text-lg">
-                Contact Us
+                {t("common.contactUs")}
               </Button>
             </Link>
             <Link href="/book-tour">
@@ -229,7 +224,7 @@ export function BoardroomsClient() {
                 variant="outline"
                 className="border-2 border-white text-white hover:bg-white hover:text-[#5C4033] px-8 py-6 text-lg"
               >
-                Schedule a Tour
+                {t("boardrooms.scheduleTour")}
               </Button>
             </Link>
           </div>

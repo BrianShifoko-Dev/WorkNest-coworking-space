@@ -1,8 +1,5 @@
 import { NextResponse } from 'next/server'
-import { createClient } from '@supabase/supabase-js'
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+import { supabase } from '@/lib/db'
 
 // Mark notification as read
 export async function PUT(
@@ -10,7 +7,6 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   try {
-    const supabase = createClient(supabaseUrl, supabaseKey)
     const { id } = params
 
     console.log('🔔 Marking notification as read:', id)
@@ -41,7 +37,6 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
-    const supabase = createClient(supabaseUrl, supabaseKey)
     const { id } = params
 
     console.log('🔔 Deleting notification:', id)

@@ -1,11 +1,9 @@
 import { NextResponse } from 'next/server'
-import { getSupabaseClient } from '@/lib/supabase-server'
-
+import { supabase } from '@/lib/db'
 
 // GET all customers or search by email/phone
 export async function GET(request: Request) {
   try {
-    const supabase = getSupabaseClient()
     const { searchParams } = new URL(request.url)
     
     const search = searchParams.get('search')
@@ -17,9 +15,26 @@ export async function GET(request: Request) {
       .select('*')
       .order('created_at', { ascending: false })
 
+    // Handle search with direct MySQL query for better performance
     if (search) {
-      query = query.or(`full_name.ilike.%${search}%,email.ilike.%${search}%,phone.ilike.%${search}%`)
+      const { getMySQLPool } = await import('@/lib/db')
+      const pool = getMySQLPool()
+      try {
+        const [results]: any = await pool.execute(
+          `SELECT * FROM customers 
+           WHERE LOWER(full_name) LIKE LOWER(?) 
+           OR LOWER(email) LIKE LOWER(?) 
+           OR phone LIKE ?
+           ORDER BY created_at DESC`,
+          [`%${search}%`, `%${search}%`, `%${search}%`]
+        )
+        return NextResponse.json(results || [])
+      } catch (searchError: any) {
+        console.error('Search error:', searchError)
+        return NextResponse.json({ error: searchError.message }, { status: 500 })
+      }
     }
+
     if (email) {
       query = query.eq('email', email)
     }
@@ -44,7 +59,6 @@ export async function GET(request: Request) {
 // POST create or find customer
 export async function POST(request: Request) {
   try {
-    const supabase = getSupabaseClient()
     const body = await request.json()
 
     // Validate required fields
@@ -72,7 +86,7 @@ export async function POST(request: Request) {
     }
 
     // Create new customer
-    const { data: customer, error: createError } = await supabase
+    const insertResult = await supabase
       .from('customers')
       .insert({
         full_name: body.full_name,
@@ -80,12 +94,27 @@ export async function POST(request: Request) {
         phone: body.phone,
         company: body.company || null,
       })
-      .select()
+
+    if (insertResult.error) {
+      console.error('Error creating customer:', insertResult.error)
+      return NextResponse.json({ error: insertResult.error.message }, { status: 500 })
+    }
+
+    // Fetch the created customer
+    const customerId = insertResult.data?.id || (Array.isArray(insertResult.data) ? insertResult.data[0]?.id : null)
+    if (!customerId) {
+      return NextResponse.json({ error: 'Failed to create customer' }, { status: 500 })
+    }
+
+    const { data: customer, error: fetchError } = await supabase
+      .from('customers')
+      .select('*')
+      .eq('id', customerId)
       .single()
 
-    if (createError) {
-      console.error('Error creating customer:', createError)
-      return NextResponse.json({ error: createError.message }, { status: 500 })
+    if (fetchError || !customer) {
+      console.error('Error fetching created customer:', fetchError)
+      return NextResponse.json({ error: 'Customer created but failed to fetch details' }, { status: 500 })
     }
 
     return NextResponse.json({ 

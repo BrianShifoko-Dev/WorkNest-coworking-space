@@ -1,9 +1,6 @@
 import { NextResponse } from 'next/server'
-import { createClient } from '@supabase/supabase-js'
+import { supabase } from '@/lib/db'
 import bcrypt from 'bcryptjs'
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
 // GET single user
 export async function GET(
@@ -11,7 +8,6 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    const supabase = createClient(supabaseUrl, supabaseKey)
     const { id } = params
 
     const { data: user, error } = await supabase
@@ -39,7 +35,6 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   try {
-    const supabase = createClient(supabaseUrl, supabaseKey)
     const { id } = params
     const body = await request.json()
 
@@ -98,7 +93,6 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
-    const supabase = createClient(supabaseUrl, supabaseKey)
     const { id } = params
 
     console.log('👥 Deleting user:', id)

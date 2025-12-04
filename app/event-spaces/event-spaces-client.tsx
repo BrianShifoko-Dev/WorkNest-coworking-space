@@ -12,8 +12,6 @@ import {
   Calendar, 
   Wifi, 
   Coffee, 
-  Mic, 
-  Video, 
   Projector, 
   CheckCircle2,
   Sparkles,
@@ -23,64 +21,58 @@ import {
   Globe,
   Award
 } from "lucide-react"
+import { useLanguage } from "@/components/providers/LanguageProvider";
+import { useCurrency } from "@/components/providers/CurrencyProvider";
 
 export function EventSpacesClient() {
+  const { t } = useLanguage();
+  const { formatPrice } = useCurrency();
   const [selectedEventType, setSelectedEventType] = useState<string>('all')
 
   const eventTypes = [
-    { id: 'all', name: 'All Events', icon: Sparkles },
-    { id: 'corporate', name: 'Corporate Events', icon: Briefcase },
-    { id: 'workshop', name: 'Workshops & Training', icon: GraduationCap },
-    { id: 'conference', name: 'Conferences', icon: Globe },
-    { id: 'social', name: 'Social Events', icon: PartyPopper },
-    { id: 'awards', name: 'Award Ceremonies', icon: Award },
+    { id: 'all', name: t('eventSpaces.allEvents'), icon: Sparkles },
+    { id: 'corporate', name: t('eventSpaces.corporateEvents'), icon: Briefcase },
+    { id: 'workshop', name: t('eventSpaces.workshopsTraining'), icon: GraduationCap },
+    { id: 'conference', name: t('eventSpaces.conferences'), icon: Globe },
+    { id: 'social', name: t('eventSpaces.socialEvents'), icon: PartyPopper },
+    { id: 'awards', name: t('eventSpaces.awardCeremonies'), icon: Award },
   ]
 
   const eventSpaces = [
     {
-      name: "Main Event Hall",
-      capacity: "100-150 people",
-      size: "180 sqm",
-      hourlyRate: "KES 5,000",
-      halfDayRate: "KES 18,000",
-      fullDayRate: "KES 35,000",
+      name: "Event Hall",
+      capacity: `40-50 ${t("boardrooms.people")}`,
       images: [
-        { url: "/gallery/DJI_20000609074140_0081_D.jpg", title: "Main Event Hall", description: "Spacious event hall for large gatherings and conferences" },
-        { url: "/gallery/DJI_20000609074238_0084_D.jpg", title: "Main Event Hall", description: "Professional setup with modern AV equipment" },
-        { url: "/gallery/IMG_1020.jpg", title: "Main Event Hall", description: "Flexible layout for various event types" },
+        { url: "/gallery/DJI_20000609074140_0081_D.jpg", title: "Event Hall", description: "Spacious event hall for gatherings and conferences" },
+        { url: "/gallery/DJI_20000609074238_0084_D.jpg", title: "Event Hall", description: "Professional setup with modern AV equipment" },
+        { url: "/gallery/IMG_1020.jpg", title: "Event Hall", description: "Flexible layout for various event types" },
       ],
       suitableFor: ['corporate', 'conference', 'awards'],
-      description: "Our flagship event space perfect for large conferences, product launches, award ceremonies, and corporate gatherings. Features professional AV equipment, flexible seating arrangements, and a sophisticated ambiance.",
+      description: "Our flagship event space perfect for conferences, product launches, award ceremonies, and corporate gatherings. Features professional AV equipment, flexible seating arrangements for 40-50 guests, and a sophisticated ambiance.",
       features: [
-        "Seating for 100-150 guests",
+        "Seating for 40-50 guests",
         "Professional PA system",
-        "HD projector & screen",
-        "Stage with podium",
+        "Premium projector & screen",
         "Adjustable lighting",
         "High-speed WiFi",
-        "Climate control",
         "Catering facilities",
       ],
     },
     {
       name: "Workshop & Training Room",
-      capacity: "30-50 people",
-      size: "80 sqm",
-      hourlyRate: "KES 3,000",
-      halfDayRate: "KES 10,000",
-      fullDayRate: "KES 18,000",
+      capacity: `25-30 ${t("boardrooms.people")}`,
       images: [
         { url: "/gallery/IMG_1039.jpg", title: "Workshop Room", description: "Interactive training space with modern setup" },
         { url: "/gallery/IMG_0975.jpg", title: "Workshop Room", description: "Collaborative environment for workshops" },
         { url: "/gallery/IMG_0977.jpg", title: "Workshop Room", description: "Professional training facilities" },
       ],
       suitableFor: ['workshop', 'corporate'],
-      description: "Ideal for workshops, training sessions, and interactive seminars. Equipped with whiteboards, flip charts, and breakout areas for group activities and collaborative learning.",
+      description: "Ideal for workshops, training sessions, and interactive seminars. Equipped with whiteboards, flip charts, and breakout areas for group activities and collaborative learning. Accommodates 25-30 participants.",
       features: [
-        "Seating for 30-50 participants",
+        "Seating for 25-30 participants",
         "Multiple whiteboards",
         "Flip charts & markers",
-        "HD display screens",
+        "Premium display screens",
         "Breakout areas",
         "High-speed WiFi",
         "Refreshment station",
@@ -89,11 +81,8 @@ export function EventSpacesClient() {
     },
     {
       name: "Social Event Lounge",
-      capacity: "50-80 people",
-      size: "120 sqm",
-      hourlyRate: "KES 4,000",
-      halfDayRate: "KES 14,000",
-      fullDayRate: "KES 25,000",
+      capacity: `50-80 ${t("boardrooms.people")}`,
+      comingSoon: true,
       images: [
         { url: "/gallery/IMG_0971.jpg", title: "Social Event Lounge", description: "Elegant space for social gatherings" },
         { url: "/gallery/DJI_20000609074140_0081_D.jpg", title: "Social Event Lounge", description: "Perfect for celebrations and parties" },
@@ -119,9 +108,7 @@ export function EventSpacesClient() {
     : eventSpaces.filter(space => space.suitableFor.includes(selectedEventType))
 
   const amenities = [
-    { icon: Projector, title: "AV Equipment", description: "Professional presentation tools" },
-    { icon: Mic, title: "PA System", description: "High-quality sound system" },
-    { icon: Video, title: "Video Conferencing", description: "HD cameras and screens" },
+    { icon: Projector, title: "Presentation Tools", description: "Professional presentation tools" },
     { icon: Wifi, title: "High-Speed WiFi", description: "Reliable internet connection" },
     { icon: Coffee, title: "Catering Services", description: "In-house catering available" },
     { icon: Users, title: "Event Support", description: "Dedicated event coordinator" },
@@ -132,37 +119,37 @@ export function EventSpacesClient() {
       type: "Corporate Conferences",
       icon: Briefcase,
       description: "Product launches, AGMs, team summits",
-      examples: "50-150 attendees",
+      examples: "40-50 attendees",
     },
     {
       type: "Workshops & Training",
       icon: GraduationCap,
       description: "Professional development, skill-building",
-      examples: "20-50 participants",
+      examples: "25-30 participants",
     },
     {
       type: "Networking Events",
       icon: Users,
       description: "Business mixers, industry meetups",
-      examples: "30-80 guests",
+      examples: "40-50 guests",
     },
     {
       type: "Award Ceremonies",
       icon: Award,
       description: "Recognition events, gala dinners",
-      examples: "60-150 attendees",
+      examples: "40-50 attendees",
     },
     {
       type: "Social Celebrations",
       icon: PartyPopper,
       description: "Birthdays, anniversaries, parties",
-      examples: "30-80 guests",
+      examples: "50-80 guests",
     },
     {
       type: "Seminars & Talks",
-      icon: Mic,
+      icon: Globe,
       description: "Guest speakers, panel discussions",
-      examples: "40-100 attendees",
+      examples: "40-50 attendees",
     },
   ]
 
@@ -183,12 +170,11 @@ export function EventSpacesClient() {
         <div className="absolute inset-0 z-20 flex items-center justify-center">
           <div className="text-center text-white px-4 max-w-4xl">
             <Badge className="bg-[#D4AF37] text-[#5C4033] mb-4 px-4 py-1">
-              Premium Event Venues
+              {t("eventSpaces.premiumEventVenues")}
             </Badge>
-            <h1 className="text-5xl md:text-6xl mb-6 font-playfair">Event Spaces in Eldoret</h1>
+            <h1 className="text-5xl md:text-6xl mb-6 font-playfair">{t("eventSpaces.title")}</h1>
             <p className="text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed">
-              Host unforgettable events in our versatile spaces - from corporate conferences 
-              to celebrations, we've got you covered
+              {t("eventSpaces.subtitle")}
             </p>
           </div>
         </div>
@@ -198,7 +184,7 @@ export function EventSpacesClient() {
       <section className="py-12 bg-white border-b">
         <div className="container mx-auto px-4">
           <h2 className="text-center text-[#5C4033] mb-8 text-3xl font-playfair">
-            What Type of Event Are You Planning?
+            {t("eventSpaces.whatTypeOfEvent")}
           </h2>
           <div className="flex flex-wrap gap-4 justify-center max-w-5xl mx-auto">
             {eventTypes.map((type) => {
@@ -232,20 +218,20 @@ export function EventSpacesClient() {
           <p className="text-center text-[#5C4033]/70 mb-12 text-lg max-w-3xl mx-auto">
             Our versatile spaces can accommodate a wide range of events
           </p>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 max-w-6xl mx-auto">
             {popularEvents.map((event, index) => {
               const Icon = event.icon
               return (
                 <div
                   key={index}
-                  className="bg-white rounded-lg p-6 shadow-lg hover:shadow-xl transition-all border border-[#5C4033]/10 group hover:scale-105"
+                  className="bg-white rounded-lg p-3 md:p-6 shadow-lg hover:shadow-xl transition-all border border-[#5C4033]/10 group hover:scale-105"
                 >
-                  <div className="w-14 h-14 bg-[#D4AF37]/10 rounded-full flex items-center justify-center mb-4 group-hover:bg-[#D4AF37] transition-colors">
-                    <Icon className="w-7 h-7 text-[#D4AF37] group-hover:text-white transition-colors" />
+                  <div className="w-10 h-10 md:w-14 md:h-14 bg-[#D4AF37]/10 rounded-full flex items-center justify-center mb-2 md:mb-4 group-hover:bg-[#D4AF37] transition-colors">
+                    <Icon className="w-5 h-5 md:w-7 md:h-7 text-[#D4AF37] group-hover:text-white transition-colors" />
                   </div>
-                  <h3 className="text-xl font-semibold text-[#5C4033] mb-2">{event.type}</h3>
-                  <p className="text-[#5C4033]/70 mb-3">{event.description}</p>
-                  <p className="text-sm text-[#D4AF37] font-medium">{event.examples}</p>
+                  <h3 className="text-sm md:text-xl font-semibold text-[#5C4033] mb-1 md:mb-2">{event.type}</h3>
+                  <p className="text-xs md:text-base text-[#5C4033]/70 mb-2 md:mb-3">{event.description}</p>
+                  <p className="text-xs md:text-sm text-[#D4AF37] font-medium">{event.examples}</p>
                 </div>
               )
             })}
@@ -281,30 +267,18 @@ export function EventSpacesClient() {
                       <Users className="w-3 h-3 mr-1" />
                       {space.capacity}
                     </Badge>
+                    {space.comingSoon && (
+                      <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/40">
+                        <Badge className="bg-gradient-to-r from-[#D4AF37] to-[#B8941F] text-white px-6 py-3 text-lg font-bold animate-pulse shadow-2xl">
+                          Coming Soon
+                        </Badge>
+                      </div>
+                    )}
                     <WorkspaceCarousel images={space.images} />
                   </div>
                   
                   <div className="p-6">
                     <h3 className="text-2xl text-[#5C4033] mb-2 font-playfair">{space.name}</h3>
-                    <p className="text-sm text-[#5C4033]/60 mb-6">{space.size}</p>
-
-                    {/* Pricing */}
-                    <div className="bg-[#FFFFF0] rounded-lg p-4 mb-6">
-                      <div className="space-y-2 text-sm">
-                        <div className="flex justify-between">
-                          <span className="text-[#5C4033]/70">Hourly Rate:</span>
-                          <span className="font-semibold text-[#D4AF37]">{space.hourlyRate}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-[#5C4033]/70">Half Day (4hrs):</span>
-                          <span className="font-semibold text-[#D4AF37]">{space.halfDayRate}</span>
-                        </div>
-                        <div className="flex justify-between pt-2 border-t border-[#D4AF37]/20">
-                          <span className="font-semibold text-[#5C4033]">Full Day (8hrs):</span>
-                          <span className="text-lg font-bold text-[#D4AF37]">{space.fullDayRate}</span>
-                        </div>
-                      </div>
-                    </div>
 
                     {/* Description */}
                     <p className="text-[#5C4033]/70 mb-6 leading-relaxed">
@@ -341,12 +315,12 @@ export function EventSpacesClient() {
           <div className="max-w-5xl mx-auto">
             <div className="w-16 h-1 bg-[#D4AF37] mb-6 mx-auto" />
             <h2 className="text-center text-[#5C4033] mb-4 text-4xl font-playfair">
-              What's Included
+              {t("eventSpaces.whatsIncluded")}
             </h2>
             <p className="text-center text-[#5C4033]/70 mb-12 text-lg">
               Every event space comes with premium amenities and support
             </p>
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-4 gap-4 md:gap-8">
               {amenities.map((amenity, index) => (
                 <div key={index} className="text-center">
                   <div className="w-16 h-16 bg-[#D4AF37]/10 rounded-full flex items-center justify-center mx-auto mb-4">

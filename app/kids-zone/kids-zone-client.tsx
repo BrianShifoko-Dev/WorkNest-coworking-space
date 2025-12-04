@@ -65,7 +65,7 @@ export function KidsZoneClient() {
       <section className="relative h-[450px] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/20 z-10" />
         <img
-          src="/gallery/DJI_20000609070609_0057_D.jpg"
+          src="/gallery/191d9f798f5a3f77f01b9d175728d719.jpg"
           alt="Kids Zone"
           className="w-full h-full object-cover"
         />

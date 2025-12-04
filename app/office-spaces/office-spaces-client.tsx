@@ -7,18 +7,23 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { BookingForm } from "@/components/site/BookingForm";
 import { Users, Monitor, Wifi, Coffee, Clock, Zap, Shield, CheckCircle2 } from "lucide-react";
+import { useLanguage } from "@/components/providers/LanguageProvider";
+import { useCurrency } from "@/components/providers/CurrencyProvider";
 
 export function OfficeSpacesClient() {
-  const workspaces = [
+  const { t } = useLanguage();
+  const { formatPrice } = useCurrency();
+  
+  // Helper function to get workspaces with translated prices
+  const getWorkspaces = () => [
     {
       name: "Hot Desk",
       capacity: "",
-      size: "Shared space",
-      hourlyRate: "KES 180",
-      halfDayRate: "KES 450",
-      fullDayRate: "KES 650",
-      weeklyRate: "KES 2,500",
-      monthlyRate: "KES 8,700",
+      hourlyRate: formatPrice(180, t("price.hour")),
+      halfDayRate: formatPrice(450, t("price.halfDay")),
+      fullDayRate: formatPrice(650, t("price.day")),
+      weeklyRate: formatPrice(2500, t("price.weekly")),
+      monthlyRate: formatPrice(8700, t("price.month")),
       images: [
         { url: "/gallery/DJI_20000609074127_0080_D.jpg", title: "Hot Desk", description: "Flexible workspace in vibrant coworking environment" },
         { url: "/gallery/DJI_20000609074140_0081_D.jpg", title: "Hot Desk", description: "Modern desk setup with ergonomic chair" },
@@ -29,7 +34,7 @@ export function OfficeSpacesClient() {
       features: [
         "Access to shared workspace",
         "High-speed WiFi",
-        "Complimentary coffee/tea",
+        "A bottle of water",
         "Kitchen access",
         "Community events",
         "Mail handling",
@@ -37,18 +42,17 @@ export function OfficeSpacesClient() {
     },
     {
       name: "Dedicated Desk",
-      capacity: "Coming Soon",
-      size: "Fixed desk",
-      hourlyRate: "KES 250",
-      halfDayRate: "KES 600",
-      fullDayRate: "KES 1,000",
-      weeklyRate: "KES 5,000",
-      monthlyRate: "KES 14,000",
+      capacity: t("spaces.comingSoon"),
+      hourlyRate: formatPrice(250, t("price.hour")),
+      halfDayRate: formatPrice(600, t("price.halfDay")),
+      fullDayRate: formatPrice(1000, t("price.day")),
+      weeklyRate: formatPrice(5000, t("price.weekly")),
+      monthlyRate: formatPrice(14000, t("price.month")),
       images: [
-        { url: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1080&q=80", title: "Dedicated Desk", description: "Your own permanent desk in shared environment" },
-        { url: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1080&q=80", title: "Dedicated Desk", description: "Personal workspace with storage locker" },
-        { url: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1080&q=80", title: "Dedicated Desk", description: "Professional setup with dual monitors available" },
-        { url: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1080&q=80", title: "Dedicated Desk", description: "Reserved space that's always ready for you" },
+        { url: "/gallery/WhatsApp Image 2025-11-30 at 07.27.32_cf6d4362.jpg", title: "Dedicated Desk", description: "Your own permanent desk in shared environment" },
+        { url: "/gallery/WhatsApp Image 2025-11-30 at 07.27.31_3b5e80b8.jpg", title: "Dedicated Desk", description: "Personal workspace with storage locker" },
+        { url: "/gallery/WhatsApp Image 2025-11-30 at 07.27.31_80463d8e.jpg", title: "Dedicated Desk", description: "Professional setup with dual monitors available" },
+        { url: "/gallery/WhatsApp Image 2025-11-30 at 07.27.32_6894ba13.jpg", title: "Dedicated Desk", description: "Reserved space that's always ready for you" },
       ],
       description: "Your own permanent desk in a shared workspace environment. Perfect for professionals who want consistency and their own space while enjoying the coworking community vibe.",
       features: [
@@ -56,19 +60,18 @@ export function OfficeSpacesClient() {
         "Personal storage locker",
         "Meeting room credits (2hrs/month)",
         "Priority booking",
-        "24/7 access",
+        "Convenient Access Hours",
         "All Hot Desk features",
       ],
     },
     {
       name: "1-Person Private Office",
-      capacity: "1 person",
-      size: "6 sqm",
-      hourlyRate: "KES 350",
-      halfDayRate: "KES 1,000",
-      fullDayRate: "KES 2,500",
-      weeklyRate: "KES 6,000",
-      monthlyRate: "KES 16,000",
+      capacity: `1 ${t("boardrooms.people")}`,
+      hourlyRate: formatPrice(350, t("price.hour")),
+      halfDayRate: formatPrice(1000, t("price.halfDay")),
+      fullDayRate: formatPrice(2500, t("price.day")),
+      weeklyRate: formatPrice(6000, t("price.weekly")),
+      monthlyRate: formatPrice(16000, t("price.month")),
       images: [
         { url: "/gallery/DJI_20000609063628_0017_D.jpg", title: "1-Person Private Office", description: "Compact private office with modern desk and ergonomic chair" },
         { url: "/gallery/DJI_20000609063058_0006_D.jpg", title: "1-Person Private Office", description: "Lockable door ensuring complete privacy for focused work" },
@@ -87,13 +90,12 @@ export function OfficeSpacesClient() {
     },
     {
       name: "2-Person Private Office",
-      capacity: "2 people",
-      size: "9 sqm",
-      hourlyRate: "KES 550",
-      halfDayRate: "KES 1,500",
-      fullDayRate: "KES 3,000",
-      weeklyRate: "KES 8,000",
-      monthlyRate: "KES 24,000",
+      capacity: `2 ${t("boardrooms.people")}`,
+      hourlyRate: formatPrice(550, t("price.hour")),
+      halfDayRate: formatPrice(1500, t("price.halfDay")),
+      fullDayRate: formatPrice(3000, t("price.day")),
+      weeklyRate: formatPrice(8000, t("price.weekly")),
+      monthlyRate: formatPrice(24000, t("price.month")),
       images: [
         { url: "/gallery/DJI_20000609074709_0097_D.jpg", title: "2-Person Private Office", description: "Spacious office with workstations for 2 people" },
         { url: "/gallery/DJI_20000609074712_0098_D.jpg", title: "2-Person Private Office", description: "Modern workspace layout with collaborative setup" },
@@ -111,10 +113,12 @@ export function OfficeSpacesClient() {
       ],
     },
   ];
+  
+  const workspaces = getWorkspaces();
 
   const amenities = [
     { icon: Wifi, title: "High-Speed WiFi", description: "Reliable 100Mbps+ internet" },
-    { icon: Coffee, title: "Coffee & Tea", description: "Complimentary beverages" },
+    { icon: Coffee, title: "Coffee & Tea", description: "On first booking" },
     { icon: Shield, title: "24/7 Security", description: "Secure access control" },
     { icon: Clock, title: "Flexible Access", description: "Round-the-clock availability" },
     { icon: Users, title: "Meeting Rooms", description: "Included credits monthly" },
@@ -140,9 +144,9 @@ export function OfficeSpacesClient() {
             <Badge className="bg-[#D4AF37] text-[#5C4033] mb-4 px-4 py-1">
               Flexible Workspaces
             </Badge>
-            <h1 className="text-5xl mb-4 font-playfair">Office Spaces in Eldoret</h1>
+            <h1 className="text-5xl mb-4 font-playfair">{t("officeSpaces.title")}</h1>
             <p className="text-xl max-w-3xl mx-auto">
-              From hot desks to private offices - find the perfect workspace solution for your needs
+              {t("officeSpaces.subtitle")}
             </p>
           </div>
         </div>
@@ -156,7 +160,7 @@ export function OfficeSpacesClient() {
             <h2 className="text-[#5C4033] mb-6 text-4xl font-playfair">Work Your Way</h2>
             <p className="text-xl text-[#5C4033]/70 mb-8">
               Choose from flexible hot desks, dedicated workstations, or private offices. All options include 
-              high-speed WiFi, complimentary coffee, and access to our premium amenities in the heart of Eldoret.
+              high-speed WiFi, and access to our premium amenities in the heart of Eldoret.
             </p>
           </div>
         </div>
@@ -189,29 +193,28 @@ export function OfficeSpacesClient() {
                 </div>
                 <div className="p-6">
                   <h3 className="text-2xl text-[#5C4033] mb-2 font-playfair">{workspace.name}</h3>
-                  <p className="text-sm text-[#5C4033]/60 mb-6">{workspace.size}</p>
 
                   {/* Pricing */}
                   <div className="bg-[#FFFFF0] rounded-lg p-4 mb-6">
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
-                        <span className="text-[#5C4033]/70">Hourly Rate:</span>
+                        <span className="text-[#5C4033]/70">{t("price.hourlyRate")}</span>
                         <span className="font-semibold text-[#D4AF37]">{workspace.hourlyRate}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-[#5C4033]/70">Half Day (4hrs):</span>
+                        <span className="text-[#5C4033]/70">{t("price.halfDayLabel")}</span>
                         <span className="font-semibold text-[#D4AF37]">{workspace.halfDayRate}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-[#5C4033]/70">Full Day (8hrs):</span>
+                        <span className="text-[#5C4033]/70">{t("price.fullDayLabel")}</span>
                         <span className="font-semibold text-[#D4AF37]">{workspace.fullDayRate}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-[#5C4033]/70">Weekly:</span>
+                        <span className="text-[#5C4033]/70">{t("price.weeklyLabel")}</span>
                         <span className="font-semibold text-[#D4AF37]">{workspace.weeklyRate}</span>
                       </div>
                       <div className="flex justify-between pt-2 border-t border-[#D4AF37]/20">
-                        <span className="font-semibold text-[#5C4033]">Monthly:</span>
+                        <span className="font-semibold text-[#5C4033]">{t("price.monthlyLabel")}</span>
                         <span className="text-lg font-bold text-[#D4AF37]">{workspace.monthlyRate}</span>
                       </div>
                     </div>
@@ -233,7 +236,7 @@ export function OfficeSpacesClient() {
                   </ul>
 
                   {/* CTA */}
-                  <Link href="/book">
+                  <Link href={`/book?space=${encodeURIComponent(workspace.name.toLowerCase().replace(/\s+/g, '-'))}`}>
                     <Button className="w-full bg-[#D4AF37] hover:bg-[#B8941F] text-[#5C4033] font-semibold">
                       Book Now
                     </Button>
