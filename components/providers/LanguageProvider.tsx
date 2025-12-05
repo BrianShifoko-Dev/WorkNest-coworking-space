@@ -233,8 +233,6 @@ const translations: Translations = {
   "contact.messageSent": { en: "Message sent! We'll get back to you shortly.", sw: "Ujumbe umetumwa! Tutakujibu hivi karibuni.", fr: "Message envoyé! Nous vous répondrons sous peu.", es: "¡Mensaje enviado! Te responderemos en breve.", de: "Nachricht gesendet! Wir werden uns in Kürze bei Ihnen melden.", pt: "Mensagem enviada! Entraremos em contato em breve." },
   
   // Common translations used across pages
-  "common.bookNow": { en: "Book Now", sw: "Hifadhi Sasa", fr: "Réserver maintenant", es: "Reservar ahora", de: "Jetzt buchen", pt: "Reservar agora" },
-  "common.contactUs": { en: "Contact Us", sw: "Wasiliana Nasi", fr: "Contactez-nous", es: "Contáctanos", de: "Kontaktieren Sie uns", pt: "Entre em contato" },
   "common.getStarted": { en: "Get Started", sw: "Anza", fr: "Commencer", es: "Comenzar", de: "Loslegen", pt: "Começar" },
 };
 

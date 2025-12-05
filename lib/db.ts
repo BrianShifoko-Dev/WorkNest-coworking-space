@@ -53,6 +53,9 @@ class QueryBuilder {
   private countMode?: 'exact' | 'planned' | 'estimated'
   private headMode: boolean = false
   private singleMode: boolean = false
+  private updateData?: Record<string, any>
+  private deleteMode: boolean = false
+  private insertData?: Record<string, any> | Record<string, any>[]
 
   constructor(tableName: string) {
     this.tableName = tableName
@@ -156,6 +159,198 @@ class QueryBuilder {
 
   async execute() {
     const pool = getPool()
+    
+    // Handle INSERT queries
+    if (this.insertData) {
+      const isArray = Array.isArray(this.insertData)
+      const dataArray = isArray ? this.insertData : [this.insertData]
+
+      // Process each record
+      const processedData = dataArray.map(record => {
+        const processed = { ...record }
+
+        // Generate UUID if id not provided
+        if (!processed.id) {
+          processed.id = generateUUID()
+        }
+
+        // Convert JSON fields to strings
+        const jsonFields = ['images', 'amenities', 'old_values', 'new_values', 'details']
+        jsonFields.forEach(field => {
+          if (processed[field] && typeof processed[field] !== 'string') {
+            processed[field] = JSON.stringify(processed[field])
+          }
+        })
+
+        return processed
+      })
+
+      const columns = Object.keys(processedData[0]).join(', ')
+      const placeholders = processedData.map(() =>
+        '(' + Object.values(processedData[0]).map(() => '?').join(', ') + ')'
+      ).join(', ')
+      const values = processedData.flatMap(record => Object.values(record))
+
+      try {
+        await pool.execute(
+          `INSERT INTO ${this.tableName} (${columns}) VALUES ${placeholders}`,
+          values
+        )
+
+        // If select is called after insert, fetch the inserted row(s)
+        if (this.selectColumns) {
+          const insertedIds = processedData.map(d => d.id)
+          const idPlaceholders = insertedIds.map(() => '?').join(', ')
+          const selectQuery = `SELECT ${this.selectColumns} FROM ${this.tableName} WHERE id IN (${idPlaceholders})`
+          const [insertedRows]: any = await pool.execute(selectQuery, insertedIds)
+          
+          if (this.singleMode && Array.isArray(insertedRows) && insertedRows.length > 0) {
+            return { data: insertedRows[0], error: null }
+          }
+          if (this.singleMode && (!Array.isArray(insertedRows) || insertedRows.length === 0)) {
+            return { data: null, error: { message: 'No rows returned', code: 'PGRST116' } }
+          }
+          
+          return {
+            data: isArray ? insertedRows : (insertedRows[0] || processedData[0]),
+            error: null
+          }
+        }
+        
+        // If no select, return the processed data
+        return {
+          data: isArray ? processedData : processedData[0],
+          error: null
+        }
+      } catch (error: any) {
+        console.error('Database insert error:', error)
+        return { data: null, error: { message: error.message, code: error.code } }
+      }
+    }
+    
+    // Handle DELETE queries
+    if (this.deleteMode) {
+      let deleteQuery = `DELETE FROM ${this.tableName}`
+      const deleteParams: any[] = []
+
+      // Build WHERE clause for DELETE
+      if (this.conditions.length > 0) {
+        const whereParts: string[] = []
+        for (const cond of this.conditions) {
+          if (cond.operator === 'IN') {
+            const placeholders = (cond.value as any[]).map(() => '?').join(', ')
+            cond.value.forEach((v: any) => deleteParams.push(v))
+            whereParts.push(`${cond.column} IN (${placeholders})`)
+          } else {
+            deleteParams.push(cond.value)
+            whereParts.push(`${cond.column} ${cond.operator} ?`)
+          }
+        }
+        deleteQuery += ` WHERE ${whereParts.join(' AND ')}`
+      }
+
+      try {
+        const [result]: any = await pool.execute(deleteQuery, deleteParams)
+        
+        // If select is called after delete, fetch the deleted row(s) (MySQL doesn't support RETURNING, so we return success)
+        if (this.selectColumns && this.selectColumns !== '*') {
+          // For MySQL, we can't return deleted rows, so just return success
+          return { data: result, error: null }
+        }
+        
+        return { data: result, error: null }
+      } catch (error: any) {
+        console.error('Database delete error:', error)
+        return { data: null, error: { message: error.message, code: error.code } }
+      }
+    }
+    
+    // Handle UPDATE queries
+    if (this.updateData) {
+      // Convert JSON fields to strings
+      const jsonFields = ['images', 'amenities', 'old_values', 'new_values', 'details']
+      const processedData = { ...this.updateData }
+      jsonFields.forEach(field => {
+        if (processedData[field] && typeof processedData[field] !== 'string') {
+          processedData[field] = JSON.stringify(processedData[field])
+        }
+      })
+
+      const setClause = Object.keys(processedData).map(key => `${key} = ?`).join(', ')
+      const values = Object.values(processedData)
+      let updateQuery = `UPDATE ${this.tableName} SET ${setClause}`
+      const updateParams: any[] = [...values]
+
+      // Build WHERE clause for UPDATE
+      if (this.conditions.length > 0) {
+        const whereParts: string[] = []
+        for (const cond of this.conditions) {
+          if (cond.operator === 'IN') {
+            const placeholders = (cond.value as any[]).map(() => '?').join(', ')
+            cond.value.forEach((v: any) => updateParams.push(v))
+            whereParts.push(`${cond.column} IN (${placeholders})`)
+          } else {
+            updateParams.push(cond.value)
+            whereParts.push(`${cond.column} ${cond.operator} ?`)
+          }
+        }
+        updateQuery += ` WHERE ${whereParts.join(' AND ')}`
+      }
+
+      try {
+        await pool.execute(updateQuery, updateParams)
+        
+        // If select is called after update, fetch the updated row(s)
+        if (this.selectColumns) {
+          let selectQuery = `SELECT ${this.selectColumns} FROM ${this.tableName}`
+          const selectParams: any[] = []
+          
+          if (this.conditions.length > 0) {
+            const whereParts: string[] = []
+            for (const cond of this.conditions) {
+              if (cond.operator === 'IN') {
+                const placeholders = (cond.value as any[]).map(() => '?').join(', ')
+                cond.value.forEach((v: any) => selectParams.push(v))
+                whereParts.push(`${cond.column} IN (${placeholders})`)
+              } else {
+                selectParams.push(cond.value)
+                whereParts.push(`${cond.column} ${cond.operator} ?`)
+              }
+            }
+            selectQuery += ` WHERE ${whereParts.join(' AND ')}`
+          }
+
+          // ORDER BY
+          if (this.orderByClause) {
+            selectQuery += ` ORDER BY ${this.orderByClause.column} ${this.orderByClause.ascending ? 'ASC' : 'DESC'}`
+          }
+
+          // LIMIT
+          if (this.limitCount) {
+            selectQuery += ` LIMIT ${this.limitCount}`
+          }
+
+          const [rows]: any = await pool.execute(selectQuery, selectParams)
+          
+          if (this.singleMode && Array.isArray(rows) && rows.length > 0) {
+            return { data: rows[0], error: null }
+          }
+          if (this.singleMode && (!Array.isArray(rows) || rows.length === 0)) {
+            return { data: null, error: { message: 'No rows returned', code: 'PGRST116' } }
+          }
+          
+          return { data: rows, error: null }
+        }
+        
+        // If no select, just return success
+        return { data: null, error: null }
+      } catch (error: any) {
+        console.error('Database update error:', error)
+        return { data: null, error: { message: error.message, code: error.code } }
+      }
+    }
+
+    // Handle SELECT queries (original logic)
     let query = `SELECT ${this.selectColumns} FROM ${this.tableName}`
     const params: any[] = []
 
@@ -242,119 +437,22 @@ class QueryBuilder {
     return { data: null, error: { message: 'No rows returned', code: 'PGRST116' } }
   }
 
-  async insert(data: Record<string, any> | Record<string, any>[]) {
-    const pool = getPool()
-    const isArray = Array.isArray(data)
-    const dataArray = isArray ? data : [data]
-
-    // Process each record
-    const processedData = dataArray.map(record => {
-      const processed = { ...record }
-
-      // Generate UUID if id not provided
-      if (!processed.id) {
-        processed.id = generateUUID()
-      }
-
-      // Convert JSON fields to strings
-      const jsonFields = ['images', 'amenities', 'old_values', 'new_values', 'details']
-      jsonFields.forEach(field => {
-        if (processed[field] && typeof processed[field] !== 'string') {
-          processed[field] = JSON.stringify(processed[field])
-        }
-      })
-
-      return processed
-    })
-
-    const columns = Object.keys(processedData[0]).join(', ')
-    const placeholders = processedData.map(() =>
-      '(' + Object.values(processedData[0]).map(() => '?').join(', ') + ')'
-    ).join(', ')
-    const values = processedData.flatMap(record => Object.values(record))
-
-    try {
-      await pool.execute(
-        `INSERT INTO ${this.tableName} (${columns}) VALUES ${placeholders}`,
-        values
-      )
-
-      // Fetch the inserted row(s)
-      const insertedIds = processedData.map(d => d.id)
-      const idPlaceholders = insertedIds.map(() => '?').join(', ')
-      const [insertedRows]: any = await pool.execute(
-        `SELECT * FROM ${this.tableName} WHERE id IN (${idPlaceholders})`,
-        insertedIds
-      )
-
-      return {
-        data: isArray ? insertedRows : (insertedRows[0] || processedData[0]),
-        error: null
-      }
-    } catch (error: any) {
-      console.error('Database insert error:', error)
-      return { data: null, error: { message: error.message, code: error.code } }
-    }
+  insert(data: Record<string, any> | Record<string, any>[]) {
+    // Store insert data for later execution
+    this.insertData = Array.isArray(data) ? [...data] : { ...data }
+    return this
   }
 
-  async update(data: Record<string, any>) {
-    const pool = getPool()
-
-    // Convert JSON fields to strings
-    const jsonFields = ['images', 'amenities', 'old_values', 'new_values', 'details']
-    jsonFields.forEach(field => {
-      if (data[field] && typeof data[field] !== 'string') {
-        data[field] = JSON.stringify(data[field])
-      }
-    })
-
-    const setClause = Object.keys(data).map(key => `${key} = ?`).join(', ')
-    const values = Object.values(data)
-
-    let query = `UPDATE ${this.tableName} SET ${setClause}`
-    const params: any[] = [...values]
-
-    if (this.conditions.length > 0) {
-      const whereClause = this.conditions
-        .map((cond) => {
-          params.push(cond.value)
-          return `${cond.column} ${cond.operator} ?`
-        })
-        .join(' AND ')
-      query += ` WHERE ${whereClause}`
-    }
-
-    try {
-      const [result] = await pool.execute(query, params)
-      return { data: result, error: null }
-    } catch (error: any) {
-      console.error('Database update error:', error)
-      return { data: null, error: { message: error.message, code: error.code } }
-    }
+  update(data: Record<string, any>) {
+    // Store update data for later execution
+    this.updateData = { ...data }
+    return this
   }
 
-  async delete() {
-    const pool = getPool()
-    let query = `DELETE FROM ${this.tableName}`
-    const params: any[] = []
-
-    if (this.conditions.length > 0) {
-      const whereClause = this.conditions
-        .map((cond) => {
-          params.push(cond.value)
-          return `${cond.column} ${cond.operator} ?`
-        })
-        .join(' AND ')
-      query += ` WHERE ${whereClause}`
-    }
-
-    try {
-      const [result] = await pool.execute(query, params)
-      return { data: result, error: null }
-    } catch (error: any) {
-      console.error('Database delete error:', error)
-      return { data: null, error: { message: error.message, code: error.code } }
-    }
+  delete() {
+    // Set delete mode for later execution
+    this.deleteMode = true
+    return this
   }
 }
 
