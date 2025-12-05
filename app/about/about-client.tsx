@@ -1,6 +1,7 @@
 'use client'
 
 import Link from "next/link";
+import Image from "next/image";
 import { Award, Users, Target, TrendingUp } from "lucide-react";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { Button } from "@/components/ui/button";
@@ -40,10 +41,13 @@ export function AboutClient() {
       {/* Hero Section */}
       <section className="relative h-96 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/30 z-10" />
-        <img
+        <Image
           src="/gallery/DJI_20000609070717_0059_D.jpg"
           alt="About WorkNest Eldoret"
-          className="w-full h-full object-cover object-top"
+          fill
+          className="object-cover object-top"
+          priority
+          sizes="100vw"
         />
         <div className="absolute inset-0 z-20 flex items-center justify-center">
           <div className="text-center text-white px-4">

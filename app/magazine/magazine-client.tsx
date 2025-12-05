@@ -1,5 +1,6 @@
 'use client'
 
+import Image from "next/image";
 import { BookOpen, Clock, User, ArrowRight, TrendingUp, Mail, Image as ImageIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -160,10 +161,13 @@ export function MagazineClient() {
       {featuredArticle && (
         <section className="relative h-[600px] overflow-hidden" data-content="magazine">
           <div className="absolute inset-0">
-            <img
+            <Image
               src={featuredArticle.image}
               alt={featuredArticle.title}
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover"
+              priority
+              sizes="100vw"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30" />
           </div>
@@ -240,11 +244,13 @@ export function MagazineClient() {
                     className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all border border-[#5C4033]/10 group cursor-pointer"
                     data-content="magazine"
                   >
-                    <div className="h-56 overflow-hidden">
-                      <img
+                    <div className="relative h-56 overflow-hidden">
+                      <Image
                         src={article.image}
                         alt={article.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-500"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
                     </div>
                     <div className="p-6">
@@ -342,11 +348,13 @@ export function MagazineClient() {
                 </div>
                 <div className="grid grid-cols-2 gap-2">
                   {articles.slice(0, 4).map((article) => (
-                    <div key={article.id} className="aspect-square rounded-lg overflow-hidden cursor-pointer group">
-                      <img
+                    <div key={article.id} className="relative aspect-square rounded-lg overflow-hidden cursor-pointer group">
+                      <Image
                         src={article.image}
                         alt=""
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-300"
+                        sizes="(max-width: 768px) 50vw, 25vw"
                       />
                     </div>
                   ))}

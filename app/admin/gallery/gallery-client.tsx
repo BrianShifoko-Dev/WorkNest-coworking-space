@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Plus, Image as ImageIcon, Search, Loader2, Edit, Trash2, Star, Upload, Save } from 'lucide-react'
@@ -294,10 +295,12 @@ export function GalleryClient() {
           {filteredImages.map((image) => (
             <Card key={image.id} className="group overflow-hidden border-[#D4AF37]/20 hover:shadow-lg transition-all">
               <div className="relative h-64 overflow-hidden bg-[#5C4033]/5">
-                <img
+                <Image
                   src={image.image_url}
                   alt={image.title || 'Gallery image'}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-300"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                 />
                 {image.is_featured && (
                   <Badge className="absolute top-3 left-3 bg-[#D4AF37] text-white">

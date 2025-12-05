@@ -1,6 +1,7 @@
 'use client'
 
 import Link from "next/link";
+import Image from "next/image";
 import { Target, Users, Zap, Heart, Shield, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/components/providers/LanguageProvider";
@@ -42,10 +43,13 @@ export function DiscoverClient() {
       {/* Hero Section */}
       <section className="relative h-96 overflow-hidden">
         <div className="absolute inset-0 bg-black/50 z-10" />
-        <img
+        <Image
           src="/gallery/Eldoret.jpg"
           alt="Eldoret City"
-          className="w-full h-full object-cover"
+          fill
+          className="object-cover"
+          priority
+          sizes="100vw"
         />
         <div className="absolute inset-0 z-20 flex items-center justify-center">
           <div className="text-center text-white px-4">
@@ -73,8 +77,8 @@ export function DiscoverClient() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               {galleryImages.map((img, index) => (
-                <div key={index} className="aspect-square overflow-hidden rounded-lg shadow-lg">
-                  <img src={img} alt={`Workspace ${index + 1}`} className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
+                <div key={index} className="relative aspect-square overflow-hidden rounded-lg shadow-lg">
+                  <Image src={img} alt={`Workspace ${index + 1}`} fill className="object-cover hover:scale-110 transition-transform duration-300" sizes="(max-width: 768px) 50vw, 25vw" />
                 </div>
               ))}
             </div>

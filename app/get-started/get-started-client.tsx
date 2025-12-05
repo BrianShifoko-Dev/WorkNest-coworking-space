@@ -1,6 +1,7 @@
 'use client'
 
 import Link from "next/link";
+import Image from "next/image";
 import { Briefcase, Calendar as CalendarIcon, BookOpen, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/components/providers/LanguageProvider";
@@ -36,10 +37,13 @@ export function GetStartedClient() {
       {/* Hero Section */}
       <section className="relative h-96 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-[#5C4033]/90 to-[#4A3329]/90 z-10" />
-        <img
+        <Image
           src="/gallery/DJI_20000609070609_0057_D.jpg"
           alt="Get Started with WorkNest"
-          className="w-full h-full object-cover"
+          fill
+          className="object-cover"
+          priority
+          sizes="100vw"
         />
         <div className="absolute inset-0 z-20 flex items-center justify-center">
           <div className="text-center text-white px-4">

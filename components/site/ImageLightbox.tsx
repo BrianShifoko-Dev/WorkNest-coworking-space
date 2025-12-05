@@ -91,14 +91,19 @@ export function ImageLightbox({ images, currentIndex, onClose, open }: ImageLigh
         {/* Main Content Area */}
         <div className="flex flex-col h-full">
           {/* Image Container - Takes most of the space */}
-          <div className="flex-1 flex items-center justify-center p-8 overflow-hidden">
-            <img
-              src={currentImage?.url}
-              alt={currentImage?.title}
+          <div className="relative flex-1 flex items-center justify-center p-8 overflow-hidden">
+            <Image
+              src={currentImage?.url || ''}
+              alt={currentImage?.title || ''}
+              width={1920}
+              height={1080}
               className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
               style={{
                 boxShadow: "0 20px 60px rgba(212, 175, 55, 0.3)",
+                width: 'auto',
+                height: 'auto',
               }}
+              unoptimized
             />
           </div>
 
@@ -182,10 +187,12 @@ export function SpaceImage({
         className={`cursor-pointer group relative overflow-hidden ${className}`}
         onClick={() => setLightboxOpen(true)}
       >
-        <img 
+        <Image 
           src={src} 
           alt={alt} 
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          fill
+          className="object-cover transition-transform duration-500 group-hover:scale-110"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
           <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 px-6 py-3 rounded-lg shadow-xl" style={{

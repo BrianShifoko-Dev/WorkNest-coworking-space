@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Plus, UtensilsCrossed, Search, Loader2, Edit, Trash2 } from 'lucide-react'
@@ -237,9 +238,9 @@ export function MenuClient() {
             <Card key={item.id} className="overflow-hidden border-[#D4AF37]/20 hover:shadow-lg transition-shadow">
               {item.image_url && (
                 <div className="relative h-48">
-                  <img src={item.image_url} alt={item.name} className="w-full h-full object-cover" />
+                  <Image src={item.image_url} alt={item.name} fill className="object-cover" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
                   {item.is_featured && (
-                    <Badge className="absolute top-3 right-3 bg-[#D4AF37] text-white">Featured</Badge>
+                    <Badge className="absolute top-3 right-3 bg-[#D4AF37] text-white z-10">Featured</Badge>
                   )}
                 </div>
               )}

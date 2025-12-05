@@ -1,5 +1,6 @@
 'use client'
 
+import Image from "next/image";
 import { Mail, Linkedin } from "lucide-react";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { Button } from "@/components/ui/button";
@@ -68,11 +69,13 @@ export function TeamClient() {
                 key={index}
                 className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow border border-[#5C4033]/10 group"
               >
-                <div className="h-64 overflow-hidden">
-                  <img
+                <div className="relative h-64 overflow-hidden">
+                  <Image
                     src={member.image}
                     alt={member.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-300"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                 </div>
                 <div className="p-6">

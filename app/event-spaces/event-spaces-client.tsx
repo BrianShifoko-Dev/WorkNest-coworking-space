@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from "next/link"
+import Image from "next/image"
 import { Breadcrumbs } from "@/components/site/Breadcrumbs"
 import { WorkspaceCarousel } from "@/components/site/WorkspaceCarousel"
 import { Button } from "@/components/ui/button"
@@ -162,10 +163,13 @@ export function EventSpacesClient() {
       {/* Hero */}
       <section className="relative h-[500px] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/40 z-10" />
-        <img
+        <Image
           src="/gallery/DJI_20000609074140_0081_D.jpg"
           alt="Event Spaces in Eldoret"
-          className="w-full h-full object-cover"
+          fill
+          className="object-cover"
+          priority
+          sizes="100vw"
         />
         <div className="absolute inset-0 z-20 flex items-center justify-center">
           <div className="text-center text-white px-4 max-w-4xl">

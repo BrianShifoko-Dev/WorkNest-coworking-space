@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo } from 'react'
 import { useSearchParams } from 'next/navigation'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -582,11 +583,14 @@ export function BookingClient() {
       {/* Hero */}
       <section className="relative h-64 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/40 z-10" />
-        <img
+        <Image
           src="/gallery/IMG_0975.jpg"
           alt="Book Your Space"
-          className="w-full h-full object-cover object-center"
+          fill
+          className="object-cover object-center"
           style={{ objectPosition: 'center 30%' }}
+          priority
+          sizes="100vw"
         />
         <div className="absolute inset-0 z-20 flex items-center justify-center">
           <div className="text-center text-white px-4">

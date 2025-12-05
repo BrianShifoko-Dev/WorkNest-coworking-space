@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { Coffee, UtensilsCrossed, Cookie, Wine, Calendar, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -114,10 +115,13 @@ export function RestaurantClient() {
       {/* Hero Banner */}
       <section className="relative h-96 overflow-hidden" data-section="restaurant">
         <div className="absolute inset-0 bg-black/40 z-10" />
-        <img
+        <Image
           src="https://images.unsplash.com/photo-1669131196140-49591336b13e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjByZXN0YXVyYW50JTIwY2FmZXxlbnwxfHx8fDE3NjIyMzM2Mjh8MA&ixlib=rb-4.1.0&q=80&w=1080"
           alt="Restaurant"
-          className="w-full h-full object-cover"
+          fill
+          className="object-cover"
+          priority
+          sizes="100vw"
         />
         <div className="absolute inset-0 z-20 flex items-center justify-center">
           <div className="text-center text-white px-4">
@@ -341,11 +345,13 @@ export function RestaurantClient() {
           <h2 className="text-3xl font-bold text-center text-[#5C4033] mb-12">Gallery</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {galleryImages.map((image, index) => (
-              <div key={index} className="overflow-hidden rounded-lg shadow-lg aspect-square">
-                <img
+              <div key={index} className="relative overflow-hidden rounded-lg shadow-lg aspect-square">
+                <Image
                   src={image}
                   alt={`Gallery ${index + 1}`}
-                  className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+                  fill
+                  className="object-cover hover:scale-110 transition-transform duration-300"
+                  sizes="(max-width: 768px) 100vw, 33vw"
                 />
               </div>
             ))}

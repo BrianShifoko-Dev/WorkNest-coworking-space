@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Image from "next/image";
 import { Calendar, MapPin, Users, Clock, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -58,10 +59,13 @@ export function EventsClient() {
       {/* Hero Section */}
       <section className="relative h-[450px] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/30 z-10" />
-        <img
+        <Image
           src="/gallery/DJI_20000609070400_0053_D.jpg"
           alt="Events & Workshops"
-          className="w-full h-full object-cover"
+          fill
+          className="object-cover"
+          priority
+          sizes="100vw"
         />
         <div className="absolute inset-0 z-20 flex items-center justify-center">
           <div className="text-center text-white px-4">
@@ -133,10 +137,12 @@ export function EventsClient() {
               >
                 {event.image_url && (
                   <div className="h-48 overflow-hidden relative">
-                    <img
+                    <Image
                       src={event.image_url}
                       alt={event.title}
-                      className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+                      fill
+                      className="object-cover hover:scale-110 transition-transform duration-300"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                     <div className="absolute top-4 right-4 flex gap-2">
                       <Badge className="bg-[#D4AF37] text-[#5C4033]">
@@ -237,16 +243,24 @@ export function EventsClient() {
                 </Button>
               </div>
               <div className="grid grid-cols-2 gap-4">
-                <img
-                  src="https://images.unsplash.com/photo-1759873148521-c49d9497cf64?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxldmVudCUyMHNwYWNlJTIwdmVudWV8ZW58MXx8fHwxNzYyMTgyNDEzfDA&ixlib=rb-4.1.0&q=80&w=1080"
-                  alt="Event space"
-                  className="w-full h-48 object-cover rounded-lg shadow-lg"
-                />
-                <img
-                  src="https://images.unsplash.com/photo-1462826303086-329426d1aef5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb25mZXJlbmNlJTIwYm9hcmRyb29tfGVufDF8fHx8MTc2MjIzMzYyN3ww&ixlib=rb-4.1.0&q=80&w=1080"
-                  alt="Boardroom"
-                  className="w-full h-48 object-cover rounded-lg shadow-lg mt-8"
-                />
+                <div className="relative h-48 rounded-lg overflow-hidden shadow-lg">
+                  <Image
+                    src="https://images.unsplash.com/photo-1759873148521-c49d9497cf64?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxldmVudCUyMHNwYWNlJTIwdmVudWV8ZW58MXx8fHwxNzYyMTgyNDEzfDA&ixlib=rb-4.1.0&q=80&w=1080"
+                    alt="Event space"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                </div>
+                <div className="relative h-48 rounded-lg overflow-hidden shadow-lg mt-8">
+                  <Image
+                    src="https://images.unsplash.com/photo-1462826303086-329426d1aef5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb25mZXJlbmNlJTIwYm9hcmRyb29tfGVufDF8fHx8MTc2MjIzMzYyN3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                    alt="Boardroom"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -279,11 +293,15 @@ export function EventsClient() {
               },
             ].map((event, idx) => (
               <div key={idx} className="bg-white rounded-lg overflow-hidden shadow-lg">
-                <img
-                  src={event.image}
-                  alt={event.title}
-                  className="w-full h-40 object-cover"
-                />
+                <div className="relative h-40 overflow-hidden">
+                  <Image
+                    src={event.image}
+                    alt={event.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                </div>
                 <div className="p-4">
                   <h4 className="text-lg font-semibold text-[#5C4033] mb-1">{event.title}</h4>
                   <p className="text-xs text-[#5C4033]/60 mb-2">{event.date}</p>

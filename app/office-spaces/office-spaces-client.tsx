@@ -1,6 +1,7 @@
 'use client'
 
 import Link from "next/link";
+import Image from "next/image";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { WorkspaceCarousel } from "@/components/site/WorkspaceCarousel";
 import { Button } from "@/components/ui/button";
@@ -83,7 +84,7 @@ export function OfficeSpacesClient() {
         "Private lockable office",
         "Desk & ergonomic chair",
         "Natural lighting",
-        "AC & heating",
+        "Storage space",
         "Professional setup",
         "All Dedicated Desk features",
       ],
@@ -134,10 +135,13 @@ export function OfficeSpacesClient() {
       {/* Hero */}
       <section className="relative h-[450px] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/30 z-10" />
-        <img
+        <Image
           src="/gallery/DJI_20000609064317_0024_D.jpg"
           alt="Office Spaces in Eldoret"
-          className="w-full h-full object-cover"
+          fill
+          className="object-cover"
+          priority
+          sizes="100vw"
         />
         <div className="absolute inset-0 z-20 flex items-center justify-center">
           <div className="text-center text-white px-4">

@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Plus, Calendar, Search, Loader2, Edit, Trash2, Users } from 'lucide-react'
@@ -256,10 +257,12 @@ export function EventsClient() {
               {/* Event Image */}
               {event.image_url && (
                 <div className="relative h-48 overflow-hidden bg-[#5C4033]/5">
-                  <img
+                  <Image
                     src={event.image_url}
                     alt={event.title}
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                   {event.is_featured && (
                     <Badge className="absolute top-3 right-3 bg-[#D4AF37] text-white border-0">

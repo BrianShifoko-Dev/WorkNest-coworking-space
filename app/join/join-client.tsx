@@ -1,5 +1,6 @@
 'use client'
 
+import Image from "next/image";
 import { Users, Network, TrendingUp, Award, CheckCircle, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -56,10 +57,13 @@ export function JoinCommunityClient() {
       {/* Hero */}
       <section className="relative h-96 overflow-hidden">
         <div className="absolute inset-0">
-          <img
+          <Image
             src="https://images.unsplash.com/photo-1750124662229-47a8e16b8f14?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjB3b3Jrc3BhY2UlMjBjb21tdW5pdHl8ZW58MXx8fHwxNzYyMjAwMDY1fDA&ixlib=rb-4.1.0&q=80&w=1080"
             alt="Community"
-            className="w-full h-full object-cover"
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-[#5C4033]/90 to-[#5C4033]/70" />
         </div>

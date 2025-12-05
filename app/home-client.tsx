@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import {
   ChevronLeft,
   ChevronRight,
@@ -424,10 +425,13 @@ export function HomePageClient() {
           >
             {/* Enhanced overlay gradient for better text readability */}
             <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60 z-10" />
-            <img
+            <Image
               src={slide.image}
               alt={slide.title}
-              className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700"
+              fill
+              className="object-cover object-center transition-transform duration-700"
+              priority={index === 0}
+              sizes="100vw"
             />
             <div className="absolute inset-0 z-20 flex flex-col items-center justify-center md:justify-start md:pt-24">
               <div className="container mx-auto px-4">
@@ -889,10 +893,12 @@ export function HomePageClient() {
                 data-article={article.slug}
               >
                 <div className="relative h-48 overflow-hidden">
-                  <img
+                  <Image
                     src={article.image}
                     alt={article.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                   <Badge className="absolute top-4 left-4 bg-[#D4AF37] text-[#5C4033] border-0">
                     {article.category}

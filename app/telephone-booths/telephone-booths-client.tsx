@@ -1,5 +1,6 @@
 'use client'
 
+import Image from "next/image";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { SpaceImage } from "@/components/site/ImageLightbox";
 import { Button } from "@/components/ui/button";
@@ -80,10 +81,13 @@ export function TelephoneBoothsClient() {
       {/* Hero */}
       <section className="relative h-[450px] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/40 z-10" />
-        <img
+        <Image
           src="https://images.unsplash.com/photo-1716703435698-031227389c1c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxvZmZpY2UlMjB0ZWxlcGhvbmUlMjBib290aHxlbnwxfHx8fDE3NjIyMzM2Mjl8MA&ixlib=rb-4.1.0&q=80&w=1080"
           alt="Private Telephone Booths"
-          className="w-full h-full object-cover"
+          fill
+          className="object-cover"
+          priority
+          sizes="100vw"
         />
         <div className="absolute inset-0 z-20 flex items-center justify-center">
           <div className="text-center text-white px-4">

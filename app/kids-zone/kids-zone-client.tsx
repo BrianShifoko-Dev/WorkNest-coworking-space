@@ -1,6 +1,7 @@
 'use client'
 
 import Link from "next/link";
+import Image from "next/image";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -64,10 +65,13 @@ export function KidsZoneClient() {
       {/* Hero */}
       <section className="relative h-[450px] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/20 z-10" />
-        <img
+        <Image
           src="/gallery/191d9f798f5a3f77f01b9d175728d719.jpg"
           alt="Kids Zone"
-          className="w-full h-full object-cover"
+          fill
+          className="object-cover"
+          priority
+          sizes="100vw"
         />
         {/* Coming Soon Badge */}
         <div className="absolute top-6 left-1/2 -translate-x-1/2 z-30">
@@ -161,18 +165,22 @@ export function KidsZoneClient() {
                 </ul>
               </div>
               <div className="grid grid-cols-2 gap-4">
-                <div className="h-64 rounded-lg overflow-hidden shadow-md">
-                  <img
+                <div className="relative h-64 rounded-lg overflow-hidden shadow-md">
+                  <Image
                     src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxraWRzJTIwcGxheWluZ3xlbnwwfHx8fDE3MzA3Mjk2MDB8MA&ixlib=rb-4.1.0&q=80&w=1080"
                     alt="Kids playing"
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 50vw, 25vw"
                   />
                 </div>
-                <div className="h-64 rounded-lg overflow-hidden shadow-md mt-8">
-                  <img
+                <div className="relative h-64 rounded-lg overflow-hidden shadow-md mt-8">
+                  <Image
                     src="https://images.unsplash.com/photo-1560421683-6856ea585c78?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaGlsZHJlbiUyMGxlYXJuaW5nfGVufDB8fHx8MTczMDcyOTYwMHww&ixlib=rb-4.1.0&q=80&w=1080"
                     alt="Learning activities"
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 50vw, 25vw"
                   />
                 </div>
               </div>

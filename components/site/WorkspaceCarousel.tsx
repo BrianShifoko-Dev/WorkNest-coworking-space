@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 import { ChevronLeft, ChevronRight, ZoomIn } from 'lucide-react'
 import { ImageLightbox } from './ImageLightbox'
 
@@ -47,10 +48,12 @@ export function WorkspaceCarousel({ images }: WorkspaceCarouselProps) {
     <>
       <div className="relative w-full h-full group">
         {/* Main Image */}
-        <img
+        <Image
           src={images[currentIndex].url}
           alt={images[currentIndex].title}
-          className="w-full h-full object-cover transition-transform duration-500"
+          fill
+          className="object-cover transition-transform duration-500"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
 
         {/* Overlay on hover */}
